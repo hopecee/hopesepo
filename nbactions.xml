@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <action>
+        <actionName>run.single.main</actionName>
+        <goals>
+            
+            <goal>process-classes</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
+            
+            
+            <!-- <goal>org.eclipse.jetty:jetty-maven-plugin:9.0.2.v20130417:jetty</goal>-->
+        </goals>
+        <properties>
+           <!--<exec.args>-Xms512m -Xmx512m -javaagent:C:\Docume~1\hope\Applic~1\NetBeans\${netBeansVersion}\jrebel\jrebel.jar -Xbootclasspath/p:C:\Docume~1\hope\MyDocu~1\NetBeansProjects\proShopVaadin\target\classes\libs\npn-boot-${npn.version}.jar -classpath %classpath ${packageClassName}</exec.args>-->
+            <exec.args>-Xms1024m -Xmx1024m -XX:PermSize=64M -XX:MaxPermSize=256m -javaagent:C:\Docume~1\hope\Applic~1\NetBeans\${netBeansVersion}\jrebel\jrebel.jar  -Xbootclasspath/p:E:\Docume~1\hope\NetBeansProjects\${projectName}\target\classes\libs\npn-boot-${npn.version}.jar -classpath %classpath ${packageClassName}</exec.args>
+           <!--<exec.args>-Xms512m -Xmx512m -javaagent:C:\Docume~1\hope\Applic~1\NetBeans\${netBeansVersion}\jrebel\jrebel.jar -Xbootclasspath/p:D:\progra~1\npn-boot\npn-boot-${npn.version}.jar -classpath %classpath ${packageClassName}</exec.args>-->
+            <exec.executable>java</exec.executable>
+            <exec.classpathScope>${classPathScope}</exec.classpathScope>
+             
+        </properties>
+    </action>
+ 
+</actions>
