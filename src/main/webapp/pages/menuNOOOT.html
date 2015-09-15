@@ -1,0 +1,108 @@
+
+<div class="container" style="width: 1007px">
+
+    <!-- Begin demo markup  noDoubleClick ui-helper-hidden-accessible" -->
+    <ul id="flyoutmenu" class=" ui-helper-hidden-accessible" > 
+
+        <li ><a  href="#/home">Home</a>
+
+        </li>
+        <li><a href="#">What is Proshop?</a>
+            <ul>
+                <li><a href="#/menu">Menu</a></li>
+                <li><a href="#/flickr">My flickr</a></li>
+                <li><a href="#/texteditor">texteditor</a></li>
+                <li><a href="#">A&amp;E</a>
+                    <ul>
+                        <li><a href="#">Baseball</a></li>
+                        <li><a href="#">Basketball</a></li>
+                        <li><a href="#">A really long label would wrap nicely as you can see</a></li>
+                        <li><a href="#">Swimming</a>
+                            <ul>
+                                <li><a href="#">High School</a></li>
+                                <li><a href="#">College</a></li>
+                                <li><a href="#">Professional</a>
+                                    <ul>
+                                        <li><a href="#">Mens Swimming</a>
+                                            <ul>
+                                                <li><a href="#">News</a></li>
+                                                <li><a href="#">Events</a></li>
+                                                <li><a href="#">Awards</a></li>
+                                                <li><a href="#">Schedule</a></li>
+                                                <li><a href="#">Team Members</a></li>
+                                                <li><a href="#">Fan Site</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Womens Swimming</a>
+                                            <ul>
+                                                <li><a href="#">News</a></li>
+                                                <li><a href="#">Events</a></li>
+                                                <li><a href="#">Awards</a></li>
+                                                <li><a href="#">Schedule</a></li>
+                                                <li><a href="#">Team Members</a></li>
+                                                <li><a href="#">Fan Site</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Adult Recreational</a></li>
+                                <li><a href="#">Youth Recreational</a></li>
+                                <li><a href="#">Senior Recreational</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Tennis</a></li>
+                        <li><a href="#">Ice Skating</a></li>
+                        <li><a href="#">Javascript Programming</a></li>
+                        <li><a href="#">Running</a></li>
+                        <li><a href="#">Walking</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li><a href="#">Join Today</a>
+
+        </li>
+
+
+        
+        <div  align="right" data-bind="visible: showMenuLogin" >
+            <table  >
+                <tr>
+                    <td>
+                        <div class="ui-panel ui-widget ui-widget-content ui-corner-all" style=" background-color: #666666; padding: 0px; vertical-align: top; width: 20px; height: 20px; border: 0px " data-widget="widget_joinEditorform_j_idt52"><div id="joinEditorform:j_idt52_content" class="ui-panel-content ui-widget-content">
+                                <div id="menuBusy" style="width: 20px; height: 20px; overflow: hidden;"></div>
+                            </div>
+                        </div>  
+                    </td>
+
+                    <td>
+
+                        <!-- <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded"  onsubmit="document.loginForm.action = 'j_spring_check';">-->
+                        <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded" >
+
+
+
+                            <!--<input type="hidden" name="loginForm" value="loginForm" />-->
+                            <label for="emailLogin" style=" font-weight: normal; color: #fff" class=" inputWithLabel ">Email address: </label>
+                            <input id="emailLogin" type="text" name="emailLogin" class="bgColour noCache" data-bind="value: usersEmailAddressMenu" size="10" style=" background-color: whitesmoke ; border: solid 1px #8ab0c6;" />   
+                            <label for="passwordLogin" style="font-weight: normal; color: #fff" class=" inputWithLabel">Password: </label>
+                            <input id="passwordLogin" type="password" name="passwordLogin" value="" data-bind="value: usersPasswordMenu" size="10" style=" background-color: whitesmoke; border: solid 1px #8ab0c6;" class="bgColour " />  
+                            <button id="menuLoginButton" name="menuLoginButton" type="submit"  data-bind="click: onSubmitMenu"  class=" wijmo-wijmenu-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="" onmouseover="$(this).addClass('wijmo-wijmenu-button-state-hover');" onmouseout="$(this).removeClass(' wijmo-wijmenu-button-state-hover');"  >
+                                <span class="ui-button-text ui-c">Sign In</span>
+                            </button>
+                            <!-- <input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="0M9Xvu09OoLiK+FUdkK3bLPKQRRu5xXW8xDP0Hwt13reNanvYsWkhPmEMsN3JEWf0t75K5kXCL6VQEgbQZhh5iIpUwao3QxVxnrhwlZG/qPylfEh1WpicRKLonFK5Ciujlc/FTf2W0z9I+eipyPsgCw/Hz2jYlVG6MSf/8r3gP1/VAqJYHZ1R4FfFMENUNgIHOWO82BN0YxlYGPTssR/13c6iKC9R+UEiYZ3U9CN/w2RUN1wwKAhk2viQha4DOYA4dFpnUb54WKjOtEp/5ey5FFsyP0gb9Fag5qwOpxLjNiycwhAzXmbV36u51CELYkxlLCRbCnvQAwfUq05LBYeggD402zP21KiryRvCJOjHmOHLrO6WdwaWQfzvLwfzK+Zabh2SpufnxZPTgIGFksY4ecNiMIK89l3fvJ9to+yVvlpwwUtguLIUatg3EsCrI8BgQjGoI7WlMIeKAziHxnXSVALm21DWkNTAR58jFa6oeLcgRTLKG1FStR3a4A48mPsOWIeZG2krdU8x+vHbnz7G5fh0BtEULKY+2A7X3lH/Lm0LUr0q1mjfNB5PVJLN4z6qX2C08VPmZYg03J4XWXhQPjQrws8w7yPcAf6CEUdgj5PrQeGimA34FXvbCWT3BGmBrfTBMvkCe7vU2gpxY/QTGbC3Gkmsza36bIXeOYntDfuLDvGHtrYw2hutFJXIk/fdrFtI+kwd6l9AuraNauh7VGCDK/7Jy3iGPEgH4J3jJzOwd/mTHJR2/I4IVr261iFjnxek0EmoLzvXL4AYKnRcvqMUy+/w9JaiaRW5bfm14r+SxHRyWPucIwiItWakTnPXQxQuhtCqTz6hrYb6yUG8evN1uSnqrFfFy9I33qa0pSHulwGAYn0MYN6HVUS8XQGJn6bGbvlrckIh8rRWgfeZIThsmcJIq1HfQBbG5XHRpN2KTJS1spztC1oDSc6PLUsbku5tjy/EsUzsH+fqiOvtc2glAIWPWO005bOouUKugT+jGiybzjYCyIXUv1KQjPNoo/+mR8lH9zayhJACzzm4PjotVdNAkoEeOpH1t+FdHXiZAh6ULN+4U3FiPM2edDLoW2Q3Nplu2NM+QxLn8V8O9/6EiyJQtpHu7FP8UeCeuFpyhta5tKndE/Ph0Mu/tje" autocomplete="off" />-->
+                        </form>
+
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+    </ul>
+
+
+</div> 
+

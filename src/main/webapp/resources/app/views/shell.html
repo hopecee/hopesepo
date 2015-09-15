@@ -1,0 +1,34 @@
+
+<section> 
+    <!-- Preventing Cross-Site Request Forgery (CSRF) Attacks -->
+    <form id="RequestVerificationToken" action="/" method="post">
+        <input id="hop" name="__RequestVerificationToken" type="hidden"   
+               value="ZmVBZ59oUad1Fr33BuPxANKY9q3Srr56fGBtLZZmVBZ59oUad1FrZZmVBZ59oUad" /> 
+        <!-- This value must be added to  ValidateJsonAntiForgeryTokenFilter Class -->
+    </form>
+    <!--
+    <div id="header">
+        
+    
+    <div class="sticky-container">
+    -->   
+    <div id="headContainer" class="headContainer"  data-bind="style: {height: headerHeight}">
+        <div data-bind="compose:'viewmodels/header_views/header'"></div>
+        <div data-bind="compose:'viewmodels/menu_views/menu'"></div>
+    </div>  
+
+    <!-- <div  class=""  data-bind="router: { transition:'entrance' }"></div> -->
+    <div   data-bind="compose: { model: ActiveView, transition: 'entrance' }"></div> 
+
+
+
+
+
+
+
+
+
+
+</section>   
+
+

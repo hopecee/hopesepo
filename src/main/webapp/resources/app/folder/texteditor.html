@@ -1,0 +1,48 @@
+﻿<section>
+    <h2 data-bind="html: displayName"></h2>
+        <div id="editor-container" style="margin-bottom:100px;">
+            <!-- Wijmo Text Editor -->
+            <h3>Text Editor</h3>
+            <textarea id="wijeditor" style="width: 600px; height: 400px;" data-bind="wijeditor: {
+disabled: disabled, editorMode: editorMode,
+    showPathSelector: showPathSelector, mode: mode, showFooter: showFooter, text: text
+}"></textarea><!-- End Text Editor markup -->
+        </div>    
+         <!-- Begin options markup -->
+        <div id="options" style="margin-top: 100px; float: left;">
+            <ul style="list-style-type:none;">
+                <li>
+                    <label>
+                        <span>disabled:</span></label><input type="checkbox" data-bind="checked: disabled" />
+                </li>
+                <li>
+                    <label>
+                        <span>editorMode:</span></label><select data-bind="value: editorMode">
+                            <option value="wysiwyg">wysiwyg</option>
+                            <option value="code">code</option>
+                            <option value="split">split</option>
+                        </select>
+                </li>
+                <li>
+                    <label>
+                        <span>showPathSelector:</span></label><input type="checkbox" data-bind="checked: showPathSelector" />
+                </li>
+                <li>
+                    <label>
+                        <span>mode:</span></label><select data-bind="value: mode">
+                            <option value="ribbon">ribbon</option>
+                            <option value="simple">simple</option>
+                            <option value="bbcode">bbcode</option>
+                        </select>
+                </li>
+                <li>
+                    <label>
+                        <span>showFooter:</span></label><input type="checkbox" data-bind="checked: showFooter" />
+                </li>
+                <li>
+                    <label>
+                        <span>text:</span></label><input type="text" data-bind="value: text" />
+                </li>
+            </ul>
+        </div><!-- End options markup -->        
+</section>

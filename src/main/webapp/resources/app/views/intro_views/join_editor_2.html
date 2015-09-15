@@ -1,0 +1,116 @@
+
+
+<div class="contentWrapper" >
+    <div class="container" >
+
+        <div class="row ui-helper-clearfix">
+            <div  class="column full " >
+                <div class="boxShadow   ui-widget ui-widget-content  ui-corner-all "  >
+                    <div  >
+                        <h2 id="joinEditor2Greeting">
+                            Thank you for signing with us. Please take your time to complete the following Steps_.
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="column full">
+                <div align ="center"  >
+                    <div  class=" boxShadow  ui-widget ui-widget-content  ui-corner-all maxWidth " >
+                        <form id="joinEditorContactform" name="joinEditorContactform" method="post" action="/" enctype="multipart/form-data">
+                            <div  id="joinEditorform:joinEditorformInnerPanel_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+                                <span id="userContactHeader" class="ui-panel-title">User Contact_</span>
+                            </div>
+                            <div class="ui-form-group">
+                                <div class="ui-input-group">
+                                    <input id="street"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="street" type="text" placeholder="Address_" data-bind="value: street" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-road"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="street2" class="ui-form-control inputWithPlaceholder bgColour noCache" name="street2" type="text" placeholder="Address 2_"  data-bind="value: street2" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-road"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="city"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="city" type="text" placeholder="City_"  data-bind="value: city" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-road"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="state"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="state" type="text" placeholder="State_"  data-bind="value: state" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-road"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="zip"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="zip" type="text" placeholder="Zip Code_"  data-bind="value: zip" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-flag-o"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <select id="country" class="ui-form-control inputWithPlaceholder bgColour noCache" name="country"  size="1" 	
+                                            data-bind="options: countries,
+                                            optionsCaption: selectCountry,
+                                            value: selectedCountry,
+                                            valueAllowUnset: true">
+                                    </select> 
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-flag"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="fax"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="fax" type="text" placeholder="Fax Number_"  data-bind="value: fax" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-fax "></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="url"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="url" type="text" placeholder="Web site_"  data-bind="value: url" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-institution"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="phoneDefault"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="phoneDefault" type="text" placeholder="Phone 1_"  data-bind="value: phoneDefault" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="phone2"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="phone2" type="text" placeholder="Phone 2_"  data-bind="value: phone2" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="occupation"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="occupation" type="text" placeholder="Occupation_"  data-bind="value: occupation" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-industry"></i>
+                                    </span>
+                                </div>
+                                <br/>
+                                <div class="row ui-helper-clearfix">
+                                    <div class="column half">
+                                        <div id="joinEditor2Busy"  class="joinEditorBusyPanel ui-corner-all"  >
+                                        </div>
+                                    </div>
+                                    <div class="column half flow-opposite">
+                                        <br/>
+                                        <button id="joinEditorContactButton" name="joinEditorContactButton"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onmouseover="$(this).addClass('ui-state-hover');" onmouseout="$(this).removeClass(' ui-state-hover');"
+                                                type="submit" data-bind="click: onSubmit">
+                                            <span id="btnContinue" class="ui-button-text ">Continue_</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

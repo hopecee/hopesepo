@@ -1,0 +1,118 @@
+
+<div class="contentWrapper" >
+    <div class="container" >
+        <div class="row ui-helper-clearfix">
+            <div  class=" column full " >
+
+                <div class="boxShadow  ui-widget ui-widget-content  ui-corner-all "  >
+                    <div  >
+                        <h2 id="joinEditor3Greeting">
+                            _Please take your time to complete this Last Step.
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="column full">
+                <div align ="center"  >
+                    <div   class="boxShadow   ui-widget ui-widget-content  ui-corner-all maxWidth" >
+                        <form id="joinEditorSecurityform" name="joinEditorSecurityform" method="post" action="/" enctype="multipart/form-data">
+                            <div id="joinEditorform:joinEditorformInnerPanel_header" class=" ui-widget-header ui-helper-clearfix ui-corner-all">
+                                <span  id="labelSecurityHeader" class="">User Security_</span>
+                            </div>
+                            <div class="ui-form-group">
+
+                                <div id="dobGroupr">
+                                    <div id="dobGroup" class="ui-input-group">
+                                        <input id="dob"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="dob" type="text" placeholder="Date of Birth_" data-bind="value: dob" />
+                                        <span class="ui-input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <br/>
+                                <span id="labelSelectQuestions" style="display: inline-block;  font-weight: bold">Select Questions and Fill the Answers._</span>
+
+                                <div class="ui-input-group">
+                                    <select id="question1" name="question1" class="ui-form-control inputWithPlaceholder bgColour noCache"  size="1" 
+                                            data-bind="options: questions1,
+                                            optionsCaption: optionsCaptionLabel1,
+                                            value: selectedQuestion1,
+                                            valueAllowUnset: true">
+                                    </select>
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa  fa-question"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="answer1" class="ui-form-control inputWithPlaceholder bgColour noCache" name="answer1" type="text" placeholder="Answer_"  data-bind="value: answer1" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa  fa-unlock-alt"></i>
+                                    </span>
+                                </div>
+
+                                <div class="ui-input-group">
+                                    <select id="question2" name="question2" class="ui-form-control inputWithPlaceholder bgColour noCache"  size="1"	
+                                            data-bind="options: questions2,
+                                            optionsCaption: optionsCaptionLabel2,
+                                            value: selectedQuestion2,
+                                            valueAllowUnset: true">
+                                    </select>
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa  fa-question"></i>
+                                    </span>
+                                </div>
+                                <div class="ui-input-group">
+                                    <input id="answer2" class="ui-form-control inputWithPlaceholder bgColour noCache" name="answer2" type="text" placeholder="Answer_"  data-bind="value: answer2" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa  fa-unlock-alt"></i>
+                                    </span>
+                                </div>
+                                <br/>
+                                <span id="labelEnterPin" style=" display: inline-block;  font-weight: bold">Enter a Four Digit PIN number that you can remember._</span>
+
+                                <div class="ui-input-group">
+                                    <input id="pin" class="ui-form-control inputWithPlaceholder bgColour noCache" name="pin" type="text" placeholder="Answer_"  data-bind="value: pin" />
+                                    <span class="ui-input-group-addon">
+                                        <i class="fa fa-user-secret"></i>
+                                    </span>
+                                </div>
+                                <br/>
+                                <div class="row ui-helper-clearfix">
+                                    <div class="column half">
+                                        <div id="joinEditorSecurityBusy"  class="joinEditorBusyPanel ui-corner-all"  >
+                                        </div>
+                                    </div>
+                                    <div class="column half flow-opposite">
+                                        <br/>
+                                        <button id="joinEditorContactButton" name="joinEditorContactButton"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onmouseover="$(this).addClass('ui-state-hover');" onmouseout="$(this).removeClass(' ui-state-hover');"
+                                                type="submit" data-bind="click: onSubmit">
+                                            <span id="btnContinue2" class="ui-button-text ">Continue_</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </form>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row ui-helper-clearfix" style="margin-top: 10px">
+        <div style=" background-color: #996947;   " class="column half " >
+            column1 column1 column1 
+        </div>
+        <div style=" background-color:#d9dee5;   " class="column half " >
+            column2 column2 column 
+        </div>
+    </div>
+
+</div>
+
+
+

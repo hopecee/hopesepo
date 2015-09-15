@@ -1,0 +1,45 @@
+<div class="header" style=" background-color: #666666 ; width: 100%;" >
+    <table  style="width: 100% ; border-spacing: 0; border-collapse: collapse;"> 
+        <tr>
+            <td style="padding: 0% 2%; height: 3.0em">
+                <a href="/"><img id="imgHome" src="/faces/javax.faces.resource/app/lib/images/tushop_full32.png" alt="tuShop" height="30" title="Home_" /></a>
+            </td>
+            <td  width="100%" nowrap="nowrap" >
+            </td>
+            <td style="text-align: right">
+                <table style=" border-spacing: 0; border-collapse: collapse;">
+                    <tr>
+                        <td style="" >
+                            <img  id="imgHome2" src="/faces/javax.faces.resource/app/lib/images/proshop32.png" alt="tuShop"  title="Home_" />
+                        </td>
+                        <td  style=" padding: 0% 0% 0% 3%">  
+                            <span class="headerInlineblock" style=" text-align: left; font-size: 1em; font-family: Arial,Helvetica,sans-serif; font-weight: 800;  color:#E5EDF4">Hope-cee Pharmaceuticals Limited</span>    
+                        </td>   
+                    </tr>
+                </table>  
+            </td>
+            <td  align="left" style="background-color: #474747;  padding:  0em"> 
+                <table style=" border-spacing: 0; border-collapse: collapse;">
+                    <tr>
+                        <td style="" >
+                            <div id="localeReset" class="btn-group">
+                                <button type="button" class="btn btn-custom dropdown-toggle" 
+                                        data-toggle="dropdown">
+                                    <img  id="imgHome3" src="/faces/javax.faces.resource/app/lib/images/flags/tb_en-US.png" alt="en-US"  title="Home_" />
+                                    <span class="fa fa-caret-down ui-icon-White ui-icon-compact "></span>
+                                </button>
+                                <ul id="dropdownLocale" class="dropdown-menu pull-right dropdown-menu-custom scrollable-menu" role="menu" data-bind="foreach: localeWidgets">
+                                    <li  data-bind="click: $parent.onSubmit, attr: {id: locale }"  ><a  href='#'  ><img  id='imgHome3' src="" data-bind="attr:{ src: '/faces/javax.faces.resource/app/lib/images/flags/tb_'+locale+'.png'}"  alt=""/><span style='padding: 0 0.3em' data-bind="text: value"></span></a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+                        <td  style=" padding: 0% 0% 0% 3%">  
+                            <span style=" font-family: Arial,Helvetica,sans-serif; font-weight:   bolder;  color: #fff" data-bind="text: firstTopPanel"></span>    
+                        </td>   
+                    </tr>
+                </table> 
+            </td>
+        </tr>
+    </table>
+</div>

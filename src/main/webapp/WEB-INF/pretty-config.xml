@@ -1,0 +1,107 @@
+
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.2" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.2
+                                   		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
+
+   <!-- Begin Example RewriteRules 
+   
+   
+      // These are custom rewrite-rules, and are probably not necessary for your application.
+
+      <rewrite match="^/old-url/(\w+)/$" substitute="/new_url/$1/" redirect="301" />
+
+   -->
+   
+   <!-- Begin UrlMappings 
+      // These are examples of URL mappings, and should be customized for your application.
+-->
+    <url-mapping id="index"> 
+        <pattern value="/" /> 
+        <view-id value="/pages/index.xhtml" />
+    </url-mapping>
+  <!-- 
+  <url-mapping id="indexredirect"> 
+        <pattern value="/indexredirect" /> 
+       <!- -   <query-param name="language">#{localeManager.language}</query-param> 
+         <query-param name="language">#{currentUser.language}</query-param> - ->
+        <view-id value="/pages/index.xhtml" />
+        <action>#{localeManager.reDirect}</action> 
+  </url-mapping>
+  -->
+  
+  
+  
+  
+  
+  
+  
+  
+    <!-- 
+    <url-mapping  id="login"> 
+        <pattern value="/login" /> 
+        <view-id value="/proshop/login.xhtml" />
+    </url-mapping>
+     <url-mapping  id="create_account"> 
+        <pattern value="/create_account" /> 
+        <view-id value="/proshop/create_account.xhtml" />
+    </url-mapping>
+    -->
+<!--  
+<url-mapping id="j_spring_check"> 
+        <pattern value="/" /> 
+        <view-id value="/proshop/j_spring_check.xhtml" />
+    </url-mapping>
+   - ->
+    <url-mapping id="session_expired"> 
+        <pattern value="/error/session_expired" /> 
+        <view-id value="/proshop/error/session_expired.xhtml" />
+    </url-mapping>
+ <!- - Admin
+    <url-mapping id="admin/index"> 
+        <pattern value="/admin/" /> 
+        <view-id value="/proshop/admin/index.xhtml" />
+    </url-mapping>
+     -->
+ <!-- User 
+    <url-mapping id="user/index"  > 
+        <pattern value="/user/"  /> 
+        <view-id value="/proshop/user/index.xhtml"  />
+    </url-mapping>
+ -->
+ 
+ 
+ 
+    <!--    <rewrite match="/login/j_spring_check" substitute="/login?loginPage=loginPage" redirect="301" />
+<rewrite match="/?redirected=redirected" substitute="/" redirect="301" />
+ 
+
+?redirected=redirected
+
+<rewrite match="(?i)^(.*);jsessionid=\w+(.*)" substitute="login?loginPage=loginPage" redirect="301"/>
+  
+j_spring_security_check
+      <url-mapping id="home"> 
+          <pattern value="/" /> 
+          <view-id value="/faces/index.jsf" />
+      </url-mapping> 
+      
+      <url-mapping id="store"> 
+          <pattern value="/store/" /> 
+          <view-id value="/faces/shop/store.jsf" />
+      </url-mapping> 
+      
+      <url-mapping id="viewCategory">
+          <pattern value="/store/#{ cat : bean.category }/" />
+          <view-id value="/faces/shop/store.jsf" />
+      </url-mapping>
+      
+      <url-mapping id="viewItem">
+          <pattern value="/store/#{ cat : bean.category }/#{ iid : bean.itemId }/" />
+          <view-id value="/faces/shop/item.jsf" /> 
+          <action>#{bean.loadItem}</action>
+      </url-mapping>
+   
+    -->
+
+</pretty-config>

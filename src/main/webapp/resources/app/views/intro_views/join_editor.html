@@ -1,0 +1,79 @@
+ 
+<div align ="center" class=" boxShadow  ui-widget ui-widget-content  ui-corner-all " style="  ">
+    <form id="joinEditorform" name="joinEditorform" method="post" action="/" enctype="multipart/form-data">
+        <div  class=" ui-widget-header ui-helper-clearfix ui-corner-top">
+            <span id="joinEditorHeader" class="">Join Proshop Today_</span>
+        </div>
+        <div class="container ui-form-group">
+            <div class="ui-input-group">
+                <input id="email"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="email" type="text" placeholder="Email Address_" onclick="hide();" data-bind="value: usersEmailAddress" />
+                <span class="ui-input-group-addon">
+                    <i class="fa fa-envelope "></i>
+                </span>
+            </div>
+            <div class="ui-input-group">
+                <input id="usersName" class="ui-form-control inputWithPlaceholder bgColour noCache" name="usersName" type="text" placeholder="User Name_" onclick="hide();" data-bind="value: usersName" />
+                <span class="ui-input-group-addon">
+                    <i class="fa fa-user"></i>
+                </span>
+            </div>
+            <div class="ui-input-group">
+                <input id="firstName"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="firstName" type="text" placeholder="First Name_" onclick="hide();" data-bind="value: usersFirstname " />
+                <span class="ui-input-group-addon">
+                    <i class="fa fa-user"></i>
+                </span>
+            </div>
+            <div class="ui-input-group">
+                <input id="lastName" class="ui-form-control inputWithPlaceholder bgColour noCache" name="lastName" type="text" placeholder="Last Name_" onclick="hide();" data-bind="value: usersLastname " />
+                <span class="ui-input-group-addon">
+                    <i class="fa fa-user"></i>
+                </span>
+            </div>
+            <div class="ui-input-group">
+                <input id="password"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="password" type="password"  placeholder="Password_" onclick="hide();" onchange="$('passwordConfirm').show();" data-bind="value: usersPassword" />
+                <span class="ui-input-group-addon">
+                    <i class="fa fa-key"></i>
+                </span>
+            </div>
+            <div class="ui-input-group">
+                <input id="confirm"  class="ui-form-control inputWithPlaceholder bgColour noCache" name="confirm" type="password" placeholder="Confirm Password_" onclick="hide();" data-bind="value: passwordConfirm" />
+                <span class="ui-input-group-addon">
+                    <i class="fa fa-key"></i>
+                </span>
+            </div>
+            <br/>
+            <input id="agree" type="checkbox" name="agree" data-bind="checked: agree" />
+            <label id="labelTuShopTerms"  for="agree" style="font-weight: normal">I have read and agree to the Terms and Privacy for tuShop_.</label>
+            <br/>
+            <br/>
+            <div class="row ui-helper-clearfix">
+                <div class="column half">
+                    <div id="joinEditorBusy"  class="joinEditorBusyPanel ui-corner-all"  >
+                    </div>
+                </div>
+                <div class="column half flow-opposite">
+                    <br/>
+                    <button id="joinEditorButton" name="joinEditorButton"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onmouseover="$(this).addClass('ui-state-hover');" onmouseout="$(this).removeClass(' ui-state-hover');"
+                            style="" type="submit" data-bind="click: onSubmit"><span id="joinEditorButtonJoinNow" class="ui-button-text ">Join Now_</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </form>
+</div>
