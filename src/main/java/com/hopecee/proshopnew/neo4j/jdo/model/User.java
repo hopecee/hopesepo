@@ -46,7 +46,7 @@ public class User implements Serializable {
     @Persistent
     private String usersDob = null;
     @Persistent
-    private Set<User> customers = new HashSet();
+    private Set<User> customers = new HashSet<>();
 
     public long getId() {
         return id;
