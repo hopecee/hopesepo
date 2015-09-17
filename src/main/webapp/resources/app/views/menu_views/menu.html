@@ -1,53 +1,56 @@
 <div class="menuContainer_1" style="width: 100%/*width: 1024px*/" data-bind="visible: showMenu">
+    <div class="row ui-helper-clearfix">
+        <div  class="column half noPadding" >
+            <div class="menuWrapper_1" style="width: 100%; ">
+                <ul id="flyoutmenu_1" class=" ui-helper-hidden-accessible"> 
 
+                    <li ><a  id="home" href="#/home">Home_</a>
+                        <ul>
+                            <li><a href="#/join_editor_2">join_editor_2</a></li>
+                            <li><a href="#/join_editor_3">join_editor_3</a></li>
+                            <li><a href="#/intro">intro</a></li>
+                        </ul>
+                    </li>
 
-    <div class="menuWrapper_1" style=" ">
-        <ul id="flyoutmenu_1" class=" ui-helper-hidden-accessible"> 
+                    <li><a id="joinTodayMenu" href="#">Join Today_</a>
+                    </li>
 
-            <li ><a  id="home" href="#/home">Home_</a>
-                <ul>
-                    <li><a href="#/join_editor_2">join_editor_2</a></li>
-                    <li><a href="#/join_editor_3">join_editor_3</a></li>
-                    <li><a href="#/intro">intro</a></li>
-                    </ul>
-            </li>
+                </ul> 
+            </div>
+        </div>
 
-            <li><a id="joinTodayMenu" href="#">Join Today_</a>
-            </li>
-
-        </ul> 
-    </div>
-
-
-    <div class="menuWrapper_1" style=" height: 1.97em ;  white-space: nowrap ; " align="right"  >
-        <table  >
-            <tr>
-                <td >
-                    <div class="ui-panel ui-widget ui-widget-content ui-corner-all" style=" background-color: #666666; padding: 0px; vertical-align: top; width: 1.67em; height: 1.67em; border: 0px " ><div  class="ui-panel-content ui-widget-content">
-                            <div id="menuBusy" style="width: 1.67em; height: 1.67em; overflow: hidden;"></div>
+        <div  class="column half noPadding" >
+            <div  class="menuWrapper_1" style=" background-color: #000; width: 100%;   height: 33px  ; /*1.97em */ white-space: nowrap ; " align="right" >
+                <!-- <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded"  onsubmit="document.loginForm.action = 'j_spring_check';">-->
+                <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded" >
+                    <div class="row ui-helper-clearfix">
+                        <div  class="column menu-1 noPadding" >
+                            <div class=" ui-menuBusy ui-corner-all" style=" " >
+                                <div  class="">
+                                    <div id="menuBusy" class=" ui-menuBusy inner" style=""></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>  
-                </td>
-
-                <td>
-
-                    <!-- <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded"  onsubmit="document.loginForm.action = 'j_spring_check';">-->
-                    <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded" >
-                        <!--<input type="hidden" name="loginForm" value="loginForm" />-->
-                        <label id="labelEmailLogin" for="emailLogin" style=" font-weight: normal; color: #fff" class="inputWithLabel">Email address:_</label>
-                        <input id="emailLogin" type="text" name="emailLogin" class="bgColour noCache" data-bind="value: usersEmailAddressMenu" size="12" style=" background-color: whitesmoke ; border: solid 1px #8ab0c6;" />   
-                        <label id="labelpasswordLogin" for="passwordLogin" style="font-weight: normal; color: #fff" class="inputWithLabel">Password:_</label>
-                        <input id="passwordLogin" type="password" name="passwordLogin" value="" class="bgColour" data-bind="value: usersPasswordMenu" size="12" style=" background-color: whitesmoke; border: solid 1px #8ab0c6;" />  
-                        <button id="menuLoginButton" name="menuLoginButton" type="submit"  data-bind="click: onSubmitMenu"  class=" wijmo-wijmenu-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="" onmouseover="$(this).addClass('wijmo-wijmenu-button-state-hover');" onmouseout="$(this).removeClass(' wijmo-wijmenu-button-state-hover');"  >
-                            <span id="signInMenu" class="ui-button-text ui-c">Sign In_</span>
-                        </button>
-                        <!-- <input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="0M9Xvu09OoLiK+FUdkK3bLPKQRRu5xXW8xDP0Hwt13reNanvYsWkhPmEMsN3JEWf0t75K5kXCL6VQEgbQZhh5iIpUwao3QxVxnrhwlZG/qPylfEh1WpicRKLonFK5Ciujlc/FTf2W0z9I+eipyPsgCw/Hz2jYlVG6MSf/8r3gP1/VAqJYHZ1R4FfFMENUNgIHOWO82BN0YxlYGPTssR/13c6iKC9R+UEiYZ3U9CN/w2RUN1wwKAhk2viQha4DOYA4dFpnUb54WKjOtEp/5ey5FFsyP0gb9Fag5qwOpxLjNiycwhAzXmbV36u51CELYkxlLCRbCnvQAwfUq05LBYeggD402zP21KiryRvCJOjHmOHLrO6WdwaWQfzvLwfzK+Zabh2SpufnxZPTgIGFksY4ecNiMIK89l3fvJ9to+yVvlpwwUtguLIUatg3EsCrI8BgQjGoI7WlMIeKAziHxnXSVALm21DWkNTAR58jFa6oeLcgRTLKG1FStR3a4A48mPsOWIeZG2krdU8x+vHbnz7G5fh0BtEULKY+2A7X3lH/Lm0LUr0q1mjfNB5PVJLN4z6qX2C08VPmZYg03J4XWXhQPjQrws8w7yPcAf6CEUdgj5PrQeGimA34FXvbCWT3BGmBrfTBMvkCe7vU2gpxY/QTGbC3Gkmsza36bIXeOYntDfuLDvGHtrYw2hutFJXIk/fdrFtI+kwd6l9AuraNauh7VGCDK/7Jy3iGPEgH4J3jJzOwd/mTHJR2/I4IVr261iFjnxek0EmoLzvXL4AYKnRcvqMUy+/w9JaiaRW5bfm14r+SxHRyWPucIwiItWakTnPXQxQuhtCqTz6hrYb6yUG8evN1uSnqrFfFy9I33qa0pSHulwGAYn0MYN6HVUS8XQGJn6bGbvlrckIh8rRWgfeZIThsmcJIq1HfQBbG5XHRpN2KTJS1spztC1oDSc6PLUsbku5tjy/EsUzsH+fqiOvtc2glAIWPWO005bOouUKugT+jGiybzjYCyIXUv1KQjPNoo/+mR8lH9zayhJACzzm4PjotVdNAkoEeOpH1t+FdHXiZAh6ULN+4U3FiPM2edDLoW2Q3Nplu2NM+QxLn8V8O9/6EiyJQtpHu7FP8UeCeuFpyhta5tKndE/Ph0Mu/tje" autocomplete="off" />-->
-                    </form>
-
-                </td>
-            </tr>
-        </table>
-    </div> 
+                        <div  class="column menu-2 noPadding" >
+                            <div class="ui-input-group-menu ">
+                                <input id="emailLogin"  class="ui-form-control-menu ui-corner-all inputWithPlaceholder bgColour noCache" name="email" type="text" placeholder="Email Address_" onclick="hide();" data-bind="value: usersEmailAddressMenu" />
+                            </div>
+                        </div>
+                        <div  class="column menu-2 noPadding" >
+                            <div class="ui-input-group-menu ">
+                                <input id="passwordLogin"  class="ui-form-control-menu ui-corner-all inputWithPlaceholder bgColour noCache" name="passwordLogin" type="password" placeholder="Password_" onclick="hide();" data-bind="value: usersPasswordMenu" />
+                            </div>
+                        </div>
+                        <div  class="column menu-3 noPadding" >
+                            <button id="menuLoginButton" name="menuLoginButton" type="submit"  data-bind="click: onSubmitMenu"  class=" wijmo-wijmenu-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="" onmouseover="$(this).addClass('wijmo-wijmenu-button-state-hover');" onmouseout="$(this).removeClass(' wijmo-wijmenu-button-state-hover');"  >
+                                <span id="signInMenu" class="ui-button-text ui-c">Sign In_</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div> 
+        </div>
+    </div>
 </div>
 <!-- ====== -->
 <div class="menuContainer_2" style="width: 100%/*width: 1024px*/" data-bind="visible: showMenuNot">

@@ -122,6 +122,41 @@ body  {
         width: 8em;
     }
 
+    .wijmo-wijmenu-button
+    {
+
+        display: inline-block;
+        position: relative;
+        padding: 0.053em;
+        margin-right: .5em;
+        cursor: pointer;
+        text-align: center;
+        zoom: 1;
+        overflow: visible;
+
+        background: #009999 !important;
+        border:solid 1px #333333 !important;
+        color: #fff !important;
+        font-weight: bold !important;
+    }
+
+    .wijmo-wijmenu-button-state-hover
+    {
+        display: inline-block;
+        position: relative;
+        padding: 0.053em;
+        margin-right: .5em;
+        text-decoration: none !important;
+        cursor: pointer;
+        text-align: center;
+        zoom: 1;
+        overflow: visible;
+
+        background: #006666 !important; 
+        border:solid 1px #333333 !important;
+        color: #fff !important;
+        font-weight: bold !important;
+    }
 
 
     /* ==================== */
@@ -3038,15 +3073,62 @@ body  {
         float: left;
         padding:  10px 10px 0px 10px;
     }
-
     .col-joinEditorFull   {
         width: 100%;
         float: left;
         padding:  10px 10px 0px 10px;
     }
+
+
+    .column.menu-1   {
+        width: 8%;
+    }
+    .column.menu-2   {
+        width: 33%;
+    }
+    .column.menu-3   {
+        width: 20%;
+    }
+
     .headerInlineblock {
         display: inline-block;
         width: 16em;
+    }
+
+    .wijmo-wijmenu-button
+    {
+
+        display: inline-block;
+        position: relative;
+        padding: 0.053em;
+        margin: 0.2em 0.5em 0.2em 0.2em;
+        cursor: pointer;
+        text-align: center;
+        zoom: 1;
+        overflow: visible;
+
+        background: #009999 !important;
+        border:solid 1px #333333 !important;
+        color: #fff !important;
+        font-weight: bold !important;
+    }
+
+    .wijmo-wijmenu-button-state-hover
+    {
+        display: inline-block;
+        position: relative;
+        padding: 0.053em;
+        margin-right: .5em;
+        text-decoration: none !important;
+        cursor: pointer;
+        text-align: center;
+        zoom: 1;
+        overflow: visible;
+
+        background: #006666 !important; 
+        border:solid 1px #333333 !important;
+        color: #fff !important;
+        font-weight: bold !important;
     }
 
     .ui-form-group {
@@ -3061,6 +3143,23 @@ body  {
         position: relative;
         display: table;
         border-collapse: separate;
+    }
+    .ui-input-group-menu {
+        margin: 0.25em;
+        position: relative;
+        display: table;
+        border-collapse: separate;
+    }
+    .ui-form-control-menu {
+        display: block;
+        height: 1.80em;
+        width: 100%;
+        padding: 0.12em 0.125em;
+        color:  #555;
+        /* border-radius: 3px; */
+
+        border: 1px solid #ccc;
+        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
     }
     .ui-form-control {
         display: block;

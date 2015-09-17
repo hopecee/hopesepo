@@ -36,8 +36,8 @@ define({root:
                 //-------menu----------------------//
                 home: "Home",
                 joinTodayMenu: "Join Today",
-                emailLogin: "Email address:",
-                passLogin: "Password:",
+                emailLogin: "Email address",
+                passLogin: "Password",
                 signIn: "Sign In",
                 showMenu: "ShowMenu",
                 //-------join_Editor-------------------//
@@ -81,6 +81,8 @@ define({root:
                 userEnterPin: "Enter a Four Digit PIN number that you can remember.",
                 userPin: "PIN",
                 btnContinue2: "Continue",
+                 //-------join_Editor_Complete----------------------//
+                thanksForRegComplete: "You have successfully completed your Registration. We have sent you email to your provided Email Address. Check your Email box and follow the link to confirm the Address.",
                 //-------countries----------------------//
                 NGA1: "Nigeria1",
                 NGA2: "Nigeria2",

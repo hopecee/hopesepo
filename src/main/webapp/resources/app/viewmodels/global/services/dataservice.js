@@ -1,6 +1,7 @@
 define(['dojo/i18n!app/nls/countryIsoCodes',
     'dojo/dom', 'global/services/logger'],
         function(countryIsoCodes, dom, logger) {
+              "use strict";
 
             var jData = {};
 

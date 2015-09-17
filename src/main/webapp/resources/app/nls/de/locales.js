@@ -6,7 +6,7 @@ define(
                 en: "English",
                 fr: "French"
                         ///
-            }
+           
 
 
 

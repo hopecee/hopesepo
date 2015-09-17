@@ -113,8 +113,8 @@ define(['dojo/i18n!app/nls/labels',
                 // domConstruct.place('<span>' + labels.emailAddress + '</span>', dom.byId('labelemail'));
                 dom.byId('home').innerHTML = labels.home;
                 dom.byId('joinTodayMenu').innerHTML = labels.joinTodayMenu;
-                dom.byId('labelEmailLogin').innerHTML = labels.emailLogin;
-                dom.byId('labelpasswordLogin').innerHTML = labels.passLogin;
+                dom.byId('emailLogin').placeholder = labels.emailLogin;
+                dom.byId('passwordLogin').placeholder = labels.passLogin;
                 dom.byId('signInMenu').innerHTML = labels.signIn;
                 dom.byId('home2').innerHTML = labels.home;
                 dom.byId('showMenu').innerHTML = labels.showMenu;
@@ -212,7 +212,7 @@ define(['dojo/i18n!app/nls/labels',
                     var loginUrl = '/tuLogInOutServlet';
                     //validate data first.
                     if ($("#loginForm").valid()) {
-                        var busy = getBusyOverlay(document.getElementById('menuBusy'), {color: '#000', opacity: 0.9, text: '', style: 'text-decoration:blink;font-weight:bold;font-size:12px;color:white'}, {color: '#fff', size: 20, type: 'o'});
+                        var busy = getBusyOverlay(document.getElementById('menuBusy'), {color: '#000', opacity: 0.9, text: '', style: 'text-decoration:blink;font-weight:bold;font-size:12px;color:white'}, {color: '#fff', size: 25, type: 'o'});
                         //post data.
                         security.login(loginUrl, jData, busy);
                     } else {

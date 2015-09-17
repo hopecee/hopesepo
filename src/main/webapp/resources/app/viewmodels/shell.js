@@ -1,10 +1,10 @@
-define(['dojo/router', 'dojo/topic', "dojo/request", 'durandal/app',
+define(['dojo/topic', "dojo/request", 'durandal/app',
     //'plugins/router',
-    'global/session', 'global/services/logger'
-], function(rot, topic, request, app,
-//router, 
-        session, logger
+    'global/services/pageRouter', 'global/services/logger'
+], function(topic, request, app, pageRouter, logger
         ) {
+
+
 // var router = require('plugins/router');
 
 
@@ -35,15 +35,15 @@ define(['dojo/router', 'dojo/topic', "dojo/request", 'durandal/app',
          alert("An inline route handler.");
          }
          };
+         
+         
+         var allroutes = function() {
+         //var page = document.getElementById('page');
+         // var route = window.location.hash.slice(2);
+         // var pages = $('.page');
+         //var page = pages.filter('[data-bind="compose:' + route + ']');
+         };
          */
-
-        var allroutes = function() {
-            //var page = document.getElementById('page');
-            // var route = window.location.hash.slice(2);
-            // var pages = $('.page');
-            //var page = pages.filter('[data-bind="compose:' + route + ']');
-        };
-
         /*
          router.makeRelative({moduleId: 'viewmodels'});
          router.map([
@@ -128,7 +128,7 @@ define(['dojo/router', 'dojo/topic', "dojo/request", 'durandal/app',
     };
 
 
-
+    var pageR = new pageRouter();
     var attached = function(view, paren) {
 
         var stickyPanelOptions = {
@@ -138,56 +138,65 @@ define(['dojo/router', 'dojo/topic', "dojo/request", 'durandal/app',
         };
         $("#headContainer").stickyPanel(stickyPanelOptions);
 
+        /*
+         var intro = {
+         on: function() {
+         ko.observable('viewmodels/intro').publishOn('ROUTE');
+         }
+         };
+         var join_editor_2 = {
+         on: function() {
+         ko.observable('viewmodels/intro_views/join_editor_2').publishOn('ROUTE');
+         },
+         before: function() {
+         //if (typeof (session.userEmailAddress()) !== "undefined") {
+         var res = true;//session.userIsInRole(params.config.requiredRoles);
+         if (!res)
+         {
+         ko.observable('viewmodels/intro').publishOn('ROUTE');
+         
+         logger.log({
+         message: "Access denied. Navigation cancelled. Please login",
+         showToast: true,
+         type: "warning"
+         });
+         }
+         return res;
+         // } else {
+         //   return true;
+         //}
+         }
+         
+         };
+         
+         var join_editor_3 = {
+         on: function() {
+         ko.observable('viewmodels/intro_views/join_editor_3').publishOn('ROUTE');
+         }};
+         
+         var join_editor_complete = {
+         on: function() {
+         ko.observable('viewmodels/intro_views/join_editor_complete').publishOn('ROUTE');
+         }};
+         
+         var home = {
+         on: function() {
+         ko.observable('viewmodels/user_views/home').publishOn('ROUTE');
+         }};
+         
+         var notfound = function() {
+         ko.observable('viewmodels/intro').publishOn('ROUTE');
+         };
+         */
 
-        var intro = {
-            on: function() {
-                ko.observable('viewmodels/intro').publishOn('ROUTE');
-            }
-        };
-        var join_editor_2 = {
-            on: function() {
-                ko.observable('viewmodels/intro_views/join_editor_2').publishOn('ROUTE');
-            },
-            before: function() {
-                //if (typeof (session.userEmailAddress()) !== "undefined") {
-                var res = true;//session.userIsInRole(params.config.requiredRoles);
-                if (!res)
-                {
-                    ko.observable('viewmodels/intro').publishOn('ROUTE');
-
-                    logger.log({
-                        message: "Access denied. Navigation cancelled. Please login",
-                        showToast: true,
-                        type: "warning"
-                    });
-                }
-                return res;
-                // } else {
-                //   return true;
-                //}
-            }
-
-        };
-
-        var join_editor_3 = {
-            on: function() {
-                ko.observable('viewmodels/intro_views/join_editor_3').publishOn('ROUTE');
-            }};
-        var home = {
-            on: function() {
-                ko.observable('viewmodels/user_views/home').publishOn('ROUTE');
-            }};
-
-        var notfound = function() {
-            ko.observable('viewmodels/intro').publishOn('ROUTE');
-        };
-
-        var router = Router({
-            '/intro': intro,
-            '/join_editor_2': join_editor_2,
-            '/join_editor_3': join_editor_3,
-            '/home': home
-        }).configure({notfound: notfound}).init('intro');
+        //From director.js.
+        Router({
+            '/intro': pageR.intro(),
+            '/join_editor_2': pageR.join_editor_2(null),
+            '/join_editor_3': pageR.join_editor_3(),
+            '/join_editor_complete': pageR.join_editor_complete(),
+            '/home': pageR.home()
+        }).configure({notfound: pageR.notfound()}).init('intro');
 
 
         //router.init('#/intro');

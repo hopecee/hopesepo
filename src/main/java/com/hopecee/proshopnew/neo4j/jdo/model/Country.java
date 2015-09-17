@@ -29,7 +29,7 @@ public class Country implements Serializable {
     @Persistent
     private String country_iso_code_2 = null;//Alpha-2
     @PrimaryKey
-    @Persistent
+    @Persistent 
     private String country_iso_code_3 = null;//Alpha-3
     @Persistent
     private int address_format_id = 0;

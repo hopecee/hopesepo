@@ -3,10 +3,9 @@ define(['plugins/router'//, //'services/security',
             // 'jquery'
             //, 'jquery.utilities'
 ],
-        function(router//, //security, 
-                // ko, 
-                // $
-                ) {
+        function(router) {
+            "use strict";
+
             var img = '/faces/javax.faces.resource/images/proshop32.png';
 
             function restoreSessionStorageFromLocalStorage() {
@@ -71,7 +70,7 @@ define(['plugins/router'//, //'services/security',
                     if (user.isLoggedIn) {
                         session.showMenu(false);
                         session.showMenuNot(true);
-                        
+
                         session.headerHeight($('#headContainer').height()); // second head class.
                     }
 ///
