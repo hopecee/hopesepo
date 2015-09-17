@@ -36,8 +36,8 @@
                 <Set name="testQuery">set autocommit=1</Set>
                 <Get name="driverProperties">
                     <Put name="url">jdbc:mysql://localhost:3306/jpaidentitydb?zeroDateTimeBehavior=convertToNull</Put>
-                    <Put name="user">hope</Put>
-                    <Put name="password">risingp&amp;s</Put>   
+                    <Put name="user">hopeer</Put>
+                    <Put name="password">hopeer</Put>   
                 </Get>
                 <Call name="init" />
             </New>
