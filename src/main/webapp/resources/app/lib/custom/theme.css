@@ -26,19 +26,14 @@ ui-panel {
 
 }
 */
+.menuContainer_1 {
+    width: 100%/*width: 1024px*/
+}
+.menuContainer_2 {
+    width: 100%/*width: 1024px*/
+}
 
-.ui-menuBusy {
-    background-color: #666666; 
-    padding: 0px; 
-     margin: 0.15em 0.3em 0.15em 0.0em;
-    width: 1.67em; 
-    height: 1.67em; 
-    border: 0px ;
-}
-.ui-menuBusy.inner {
-    overflow: hidden;
-    background-color: transparent;
-}
+
 
 
 /* -----------------------------------*/

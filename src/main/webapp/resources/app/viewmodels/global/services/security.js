@@ -195,10 +195,12 @@ define(["dojo/on", 'global/session', 'global/services/logger', 'global/services/
                         } else {
                             if (id === "userId") {
                                 user.emailAddress = value;
+                                alert(value);
                             }
 
                             if (id === "userNeo4jIdString") {
                                 user.userNeo4jIdString = value;
+                                alert(value);
                             }
 
                             if (id === "isUserImg") {

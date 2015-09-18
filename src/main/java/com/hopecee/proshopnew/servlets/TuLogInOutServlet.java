@@ -192,9 +192,9 @@ String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
             long userNeo4jId = userNeo4jService.findByName(userId).getId();
             // convert long to String type
             String userNeo4jIdString = Long.toString(userNeo4jId);
-            //System.out.println(userNeo4jIdString);
+           System.out.println(userNeo4jIdString);
 
-            //System.out.println(userNeo4jId + " ==jj=====nn== : " + userId);
+            System.out.println(userNeo4jId + " ==jj=====nn== : " + userId);
 
 
 

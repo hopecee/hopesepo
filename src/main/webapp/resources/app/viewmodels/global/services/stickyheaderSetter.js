@@ -13,9 +13,9 @@ define(['plugins/router', 'global/session'//, //'services/security',
 
 
             function koSet(menuLayer) {
-                var menuHeight = 40;//32 2.667
-                var oHH = 40;//40 3.333 (oficialheaderHeight) get it from header.html (height: 40px).
-                var sPad = 2;//2 0.167 (spanPadding) get it from header.html (<span> 2px).
+                var menuHeight = 2.0625;//33 2.667
+                var oHH = 2.5;//40 3.333 (oficialheaderHeight) get it from header.html (height: 40px).
+                var sPad = 0.125;//2 0.167 (spanPadding) get it from header.html (<span> 2px).
                 var h, hi, hiR,  hOpen, hiOpen, extrH, extrHOpen = 0;
 
                 h = $('#headContainer').height();
@@ -23,12 +23,12 @@ define(['plugins/router', 'global/session'//, //'services/security',
                 hi = $('.headerInlineblock').height();
               // alert('hi :' + hi);
               // convert px to em (my base is 12px not 16pc.)
-               hiR = hi*(1/12);
+               hiR = hi*(1/16);
               // alert('hi :' + hiR);
                 if (hiR > 0) {
-                    extrH = hiR - oHH + sPad;
+                    extrH = (hiR - oHH + sPad);
                 }
-                return    ko.observable(oHH + extrH + (menuHeight * menuLayer) + 'px').publishOn('HEADER_HEIGHT');
+                return    ko.observable(((oHH + extrH + (menuHeight * menuLayer))/1) + 'em').publishOn('HEADER_HEIGHT');
 
             }
             function set() {

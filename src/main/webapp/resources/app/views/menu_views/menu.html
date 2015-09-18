@@ -1,59 +1,59 @@
-<div class="menuContainer_1" style="width: 100%/*width: 1024px*/" data-bind="visible: showMenu">
-    <div class="row ui-helper-clearfix">
-        <div  class="column half noPadding" >
-            <div class="menuWrapper_1" style="width: 100%; ">
-                <ul id="flyoutmenu_1" class=" ui-helper-hidden-accessible"> 
+<div class="menuContainer_1 ui-helper-clearfix" style="" data-bind="visible: showMenu">
+    <!-- <div class="row ">
+      <!- - <div  class="column half noPadding" >-->
+    <div class="menuWrapper_1" style="">
+        <ul id="flyoutmenu_1" class=" ui-helper-hidden-accessible"> 
 
-                    <li ><a  id="home" href="#/home">Home_</a>
-                        <ul>
-                            <li><a href="#/join_editor_2">join_editor_2</a></li>
-                            <li><a href="#/join_editor_3">join_editor_3</a></li>
-                            <li><a href="#/intro">intro</a></li>
-                        </ul>
-                    </li>
+            <li ><a  id="home" href="#/home">Home_</a>
+                <ul>
+                    <li><a href="#/join_editor_2">join_editor_2</a></li>
+                    <li><a href="#/join_editor_3">join_editor_3</a></li>
+                    <li><a href="#/intro">intro</a></li>
+                </ul>
+            </li>
 
-                    <li><a id="joinTodayMenu" href="#">Join Today_</a>
-                    </li>
+            <li><a id="joinTodayMenu" href="#">Join Today_</a>
+            </li>
 
-                </ul> 
-            </div>
-        </div>
+        </ul> 
+    </div>
+    <!--  </div> - ->
 
-        <div  class="column half noPadding" >
-            <div  class="menuWrapper_1" style=" background-color: #000; width: 100%;   height: 33px  ; /*1.97em */ white-space: nowrap ; " align="right" >
-                <!-- <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded"  onsubmit="document.loginForm.action = 'j_spring_check';">-->
-                <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded" >
-                    <div class="row ui-helper-clearfix">
-                        <div  class="column menu-1 noPadding" >
-                            <div class=" ui-menuBusy ui-corner-all" style=" " >
-                                <div  class="">
-                                    <div id="menuBusy" class=" ui-menuBusy inner" style=""></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div  class="column menu-2 noPadding" >
-                            <div class="ui-input-group-menu ">
-                                <input id="emailLogin"  class="ui-form-control-menu ui-corner-all inputWithPlaceholder bgColour noCache" name="email" type="text" placeholder="Email Address_" onclick="hide();" data-bind="value: usersEmailAddressMenu" />
-                            </div>
-                        </div>
-                        <div  class="column menu-2 noPadding" >
-                            <div class="ui-input-group-menu ">
-                                <input id="passwordLogin"  class="ui-form-control-menu ui-corner-all inputWithPlaceholder bgColour noCache" name="passwordLogin" type="password" placeholder="Password_" onclick="hide();" data-bind="value: usersPasswordMenu" />
-                            </div>
-                        </div>
-                        <div  class="column menu-3 noPadding" >
-                            <button id="menuLoginButton" name="menuLoginButton" type="submit"  data-bind="click: onSubmitMenu"  class=" wijmo-wijmenu-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="" onmouseover="$(this).addClass('wijmo-wijmenu-button-state-hover');" onmouseout="$(this).removeClass(' wijmo-wijmenu-button-state-hover');"  >
-                                <span id="signInMenu" class="ui-button-text ui-c">Sign In_</span>
-                            </button>
+      <div  class="column half noPadding" > -->
+    <div  class="menuWrapper_1" style="   height: 2.0625em  ; /*33px */ white-space: nowrap ; " align="right" >
+        <!-- <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded"  onsubmit="document.loginForm.action = 'j_spring_check';">-->
+        <form id="loginForm" name="loginForm" method="post" action="/" enctype="application/x-www-form-urlencoded" >
+            <div class="row ui-helper-clearfix">
+                <div  class="column menu-1 noPadding" >
+                    <div class=" ui-menuBusy ui-corner-all" style=" " >
+                        <div  class="">
+                            <div id="menuBusy" class=" ui-menuBusy inner" style=""></div>
                         </div>
                     </div>
-                </form>
-            </div> 
-        </div>
-    </div>
+                </div>
+                <div  class="column menu-2 noPadding" >
+                    <div class="ui-input-group-menu ">
+                        <input id="emailLogin"  class="ui-form-control-menu ui-corner-all inputWithPlaceholder bgColour noCache" name="emailLogin" type="text" placeholder="Email Address_" onclick="hide();" data-bind="value: usersEmailAddressMenu" />
+                    </div>
+                </div>
+                <div  class="column menu-2 noPadding" >
+                    <div class="ui-input-group-menu ">
+                        <input id="passwordLogin"  class="ui-form-control-menu ui-corner-all inputWithPlaceholder bgColour noCache" name="passwordLogin" type="password" placeholder="Password_" onclick="hide();" data-bind="value: usersPasswordMenu" />
+                    </div>
+                </div>
+                <div  class="column menu-3 noPadding" >
+                    <button id="menuLoginButton" name="menuLoginButton" type="submit"  data-bind="click: onSubmitMenu"  class=" wijmo-wijmenu-button ui-widget ui-state-default ui-corner-all " style="" onmouseover="$(this).addClass('wijmo-wijmenu-button-state-hover');" onmouseout="$(this).removeClass(' wijmo-wijmenu-button-state-hover');"  >
+                        <span id="signInMenu" class=" ">Sign In_</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div> 
 </div>
-<!-- ====== -->
-<div class="menuContainer_2" style="width: 100%/*width: 1024px*/" data-bind="visible: showMenuNot">
+<!--  </div>
+<!- - </div>
+<!- - ====== -->
+<div class="menuContainer_2" style="" data-bind="visible: showMenuNot">
 
 
     <div class="menuWrapper_2" style=" ">
