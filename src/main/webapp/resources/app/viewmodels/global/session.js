@@ -53,10 +53,11 @@ define(['plugins/router'//, //'services/security',
                 archiveSessionStorageToLocalStorage: archiveSessionStorageToLocalStorage,
                 isAuthCallback: isAuthCallback,
                 userRemembered: userRemembered,
-                rememberedToken: rememberedToken
-                        //==============================
-                        // userphotoImg: ko.observable(undefined),
-                        // setActiveEditor: setActiveEditor
+                rememberedToken: rememberedToken,
+                //==============================
+                // userphotoImg: ko.observable(undefined),
+                // setActiveEditor: setActiveEditor
+                mediaViewType: ko.observable(1) //initial = menu with 1 layer.
             };
             return session;
 

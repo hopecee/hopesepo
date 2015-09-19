@@ -39,7 +39,7 @@ ui-panel {
 /* -----------------------------------*/
 .headContainer {
     z-index: 2;
-    background: red ;
+    background: #000 ;
     text-align: left;
     /*height: 72px; determined through 'header' viewmodel */
 

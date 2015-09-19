@@ -1,18 +1,37 @@
 define(['dojo/topic', "dojo/request", 'durandal/app',
     //'plugins/router',
-    'global/services/pageRouter', 'global/services/logger'
-], function(topic, request, app, pageRouter, logger
+    'global/services/pageRouter','global/session', 'global/services/logger'
+], function(topic, request, app, pageRouter, session,logger
         ) {
 
 
-// var router = require('plugins/router');
 
 
     $(document).ready(function() {
 
     });
-
+    
+    
     var activate = function(view, paren) {
+        //Initialization.
+       // Check veiwpiont through 'Animation' and set the session mediaViewType.
+        if($('body').width()< 500) {
+          session.mediaViewType(2);
+        }else{
+            session.mediaViewType(1);
+            };
+        
+        $('body').on('animationend webkitAnimationEnd ', function(event) {
+            if (event.originalEvent.animationName === 'max-width-500px') {
+                session.mediaViewType(2);
+            }else{
+                session.mediaViewType(1);
+            }
+        });
+
+
+
+
 
 //$("#headContainer").css( "background-color","red" );
         //  loggedInHandler(this);
@@ -126,8 +145,6 @@ define(['dojo/topic', "dojo/request", 'durandal/app',
         //  return router.go("/home");
         //////// return router.navigate('#/home');
     };
-
-
     var pageR = new pageRouter();
     var attached = function(view, paren) {
 
@@ -137,7 +154,6 @@ define(['dojo/topic', "dojo/request", 'durandal/app',
             savePanelSpace: true
         };
         $("#headContainer").stickyPanel(stickyPanelOptions);
-
         /*
          var intro = {
          on: function() {
@@ -197,23 +213,19 @@ define(['dojo/topic', "dojo/request", 'durandal/app',
             '/join_editor_complete': pageR.join_editor_complete(),
             '/home': pageR.home()
         }).configure({notfound: pageR.notfound()}).init('intro');
-
-
         //router.init('#/intro');
 
 
     };
-
 //Not used
     var loggedInHandler = function(self) {
         app.on('authentication.loggedIn').then(function(data) {
-            //alert(data.firstTopPanel);
-            //self.showHeader(false);
-            // alert(data.firstTopPanel);
+//alert(data.firstTopPanel);
+//self.showHeader(false);
+// alert(data.firstTopPanel);
             self.showHeader(data.showHeader);
         });
     };
-
 // var headerHeight = ko.observable(height);
 
 //alert('viewmodels/login');

@@ -19,6 +19,11 @@ define(['dojo/i18n!app/nls/labels',
 
 
             });
+
+           
+
+
+
             // validate loginForm form on keyup and submit
             var doValidation = function() {
                 $.validator.setDefaults({
@@ -81,6 +86,8 @@ define(['dojo/i18n!app/nls/labels',
             var layoutV = new layout();
 
             var attached = function(view, paren) {
+
+
                 var optionStore = {};
                 optionStore.slideMenu = {
                     orientation: "vertical",
@@ -166,6 +173,8 @@ define(['dojo/i18n!app/nls/labels',
                 $('input.noCache').each(function() {
                     $(this).val('');
                 });
+
+
 
 
 
