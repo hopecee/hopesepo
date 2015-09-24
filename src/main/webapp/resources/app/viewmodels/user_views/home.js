@@ -1,5 +1,5 @@
 
-define(['durandal/app', 'plugins/router', 'global/session'], function(app, router, session) {
+define(['durandal/app', 'global/services/session'], function(app,  session) {
     "use strict";
 
 

@@ -1,5 +1,5 @@
 
-define(['plugins/router', 'global/session', 'global/services/logger', 'global/services/imageSelectService'
+define(['plugins/router', 'global/services/session', 'global/services/logger', 'global/services/imageSelectService'
 ], function(router, session, logger, imageSelectService
         ) {
     "use strict";

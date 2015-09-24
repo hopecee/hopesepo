@@ -1,4 +1,4 @@
-define(["dojo/on", 'global/session', 'global/services/logger', 'global/services/stickyheaderSetter'],
+define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/services/stickyheaderSetter'],
         function(on, session, logger, stickyheaderSetter) {
             
             var router = new Router().init();

@@ -85,6 +85,8 @@ body  {
         float: left;    
         width: 100%; 
         background-color: #CCCCCC;
+        height: 2.0625em  ; /*33px */
+        white-space: nowrap ; 
     }
     /*
     .menuWrapper_2 {
@@ -112,36 +114,30 @@ body  {
     .col-introPanel {
         width: 100%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-joinEditor   {
         width: 100%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-userPanel {
         width: 100%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-advPanel {
         width: 100%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-editorPanel {
         width: 100%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
     .col-joinEditorFull   {
         width: 100%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
 
@@ -154,7 +150,13 @@ body  {
     .column.menu-3   {
         width: 20%;
     }
-
+    .panel-pad   {
+        padding:  0.625em 0.625em 0px 0.625em;
+    }
+    .container.pad {
+        padding:0.25em 0.5em; 
+        /* background-color: #F9FCF9; */
+    }
     .headerInlineblock {
         display: inline-block;
         width: 8em;
@@ -3115,6 +3117,8 @@ body  {
         float: left;    
         width: 60%; 
         background: #000;
+        height: 2.0625em  ; /*33px */
+        white-space: nowrap ; 
     }
     .menuWrapper_2 {
         float: left;    
@@ -3141,36 +3145,30 @@ body  {
     .col-introPanel {
         width: 40%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-joinEditor   {
         width: 60%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-userPanel {
         width: 25%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-advPanel {
         width: 25%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-editorPanel {
         width: 50%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
     .col-joinEditorFull   {
         width: 100%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
 
@@ -3184,6 +3182,14 @@ body  {
         width: 20%;
     }
 
+    .panel-pad   {
+        padding:  0.625em 0.625em 0px 0.625em;
+    }
+
+    .container.pad {
+        padding:0.25em 0.5em; 
+        /* background-color: #F9FCF9; */
+    }
     .headerInlineblock {
         display: inline-block;
         width: 16em;
@@ -3193,8 +3199,8 @@ body  {
         background-color: #666666; 
         padding: 0px; 
         margin: 0.15em 0.3em 0.15em 0.0em;
-        width: 1.67em; 
-        height: 1.67em; 
+        width: 1.5em; 
+        height: 1.5em; 
         border: 0px ;
     }
     .ui-menuBusy.inner {
@@ -3208,8 +3214,8 @@ body  {
 
         display: inline-block;
         position: relative;
-        padding: 0.2em 0.6em;
-        margin: 0.2em 0.5em 0.2em 0.2em !important;
+        padding: 0.15em 0.6em;
+        margin: 0.15em 0.5em 0.15em 0.2em !important;
         cursor: pointer;
         text-align: center;
         zoom: 1;
@@ -3225,8 +3231,8 @@ body  {
     {
         display: inline-block;
         position: relative;
-        padding: 0.2em 0.6em;
-        margin: 0.2em 0.5em 0.2em 0.5em !important;
+        padding: 0.15em 0.6em;
+        margin: 0.15em 0.5em 0.15em 0.2em !important;
         text-decoration: none !important;
         cursor: pointer;
         text-align: center;
@@ -3240,29 +3246,29 @@ body  {
     }
 
     .ui-form-group {
-        padding: 10px 15px;
+        padding: 0.625em 0.9375em;
         width: 100%;
         /* background-color: #F7FBF7; 
         background-color: #F9FCF9; */
     }
     .ui-input-group {
-        margin: 10px 0px;
+        margin: 0.625em 0px;
 
         position: relative;
         display: table;
         border-collapse: separate;
     }
     .ui-input-group-menu {
-        margin: 0.25em;
+        margin: 0.2em;
         position: relative;
         display: table;
         border-collapse: separate;
     }
     .ui-form-control-menu {
         display: block;
-        height: 1.80em;
+        height: 1.7em;
         width: 100%;
-        padding: 0.12em 0.125em;
+        padding: 0.09em 0.125em;
         color:  #555;
         /* border-radius: 3px; */
 
@@ -3271,11 +3277,11 @@ body  {
     }
     .ui-form-control {
         display: block;
-        height: 32px;
+        height: 2em;
         width: 100%;
-        padding: 4px 6px;
+        padding: 0.25em 0.375em;
         color:  #555;
-        border-radius: 4px;
+        border-radius: 0.25em;
 
         border: 1px solid #ccc;
         transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
@@ -3289,13 +3295,13 @@ body  {
     .ui-input-group-addon {
         display: table-cell;
 
-        padding: 4px 6px;
+        padding:  0.25em 0.375em;
         font-weight: normal;
         line-height: 1;
         color: #555;
         text-align: center;
 
-        min-width: 45px;
+        min-width: 2.8125em;
         text-align: center;
         /* background-color: #F4F4F4;* /
         background-color: #F1F6F1;*/ 
@@ -3305,7 +3311,7 @@ body  {
         white-space: nowrap;
         vertical-align: middle;
         border: 1px solid #CCC;
-        border-radius: 4px;
+        border-radius: 0.25em;
 
     }
 
@@ -4700,7 +4706,7 @@ body  {
         display: inline;
         position: relative;
         padding: 0;
-       /* margin-right: 1em; */
+        /* margin-right: 1em; */
         text-decoration: none !important;
         cursor: pointer;
         text-align: center;
@@ -6136,6 +6142,8 @@ body  {
         float: left;    
         width: 50%; 
         background: #000;
+        height: 2.0625em  ; /*33px */
+        white-space: nowrap ; 
     }
     .menuWrapper_2 {
         float: left;    
@@ -6162,38 +6170,35 @@ body  {
     .col-introPanel {
         width: 50%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-joinEditor   {
         width: 50%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-userPanel {
         width: 25%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-advPanel {
         width: 25%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
 
     .col-editorPanel {
         width: 50%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
     .col-joinEditorFull   {
         width: 100%;
         float: left;
-        padding:  10px 10px 0px 10px;
     }
-
+    .col-startPage {
+        width: 75%;
+        float: left; 
+    }
 
     .column.menu-1   {
         width: 8%;
@@ -6204,10 +6209,16 @@ body  {
     .column.menu-3   {
         width: 20%;
     }
-
+    .panel-pad   {
+        padding:  0.625em 0.625em 0px 0.625em;
+    }
+    .container.pad {
+        padding:0.25em 0.5em; 
+        /* background-color: #F9FCF9; */
+    }
     .headerInlineblock {
         display: inline-block;
-        width: 16em;
+        width: 24em;
     }
 
     .ui-menuBusy {
@@ -6261,13 +6272,13 @@ body  {
     }
 
     .ui-form-group {
-        padding: 10px 15px;
+        padding: 0.625em 0.9375em;
         width: 100%;
         /* background-color: #F7FBF7; 
         background-color: #F9FCF9; */
     }
     .ui-input-group {
-        margin: 10px 0px;
+        margin: 0.625em 0px;
 
         position: relative;
         display: table;
@@ -6292,11 +6303,11 @@ body  {
     }
     .ui-form-control {
         display: block;
-        height: 32px;
+        height: 2em;
         width: 100%;
-        padding: 4px 6px;
+        padding: 0.25em 0.375em;
         color:  #555;
-        border-radius: 4px;
+        border-radius: 0.25em;
 
         border: 1px solid #ccc;
         transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
@@ -6310,13 +6321,13 @@ body  {
     .ui-input-group-addon {
         display: table-cell;
 
-        padding: 4px 6px;
+        padding: 0.25em 0.375em;
         font-weight: normal;
         line-height: 1;
         color: #555;
         text-align: center;
 
-        min-width: 45px;
+        min-width: 2.8125em;
         text-align: center;
         /* background-color: #F4F4F4;* /
         background-color: #F1F6F1;*/ 
@@ -6326,7 +6337,7 @@ body  {
         white-space: nowrap;
         vertical-align: middle;
         border: 1px solid #CCC;
-        border-radius: 4px;
+        border-radius: 0.25em;
 
     }
 
@@ -6336,7 +6347,7 @@ body  {
         border-left: 0px none;
     }
 
-
+    /
 
 
     /* Layout helpers
@@ -8085,6 +8096,8 @@ body  {
     }
 
 
+  
+
 
     /*
      * jQuery UI Tabs @VERSION
@@ -8095,48 +8108,68 @@ body  {
      *
      * http://docs.jquery.com/UI/Tabs#theming
     */
-    .ui-tabs
+    .ui-tabs 
     {
         position: relative;
-        padding: .2em;
+        /* padding: .2em; */
+        padding: 0em;
+        margin: 1.5625em 0 0;
         zoom: 1;
     }
     /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
     .ui-tabs .ui-tabs-nav
     {
-        margin: 0;
-        padding: .2em .2em 0;
+        margin: -3px 0px 0px;
+        padding: 0px;
+         background-color: transparent;
+         /* border: 1px #A8A8A8 solid !important; */
     }
     .ui-tabs .ui-tabs-nav li
-    {
+    { 
         list-style: none;
         float: left;
         position: relative;
         top: 1px;
-        margin: 0 .2em 1px 0;
-        border: 1px solid #a8a8a8;
-        border-bottom: 0 !important;
+        margin: -1.6875em 0.0em 0.0625em -0.0625em;
+        
+        /* border-bottom: 0 !important;*/
         padding: 0;
         white-space: nowrap;
+        border-bottom:   1px #A8A8A8 none !important;
     }
     .ui-tabs .ui-tabs-nav li a 
-    {
+    { 
+        color: #333;
+
         float: left;
-        padding: .5em 1em;
+        padding: 0.2em 0.6em;
         text-decoration: none;
+        
     }
-    .ui-tabs .ui-tabs-nav li.ui-tabs-selected
-    {
+
+
+
+    .ui-tabs .ui-tabs-nav li.ui-tabs-active /*'.ui-tabs-selected' in jQuery befoer 1.9 */
+    {   
         margin-bottom: 0;
-        padding-bottom: 1px;
-        border: 1px solid #a8a8a8;
-        border-bottom: 0 !important;
+        /* padding-bottom: 1px;
+          border: 1px solid #a8a8a8; */
+
+        background: #a1d99b ;
+ 
+
     }
-    .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a
+    .ui-tabs .ui-tabs-nav li.ui-tabs-active a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a
     {
-        cursor: text;
+        cursor: text; 
+        border-top: 3px solid #F99804 !important;
+        /*border-bottom: 5px solid #a1d99b !important;*/
+        padding-top: 0px;
+        border-bottom:   1px transparent solid !important;
+       /* border-bottom: 3px solid #F99804 !important;*/
+       padding-bottom: 3px;
     }
-    .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a
+    .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a
     {
         cursor: pointer;
     }
@@ -8144,973 +8177,975 @@ body  {
     .ui-tabs .ui-tabs-panel
     {
         display: block;
-        border-width: 0;
+        border-width: 0.0625em;
         padding: 1em 1.4em;
-        background: none;
+        background: #F7FCF5;
+        border-width: 2px;
+        border-color: #a1d99b;
     }
     .ui-tabs .ui-tabs-hide
     {
         display: none !important;
     }
-
-    .ui-tabs
-    {
-        padding: 0;
-    }
-
-    .ui-tabs .ui-tabs-nav
-    {
-        background: #A8A8A8;
-        background: #A8A8A8 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
-        background: #A8A8A8 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
-        background: #A8A8A8 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0)); /*    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF);     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF)"; */
-        -moz-border-radius: 0;
-        -webkit-border-radius: 0;
-        border-radius: 0;
-    }
-
-
-    .ui-tabs .ui-tabs-nav .ui-tabs-selected
-    {
-        background: #fff;
-        border-bottom: none;
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
-
-
-
     /*
-     * jQuery UI Datepicker @VERSION
-     *
-     * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
-     * Dual licensed under the MIT or GPL Version 2 licenses.
-     * http://jquery.org/license
-     *
-     * http://docs.jquery.com/UI/Datepicker#theming
-    */
-    .ui-datepicker
-    {
-        width: 17em;
-        padding: .2em .2em 0;
-    }
-    .ui-datepicker .ui-datepicker-header
-    {
-        position: relative;
-        padding: .2em 0;
-    }
-    .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next
-    {
-        position: absolute;
-        top: 2px;
-        width: 1.8em;
-        height: 1.8em;
-        cursor: pointer;
-    }
-    .ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover
-    {
-        top: 1px;
-    }
-    .ui-datepicker .ui-datepicker-prev
-    {
-        left: 2px;
-    }
-    .ui-datepicker .ui-datepicker-next
-    {
-        right: 2px;
-    }
-    .ui-datepicker .ui-datepicker-prev-hover
-    {
-        left: 1px;
-    }
-    .ui-datepicker .ui-datepicker-next-hover
-    {
-        right: 1px;
-    }
-    .ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span
-    {
-        display: block;
-        position: absolute;
-        left: 50%;
-        margin-left: -8px;
-        top: 50%;
-        margin-top: -8px;
-    }
-    .ui-datepicker .ui-datepicker-title
-    {
-        margin: 0 2.3em;
-        line-height: 1.8em;
-        text-align: center;
-    }
-    .ui-datepicker .ui-datepicker-title select
-    {
-        font-size: 1em;
-        margin: 1px 0;
-    }
-    .ui-datepicker select.ui-datepicker-month-year
-    {
-        width: 100%;
-    }
-    .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year
-    {
-        width: 49%;
-    }
-    .ui-datepicker table
-    {
-        width: 100%;
-        font-size: .9em;
-        border-collapse: collapse;
-        margin: 0 0 .4em;
-    }
-    .ui-datepicker th
-    {
-        padding: .7em .3em;
-        text-align: center;
-        font-weight: bold;
-        border: 0;
-    }
-    .ui-datepicker td
-    {
-        border: 0;
-        padding: 1px;
-    }
-    .ui-datepicker td span, .ui-datepicker td a
-    {
-        display: block;
-        padding: 2px 3px 3px;
-        text-align: right;
-        text-decoration: none;
-    }
-    .ui-datepicker .ui-datepicker-buttonpane
-    {
-        background-image: none;
-        margin: .7em 0 0 0;
-        padding: 0 .2em;
-        border-left: 0;
-        border-right: 0;
-        border-bottom: 0;
-    }
-    .ui-datepicker .ui-datepicker-buttonpane button
-    {
-        float: right;
-        margin: .5em .2em .4em;
-        cursor: pointer;
-        padding: .2em .6em .3em .6em;
-        width: auto;
-        overflow: visible;
-    }
-    .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current
-    {
-        float: left;
-    }
-
-
-    .ui-datepicker table
-    {
-        table-layout: fixed;
-    }
-    .ui-datepicker td
-    {
-        padding: 0;
-    }
-    .ui-datepicker table
-    {
-        margin: -19px 0 0;
-        position: relative;
-        z-index: 99;
-    }
-
-    .wijmo-wijcalendar-preview-wrapper div.wijmo-wijcalendar .ui-datepicker-header
-    {
-        width: 84.5%;
-    }
-
-    .wijmo-wijcalendar-preview-wrapper .wijmo-wijcalendar table.ui-datepicker-calendar
-    {
-        width: 85.8%;   
-    }
-
-    .wijmo-wijcalendar .wijmo-wijcalendar-nextpreview-button 
-    {
-
-    }
-    .wijmo-wijcalendar .wijmo-wijcalendar-prevpreview-button, .wijmo-wijcalendar .wijmo-wijcalendar-nextpreview-button
-    {
-        margin-top: 18%;
-    }
-
-    .wijmo-wijcalendar .wijmo-wijcalendar-table .wijmo-wijcalendar-monthselector .ui-icon
-    {
-        height: 12px;
-        margin-top: -8px;
-        position: relative;
-        top: 2px;
-        width: 12px;
-    }
-
-
-    .ui-datepicker table tbody
-    {
-        border-left: solid 1px #A8A8A8;
-    }
-    .ui-datepicker table thead
-    {
-        border-left: solid 1px #A8A8A8;
-        border-right: solid 1px #A8A8A8;
-    }
-
-
-    .ui-datepicker-calendar thead
-    {
-        background: #c0c0c0 url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/ui-bg_highlight-soft_100_c0c0c0_1x100.png) repeat-x top;
-        color: #545454;
-        /*text-shadow: 1px 1px 0 rgba(255,255,255,0.50);*/
-        border-bottom: solid 1px #aaaeb6;
-        position: relative;
-        z-index: 5;
-        font-size: 10px;
-        line-height: 4px;
-    }
-
-    .ui-datepicker .ui-datepicker-calendar .ui-state-hover
-    {
-        color: #1C4257;
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
-
-    .ui-datepicker .ui-datepicker-current-day .ui-state-highlight, .ui-datepicker .ui-datepicker-current-day .ui-state-default
-    {
-        background: #5F83B9;
-        color: #FFFFFF !important;
-        font-weight: bold;
-        /* text-shadow: 0 1px 1px #234386;*/
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
-
-    .ui-datepicker
-    {
-        padding: 0;
-    }
-
-    .ui-datepicker .ui-datepicker-header
-    {
-        border-right: none;
-        border-left: none;
-        border-top: none;
-        -moz-border-radius: 0;
-        -webkit-border-radius: 0;
-        border-radius: 0;
-    }
-
-    .ui-datepicker .ui-datepicker-next-hover, .ui-datepicker .ui-datepicker-prev-hover
-    {
-        background: none;
-        border: solid 1px transparent;
-        -moz-box-shadow: none;
-    }
-
-
-    /* with multiple calendars */
-    .ui-datepicker.ui-datepicker-multi
-    {
-        width: auto;
-    }
-    .ui-datepicker-multi .ui-datepicker-group
-    {
-        float: left;
-    }
-    .ui-datepicker-multi .ui-datepicker-group table
-    {
-        width: 95%;
-    }
-    .ui-datepicker-multi-2 .ui-datepicker-group
-    {
-        width: 50%;
-    }
-    .ui-datepicker-multi-3 .ui-datepicker-group
-    {
-        width: 33.3%;
-    }
-    .ui-datepicker-multi-4 .ui-datepicker-group
-    {
-        width: 25%;
-    }
-    .ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header
-    {
-        border-left-width: 0;
-    }
-    .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header
-    {
-        border-left-width: 0;
-    }
-    .ui-datepicker-multi .ui-datepicker-buttonpane
-    {
-        clear: left;
-    }
-    .ui-datepicker-row-break
-    {
-        clear: both;
-        width: 100%;
-    }
-
-    /* RTL support */
-    .ui-datepicker-rtl
-    {
-        direction: rtl;
-    }
-    .ui-datepicker-rtl .ui-datepicker-prev
-    {
-        right: 2px;
-        left: auto;
-    }
-    .ui-datepicker-rtl .ui-datepicker-next
-    {
-        left: 2px;
-        right: auto;
-    }
-    .ui-datepicker-rtl .ui-datepicker-prev:hover
-    {
-        right: 1px;
-        left: auto;
-    }
-    .ui-datepicker-rtl .ui-datepicker-next:hover
-    {
-        left: 1px;
-        right: auto;
-    }
-    .ui-datepicker-rtl .ui-datepicker-buttonpane
-    {
-        clear: right;
-    }
-    .ui-datepicker-rtl .ui-datepicker-buttonpane button
-    {
-        float: left;
-    }
-    .ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current
-    {
-        float: right;
-    }
-    .ui-datepicker-rtl .ui-datepicker-group
-    {
-        float: right;
-    }
-    .ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header
-    {
-        border-right-width: 0;
-        border-left-width: 1px;
-    }
-    .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header
-    {
-        border-right-width: 0;
-        border-left-width: 1px;
-    }
-
-    /* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
-    .ui-datepicker-cover
-    {
-        display: none; /*sorry for IE5*/
-        display: /**/ block; /*sorry for IE5*/
-        position: absolute; /*must have*/
-        z-index: -1; /*must have*/
-
-        top: -4px; /*must have*/
-        left: -4px; /*must have*/
-        width: 200px; /*must have*/
-        height: 200px; /*must have*/
-        /*  filter: mask(); /*must have*/
-    }
-    /*
-     * jQuery UI Progressbar @VERSION
-     *
-     * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
-     * Dual licensed under the MIT or GPL Version 2 licenses.
-     * http://jquery.org/license
-     *
-     * http://docs.jquery.com/UI/Progressbar#theming
-    */
-    .ui-progressbar
-    {
-        height: 1.1em;
-        text-align: right;
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        border-radius: 10px;
-        -moz-box-shadow: inset 0 2px 2px #8f8f8f;
-        -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
-        box-shadow: inset 0 2px 2px #8f8f8f;
-    }
-    .ui-progressbar .ui-progressbar-value
-    {
-        margin: -1px;
-        height: 100%;
-    }
-    .ui-progressbar .ui-widget-header
-    {
-        background: #83b0ca url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/ui-bg_highlight-soft_100_83b0ca_1x100.png) repeat-x top;
-        border-color: #8ab0c6;
-        /*background: #85b2cb linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
-        background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
-        background: #85b2cb -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF);
-        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF)";*/
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-    }
-    /*
-     * jQuery UI AutoComplete @VERSION
-     *
-    */
-    .ui-autocomplete
-    {
-        -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
-        -webkit-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
-        box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
-    }
-
-    /* WIJMO */
-    .wijmo-wijcalendar div.ui-datepicker-header {
-        border:solid 1px #A8A8A8;
-        padding-bottom: 12px;
-        -moz-box-shadow: inset 0 1px 0 #fff;
-        -webkit-box-shadow: inset 0 1px 0 #fff;
-        box-shadow: inset 0 1px 0 #fff;
-    }
-
-    .wijmo-wijcalendar div.ui-datepicker-header .ui-datepicker-title {
-        color:#545454;
-        font-weight:700;
-        text-shadow:1px 1px 0 rgba(255,255,255,0.75);
-    }
-
-    .wijmo-wijcalendar {
-        border:none;
-    }
-
-    .ui-datepicker .ui-datepicker-calendar .ui-state-default {
-        background:#dfdee2;
-        border:none;
-        border-bottom:solid 1px #a7aab3;
-        border-right:solid 1px #a7aab3;
-        color:#374452;
-        -moz-box-shadow:inset 0 1px #fff;
-    }
-
-    .ui-datepicker .ui-datepicker-calendar .ui-state-hover {
-        background:#5f83b9;
-        color:#fff;
-        /* text-shadow:1px 1px 1px rgba(0,0,0,0.75);*/
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-    }
-
-    .ui-datepicker .ui-datepicker-calendar .ui-state-active {
-        background:#7389a5;
-        color:#fff;
-        /* text-shadow:1px 1px 1px rgba(0,0,0,0.75);*/
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-    }
-
-    .wijmo-wijcalendar td.wijmo-wijcalendar-gap {
-        border-right:solid 1px #a7aab3;
-        border-bottom:solid 1px #a7aab3;
-    }
-
-    .wijmo-wijinput,.wijmo-wijtextbox {
-        background:#fff !important;
-        -moz-box-shadow:inset 0 2px 2px rgba(143,143,143,0.50);
-        -webkit-box-shadow:inset 0 2px 2px rgba(143,143,143,0.50);
-        box-shadow:inset 0 2px 2px rgba(143,143,143,0.50);
-    }
-
-    .wijmo-wijinput.ui-state-focus,.wijmo-wijtextbox.ui-state-focus {
-        background:#fff !important;
-        -moz-box-shadow:0 0 5px #85b2cb, inset 0 2px 2px #8f8f8f;
-        -webkit-box-shadow:0 0 5px #85b2cb, inset 0 2px 2px #8f8f8f;
-        box-shadow:0 0 5px #85b2cb, inset 0 2px 2px #8f8f8f;
-    }
-
-    .wijmo-wijmenu-ipod {
-        background:#d9dee5;
-        border:solid 1px transparent;
-    }
-
-    .wijmo-wijmenu-ipod .wijmo-wijmenu-item .wijmo-wijmenu-link.ui-state-hover {
-        border:solid 1px #3f70b9;
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-        background:transparent url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/vertical-menu-item.png) repeat-x top;
-        color:#fff;
-        /*text-shadow:1px 1px 1px #333;*/
-        -moz-borer-radius:0;
-        -webkit-border-radius:0;
-        border-radius:0;
-    }
-
-    .wijmo-wijmenu-ipod .ui-widget-header h3 {
-        text-transform:uppercase;
-        color:#627080;
-        text-shadow:1px 1px 0 rgba(255,255,255,0.95);
-        font-weight:700;
-    }
-
-    .wijmo-wijmenu-ipod .ui-widget-header {
-        background:none;
-        border:none;
-    }
-
-    *html .wijmo-wijmenu .wijmo-wijsuperpanel,*html .wijmo-wijmenu .wijmo-wijmenu-list {
-        background:none;
-    }
-
-    *html .wijmo-wijmenu-horizontal .wijmo-wijmenu-child {
-        background:#fff;
-    }
-
-    *html .wijmo-wijmenu .wijmo-wijmenu-link {
-        filter:chroma(color=#c4c4c4);
-        border-color:#c4c4c4;
-    }
-
-    .wijmo-wijtooltip {
-        background: #000;
-        background:rgba(0,0,0,0.8);
-        border:none;
-        color:#fff;
-        -moz-box-shadow:0 0 8px #85b2cb, inset 0 1px 0 #999;
-        -webkit-box-shadow:0 0 8px #85b2cb, inset 0 1px 0 #999;
-        box-shadow:0 0 8px #85b2cb, inset 0 1px 0 #999;
-    }
-
-    .wijmo-wijtooltip-arrow-lb .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-lc .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-lt .wijmo-wijtooltip-pointer-inner {
-        border-right-color:#000 !important;
-    }
-
-    .wijmo-wijtooltip-arrow-rb .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-rc .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-rt .wijmo-wijtooltip-pointer-inner {
-        border-left-color:#000 !important;
-    }
-
-    .wijmo-wijtooltip-arrow-br .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-bc .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-bl .wijmo-wijtooltip-pointer-inner {
-        border-top-color:#000 !important;
-    }
-
-    .wijmo-wijtooltip-arrow-tb .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-tc .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-tt .wijmo-wijtooltip-pointer-inner {
-        border-bottom-color:#000 !important;
-    }
-
-    .wijmo-wijtooltip .wijmo-wijtooltip-pointer {
-        opacity:0.8px;
-    }
-
-    .wijmo-dropdown-item.ui-state-hover {
-        background:#5f83b9;
-        color:#fff;
-        /*text-shadow:1px 1px 0 rgba(0,0,0,0.50);*/
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-        -moz-border-radius:0;
-        -webkit-border-radius:0;
-        border-radius:0;
-        padding-left: 14px !important;
-        margin:1px -4px !important;
-    }
-
-    .wijmo-wijlist-item.ui-state-hover,.wijmo-wijlist-item.ui-state-active {
-        /*  background:#5f83b9;
-         color:#fff;
-        text-shadow:1px 1px 0 rgba(0,0,0,0.50);*/
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-        -moz-border-radius:0;
-        -webkit-border-radius:0;
-        border-radius:0;
-        padding-left:9px !important;
-        margin:1px -4px !important;
-    }
-    /*
-    .wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-hover,.wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-active {
-       / *  background:#5f83b9;
-        color:#fff;
-        * /
-         background:#003333;
-        color:#00FFFF;
-        
-        
-       / * text-shadow:1px 1px 0 rgba(0,0,0,0.50); * /
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-        -moz-border-radius:0;
-        -webkit-border-radius:0;
-        border-radius:0;
-        border-color:#5f83b9;
-    }
+        .ui-tabs
+        {
+            padding: 0;
+        }
     
-    .wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-hover .ui-icon,.wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-active .ui-icon {
-        width:16px;
-        height:16px;
-        background-image:url(images/ui-icons_ffffff_256x240.png);
-    }
-    */
-    .wijmo-wijcombobox-input {
-        background:#fff !important;
-        -moz-box-shadow:inset 0 2px 2px #8f8f8f;
-        -webkit-box-shadow:inset 0 2px 2px #8f8f8f;
-        box-shadow:inset 0 2px 2px #8f8f8f;
-    }
+        .ui-tabs .ui-tabs-nav
+        {
+            background: #A8A8A8;
+            background: #A8A8A8 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+            background: #A8A8A8 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+            background: #A8A8A8 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0)); / *    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF);     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF)"; * /
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
 
 
-    .wijmo-wijlist-ul .wijmo-wijcombobox-selecteditem, ul.wijmo-wijlist-ul li.wijmo-wijlist-item-selected
-    {
-        background: #7389a5;
-    }
+.ui-tabs .ui-tabs-nav .ui-tabs-selected
+{
+    background: #fff;
+    border-bottom: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+*/
 
-    .wijmo-checkbox .wijmo-checkbox-box,.wijmo-wijradio-box {
-        -moz-box-shadow:0 1px 1px rgba(0,0,0,0.25);
-        -webkit-box-shadow:0 1px 1px rgba(0,0,0,0.25);
-        box-shadow:0 1px 1px rgba(0,0,0,0.25);
-    }
 
-    .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-handle {
-        background:url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/scrollbar-vertical.png) repeat-y left;
-        -moz-border-radius:12px;
-        -webkit-border-radius:12px;
-        border-radius:12px;
-        -moz-box-shadow:inset 1px 0 0 rgba(255,255,255,0.25);
-        z-index:9;
-        border-color:#a5a9ae;
-        margin:-5px 0;
-    }
+/*
+ * jQuery UI Datepicker @VERSION
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Datepicker#theming
+*/
+.ui-datepicker
+{
+    width: 17em;
+    padding: .2em .2em 0;
+}
+.ui-datepicker .ui-datepicker-header
+{
+    position: relative;
+    padding: .2em 0;
+}
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next
+{
+    position: absolute;
+    top: 2px;
+    width: 1.8em;
+    height: 1.8em;
+    cursor: pointer;
+}
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover
+{
+    top: 1px;
+}
+.ui-datepicker .ui-datepicker-prev
+{
+    left: 2px;
+}
+.ui-datepicker .ui-datepicker-next
+{
+    right: 2px;
+}
+.ui-datepicker .ui-datepicker-prev-hover
+{
+    left: 1px;
+}
+.ui-datepicker .ui-datepicker-next-hover
+{
+    right: 1px;
+}
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span
+{
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -8px;
+    top: 50%;
+    margin-top: -8px;
+}
+.ui-datepicker .ui-datepicker-title
+{
+    margin: 0 2.3em;
+    line-height: 1.8em;
+    text-align: center;
+}
+.ui-datepicker .ui-datepicker-title select
+{
+    font-size: 1em;
+    margin: 1px 0;
+}
+.ui-datepicker select.ui-datepicker-month-year
+{
+    width: 100%;
+}
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year
+{
+    width: 49%;
+}
+.ui-datepicker table
+{
+    width: 100%;
+    font-size: .9em;
+    border-collapse: collapse;
+    margin: 0 0 .4em;
+}
+.ui-datepicker th
+{
+    padding: .7em .3em;
+    text-align: center;
+    font-weight: bold;
+    border: 0;
+}
+.ui-datepicker td
+{
+    border: 0;
+    padding: 1px;
+}
+.ui-datepicker td span, .ui-datepicker td a
+{
+    display: block;
+    padding: 2px 3px 3px;
+    text-align: right;
+    text-decoration: none;
+}
+.ui-datepicker .ui-datepicker-buttonpane
+{
+    background-image: none;
+    margin: .7em 0 0 0;
+    padding: 0 .2em;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+.ui-datepicker .ui-datepicker-buttonpane button
+{
+    float: right;
+    margin: .5em .2em .4em;
+    cursor: pointer;
+    padding: .2em .6em .3em .6em;
+    width: auto;
+    overflow: visible;
+}
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current
+{
+    float: left;
+}
 
-    .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-handle {
-        background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scrollbar-horizontal.png) repeat-x top;
-        -moz-border-radius:12px;
-        -webkit-border-radius:12px;
-        border-radius:12px;
-        -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);
-        z-index:9;
-        border-color:#a5a9ae;
-        margin:0 -5px;
-    }
 
-    .wijmo-wijsuperpanel-vbarcontainer {
-        background:#f8f8f8;
-        -moz-box-shadow:inset 3px 0 10px rgba(0,0,0,0.25);
-        -webkit-box-shadow:inset 3px 0 10px rgba(0,0,0,0.25);
-        box-shadow:inset 3px 0 10px rgba(0,0,0,0.25);
-    }
+.ui-datepicker table
+{
+    table-layout: fixed;
+}
+.ui-datepicker td
+{
+    padding: 0;
+}
+.ui-datepicker table
+{
+    margin: -19px 0 0;
+    position: relative;
+    z-index: 99;
+}
 
-    .wijmo-wijsuperpanel-hbarcontainer {
-        background:#f8f8f8;
-        -moz-box-shadow:inset 0 3px 10px rgba(0,0,0,0.25);
-        -webkit-box-shadow:inset 0 3px 10px rgba(0,0,0,0.25);
-        box-shadow:inset 0 3px 10px rgba(0,0,0,0.25);
-    }
+.wijmo-wijcalendar-preview-wrapper div.wijmo-wijcalendar .ui-datepicker-header
+{
+    width: 84.5%;
+}
 
-    .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-handle .ui-icon,.wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-handle .ui-icon {
-        display:none;
-    }
+.wijmo-wijcalendar-preview-wrapper .wijmo-wijcalendar table.ui-datepicker-calendar
+{
+    width: 85.8%;   
+}
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttontop {
-        background:url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/scroller-up-arrow.png) no-repeat top;
-        border:none;
-        height:25px;
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-        width:18px;
-    }
+.wijmo-wijcalendar .wijmo-wijcalendar-nextpreview-button 
+{
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttontop.ui-state-hover {
-        background:url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/scroller-up-arrow_hover.png) no-repeat top;
-    }
+}
+.wijmo-wijcalendar .wijmo-wijcalendar-prevpreview-button, .wijmo-wijcalendar .wijmo-wijcalendar-nextpreview-button
+{
+    margin-top: 18%;
+}
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttonbottom {
-        background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-down-arrow.png) no-repeat bottom;
-        height:25px;
-        border:none;
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-        width:18px;
-    }
+.wijmo-wijcalendar .wijmo-wijcalendar-table .wijmo-wijcalendar-monthselector .ui-icon
+{
+    height: 12px;
+    margin-top: -8px;
+    position: relative;
+    top: 2px;
+    width: 12px;
+}
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttonbottom.ui-state-hover {
-        background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-down-arrow_hover.png) no-repeat top;
-    }
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonleft {
-        background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-left-arrow.png) no-repeat left;
-        width:25px;
-        border:none;
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-        height:18px;
-    }
+.ui-datepicker table tbody
+{
+    border-left: solid 1px #A8A8A8;
+}
+.ui-datepicker table thead
+{
+    border-left: solid 1px #A8A8A8;
+    border-right: solid 1px #A8A8A8;
+}
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonleft.ui-state-hover {
-        background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-left-arrow_hover.png) no-repeat top;
-    }
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonright {
-        background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-right-arrow.png) no-repeat right;
-        width:25px;
-        border:none;
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-        height:18px;
-    }
+.ui-datepicker-calendar thead
+{
+    background: #c0c0c0 url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/ui-bg_highlight-soft_100_c0c0c0_1x100.png) repeat-x top;
+    color: #545454;
+    /*text-shadow: 1px 1px 0 rgba(255,255,255,0.50);*/
+    border-bottom: solid 1px #aaaeb6;
+    position: relative;
+    z-index: 5;
+    font-size: 10px;
+    line-height: 4px;
+}
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonright.ui-state-hover {
-        background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-right-arrow_hover.png) no-repeat top;
-    }
+.ui-datepicker .ui-datepicker-calendar .ui-state-hover
+{
+    color: #1C4257;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttonbottom .ui-icon {
-        margin-top:10px;
-    }
+.ui-datepicker .ui-datepicker-current-day .ui-state-highlight, .ui-datepicker .ui-datepicker-current-day .ui-state-default
+{
+    background: #5F83B9;
+    color: #FFFFFF !important;
+    font-weight: bold;
+    /* text-shadow: 0 1px 1px #234386;*/
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
 
-    .wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonright .ui-icon {
-        margin-left:10px;
-    }
-    /* hope * /
-    .wijmo-wijmenu-horizontal .wijmo-wijmenu-link.ui-state-hover,.wijmo-wijmenu-horizontal .wijmo-wijmenu-link.ui-state-active,.wijmo-wijmenu-horizontal .wijmo-wijmenu-link.ui-state-default,.wijmo-wijmenu .wijmo-wijmenu-link.ui-state-hover,.wijmo-wijmenu .wijmo-wijmenu-link.ui-state-active,.wijmo-wijmenu .wijmo-wijmenu-link.ui-state-focus {
-        border:solid 1px #587e93;* /
-        border:solid 1px #003333; / * hope * /
-    }
-    */
+.ui-datepicker
+{
+    padding: 0;
+}
 
-    /*
-    .wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-focus 
-    {
-       / * background: #7389a5;
-       color: #fff;
-       * /
-        background: #006666; / * hope * /
-        color: red;
-       / * text-shadow: 1px 1px 1px rgba(0,0,0,0.50); * /
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        -moz-border-radius: 0;
-        border-radius: 0;
-        -webkit-border-radius: 0;
-    }
-    */
+.ui-datepicker .ui-datepicker-header
+{
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
 
-    .ui-tabs .ui-tabs-nav li.ui-state-default {
-        border:solid 1px #8b8b8b;
-    }
+.ui-datepicker .ui-datepicker-next-hover, .ui-datepicker .ui-datepicker-prev-hover
+{
+    background: none;
+    border: solid 1px transparent;
+    -moz-box-shadow: none;
+}
 
-    .ui-tabs-bottom .ui-tabs-nav li.ui-state-default {
-        border:solid 1px #8b8b8b !important;
-        margin-top: -1px;
-    }
-    div.ui-tabs-bottom .ui-tabs-nav li.ui-tabs-selected
-    {
-        padding: 0;
-    }
-    .ui-tabs-left .ui-tabs-nav li.ui-state-default {
-        border-bottom:solid 1px #8b8b8b !important;
-        margin-right: 3px;
-        border-right: none;
-    }
 
-    .ui-tabs-right .ui-tabs-nav li.ui-state-default {
-        border-bottom:solid 1px #8b8b8b !important;
-        margin-left: 0;
-        border-left: none;
-    }
-    /* to jquery.wijmo.wijmenu
-    .wijmo-wijmenu-horizontal .wijmo-wijmenu-child .wijmo-wijmenu-link {
-        margin-left:-4px;
-        padding-left:14px;
-        width:92%; 
-    }
-    */
-    .ui-datepicker-calendar td.ui-datepicker-today a.ui-state-default {
-        background:#7389a5;
-        -moz-box-shadow:inset 0 0 5px #364f72;
-        -webkit-box-shadow:inset 0 0 5px #364f72;
-        box-shadow:inset 0 0 5px #364f72;
-        color:#fff;
-    }
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi
+{
+    width: auto;
+}
+.ui-datepicker-multi .ui-datepicker-group
+{
+    float: left;
+}
+.ui-datepicker-multi .ui-datepicker-group table
+{
+    width: 95%;
+}
+.ui-datepicker-multi-2 .ui-datepicker-group
+{
+    width: 50%;
+}
+.ui-datepicker-multi-3 .ui-datepicker-group
+{
+    width: 33.3%;
+}
+.ui-datepicker-multi-4 .ui-datepicker-group
+{
+    width: 25%;
+}
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header
+{
+    border-left-width: 0;
+}
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header
+{
+    border-left-width: 0;
+}
+.ui-datepicker-multi .ui-datepicker-buttonpane
+{
+    clear: left;
+}
+.ui-datepicker-row-break
+{
+    clear: both;
+    width: 100%;
+}
 
-    .ui-datepicker-calendar td a.ui-state-hover {
-        background:#5f83b9;
-    }
+/* RTL support */
+.ui-datepicker-rtl
+{
+    direction: rtl;
+}
+.ui-datepicker-rtl .ui-datepicker-prev
+{
+    right: 2px;
+    left: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-next
+{
+    left: 2px;
+    right: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-prev:hover
+{
+    right: 1px;
+    left: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-next:hover
+{
+    left: 1px;
+    right: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-buttonpane
+{
+    clear: right;
+}
+.ui-datepicker-rtl .ui-datepicker-buttonpane button
+{
+    float: left;
+}
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current
+{
+    float: right;
+}
+.ui-datepicker-rtl .ui-datepicker-group
+{
+    float: right;
+}
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header
+{
+    border-right-width: 0;
+    border-left-width: 1px;
+}
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header
+{
+    border-right-width: 0;
+    border-left-width: 1px;
+}
 
-    .wijmo-wijgrid tr.wijmo-wijgrid-row {
-        border-color:#dfdfdf;
-    }
+/* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
+.ui-datepicker-cover
+{
+    display: none; /*sorry for IE5*/
+    display: /**/ block; /*sorry for IE5*/
+    position: absolute; /*must have*/
+    z-index: -1; /*must have*/
 
-    .wijmo-wijgrid div.wijmo-wijgrid-footer {
-        border-top:solid 1px #A8A8A8 !important;
-        border-right:none;
-    }
+    top: -4px; /*must have*/
+    left: -4px; /*must have*/
+    width: 200px; /*must have*/
+    height: 200px; /*must have*/
+    /*  filter: mask(); /*must have*/
+}
+/*
+ * jQuery UI Progressbar @VERSION
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Progressbar#theming
+*/
+.ui-progressbar
+{
+    height: 1.1em;
+    text-align: right;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: inset 0 2px 2px #8f8f8f;
+    -webkit-box-shadow: inset 0 2px 2px #8f8f8f;
+    box-shadow: inset 0 2px 2px #8f8f8f;
+}
+.ui-progressbar .ui-progressbar-value
+{
+    margin: -1px;
+    height: 100%;
+}
+.ui-progressbar .ui-widget-header
+{
+    background: #83b0ca url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/ui-bg_highlight-soft_100_83b0ca_1x100.png) repeat-x top;
+    border-color: #8ab0c6;
+    /*background: #85b2cb linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+    background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+    background: #85b2cb -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF)";*/
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+/*
+ * jQuery UI AutoComplete @VERSION
+ *
+*/
+.ui-autocomplete
+{
+    -moz-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+}
 
-    .wijmo-wijgrid tr.wijmo-wijgrid-row:first {
-        border-top:none;
-    }
+/* WIJMO */
+.wijmo-wijcalendar div.ui-datepicker-header {
+    border:solid 1px #A8A8A8;
+    padding-bottom: 12px;
+    -moz-box-shadow: inset 0 1px 0 #fff;
+    -webkit-box-shadow: inset 0 1px 0 #fff;
+    box-shadow: inset 0 1px 0 #fff;
+}
 
-    .wijmo-wijgrid tr.wijmo-wijgrid-row.ui-state-hover,.wijmo-wijgrid .wijmo-wijgrid-current-cell,.wijmo-wijgrid td.wijmo-wijgrid-rowheader.ui-state-active {
-        background:#5f83b9;
-        color:#fff;
-        /* text-shadow:1px 1px 1px #333;*/
-        border-color:transparent;
-    }
+.wijmo-wijcalendar div.ui-datepicker-header .ui-datepicker-title {
+    color:#545454;
+    font-weight:700;
+    text-shadow:1px 1px 0 rgba(255,255,255,0.75);
+}
 
-    .wijmo-wijgrid tr.wijmo-wijgrid-row td.ui-state-highlight {
-        background:#7389a5;
-        border-color:transparent;
-    }
-    .wijmo-wijgrid tr.wijmo-wijgrid-row td.wijmo-wijgrid-current-cell {
-        background: #5d7798;
-        color: #FFFFFF !important;
-        /*text-shadow: 0 1px 1px #234386;*/
-        -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.50);
-        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.50);
-        box-shadow: inset 0 0 5px rgba(0,0,0,0.50);
-    }
-    .wijmo-wijgrid-alternatingrow {
-        background:#f2f5f9;
-    }
+.wijmo-wijcalendar {
+    border:none;
+}
 
-    .wijmo-wijgrid th.wijmo-wijgrid-rowheader {
-        border-left:none;
-        border-top:none;
-    }
+.ui-datepicker .ui-datepicker-calendar .ui-state-default {
+    background:#dfdee2;
+    border:none;
+    border-bottom:solid 1px #a7aab3;
+    border-right:solid 1px #a7aab3;
+    color:#374452;
+    -moz-box-shadow:inset 0 1px #fff;
+}
 
-    .wijmo-wijmenu-footer {
-        height:23px;
-        line-height:22px;
-        margin-top:3px;
-    }
+.ui-datepicker .ui-datepicker-calendar .ui-state-hover {
+    background:#5f83b9;
+    color:#fff;
+    /* text-shadow:1px 1px 1px rgba(0,0,0,0.75);*/
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
 
-    .wijmo-wijtooltip-pointer {
-        border-color:transparent;
-    }
+.ui-datepicker .ui-datepicker-calendar .ui-state-active {
+    background:#7389a5;
+    color:#fff;
+    /* text-shadow:1px 1px 1px rgba(0,0,0,0.75);*/
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
 
-    .ui-datepicker-multi .ui-datepicker-group table {
-        width:100%;
-    }
+.wijmo-wijcalendar td.wijmo-wijcalendar-gap {
+    border-right:solid 1px #a7aab3;
+    border-bottom:solid 1px #a7aab3;
+}
 
-    .ui-datepicker-multi .ui-datepicker-group table thead {
-        border-left:none;
-        border-right:solid 1px #A8A8A8;
-    }
+.wijmo-wijinput,.wijmo-wijtextbox {
+    background:#fff !important;
+    -moz-box-shadow:inset 0 2px 2px rgba(143,143,143,0.50);
+    -webkit-box-shadow:inset 0 2px 2px rgba(143,143,143,0.50);
+    box-shadow:inset 0 2px 2px rgba(143,143,143,0.50);
+}
 
-    .ui-datepicker-group-first {
-        border-left:solid 1px #A8A8A8;
-        margin-left:-1px;
-    }
+.wijmo-wijinput.ui-state-focus,.wijmo-wijtextbox.ui-state-focus {
+    background:#fff !important;
+    -moz-box-shadow:0 0 5px #85b2cb, inset 0 2px 2px #8f8f8f;
+    -webkit-box-shadow:0 0 5px #85b2cb, inset 0 2px 2px #8f8f8f;
+    box-shadow:0 0 5px #85b2cb, inset 0 2px 2px #8f8f8f;
+}
 
-    .ui-datepicker-multi .ui-datepicker-group-last table thead {
-        border-right:none;
-    }
+.wijmo-wijmenu-ipod {
+    background:#d9dee5;
+    border:solid 1px transparent;
+}
 
-    .ui-datepicker-group-last {
-        border-right:solid 1px #A8A8A8;
-        margin-right:-1px;
-    }
+.wijmo-wijmenu-ipod .wijmo-wijmenu-item .wijmo-wijmenu-link.ui-state-hover {
+    border:solid 1px #3f70b9;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    background:transparent url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/vertical-menu-item.png) repeat-x top;
+    color:#fff;
+    /*text-shadow:1px 1px 1px #333;*/
+    -moz-borer-radius:0;
+    -webkit-border-radius:0;
+    border-radius:0;
+}
 
-    .ui-datepicker .wijmo-wijcalendar-header {
-        -moz-border-radius:0;
-    }
+.wijmo-wijmenu-ipod .ui-widget-header h3 {
+    text-transform:uppercase;
+    color:#627080;
+    text-shadow:1px 1px 0 rgba(255,255,255,0.95);
+    font-weight:700;
+}
 
-    .ui-datepicker div.wijmo-wijcalendar-header-inner {
-        border:none;
-        background:none;
-    }
+.wijmo-wijmenu-ipod .ui-widget-header {
+    background:none;
+    border:none;
+}
 
-    .wijmo-wijaccordion .ui-accordion-content-active {
-        margin-bottom:2px;
-    }
+*html .wijmo-wijmenu .wijmo-wijsuperpanel,*html .wijmo-wijmenu .wijmo-wijmenu-list {
+    background:none;
+}
 
-    .wijmo-wijcalendar-preview-wrapper .wijmo-wijcalendar .ui-datepicker-header {
-        width:78.5%;
-        margin-left:16px;
-    }
+*html .wijmo-wijmenu-horizontal .wijmo-wijmenu-child {
+    background:#fff;
+}
 
-    .wijmo-wijcalendar .ui-datepicker-header .ui-state-default,.wijmo-wijmenu .ui-state-default,.wij-menu-ipod .wijmo-wijmenu-list,.wijmo-wijtooltip-close {
-        -moz-box-shadow:none;
-        -webkit-box-shadow:none;
-        box-shadow:none;
-    }
+*html .wijmo-wijmenu .wijmo-wijmenu-link {
+    filter:chroma(color=#c4c4c4);
+    border-color:#c4c4c4;
+}
 
-    .wijmo-wijmenu-ipod .wijmo-wijmenu-item .wijmo-wijmenu-link.ui-state-hover .ui-icon,.wijmo-wijtooltip-close .ui-icon {
-        background-image:url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/ui-icons_ffffff_256x240.png);
-    }
+.wijmo-wijtooltip {
+    background: #000;
+    background:rgba(0,0,0,0.8);
+    border:none;
+    color:#fff;
+    -moz-box-shadow:0 0 8px #85b2cb, inset 0 1px 0 #999;
+    -webkit-box-shadow:0 0 8px #85b2cb, inset 0 1px 0 #999;
+    box-shadow:0 0 8px #85b2cb, inset 0 1px 0 #999;
+}
 
-    .wijmo-wijmenu .wijmo-wijmenu-child,.wijmo-dropdown,.wijmo-wijgrid-filterlist {
-        -moz-box-shadow:0 5px 20px rgba(0,0,0,0.50);
-        -webkit-box-shadow:0 5px 20px rgba(0,0,0,0.50);
-        box-shadow:0 5px 20px rgba(0,0,0,0.50);
-    }
+.wijmo-wijtooltip-arrow-lb .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-lc .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-lt .wijmo-wijtooltip-pointer-inner {
+    border-right-color:#000 !important;
+}
 
-    .ui-datepicker,.ui-accordion-content {
-        -moz-border-radius:0;
-        -webkit-border-radius:0;
-        border-radius:0;
-    }
+.wijmo-wijtooltip-arrow-rb .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-rc .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-rt .wijmo-wijtooltip-pointer-inner {
+    border-left-color:#000 !important;
+}
 
-    .wijmo-wijcalendar .ui-datepicker-group .ui-datepicker-header,.ui-datepicker-multi .ui-datepicker-group table tbody {
-        border-right:none;
-        border-left:none;
-    }
+.wijmo-wijtooltip-arrow-br .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-bc .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-bl .wijmo-wijtooltip-pointer-inner {
+    border-top-color:#000 !important;
+}
 
-    .ui-datepicker tbody .ui-datepicker-week-col,td.wijmo-wijcalendar-outofrangeday {
-        border:solid 1px #a8a8a8;
-    }
+.wijmo-wijtooltip-arrow-tb .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-tc .wijmo-wijtooltip-pointer-inner,.wijmo-wijtooltip-arrow-tt .wijmo-wijtooltip-pointer-inner {
+    border-bottom-color:#000 !important;
+}
 
-    .ui-expander-top .ui-expander-content,.ui-accordion-top .ui-accordion-content {
-        border-top:solid 1px #A8A8A8 !important;
-        margin-bottom:-1px !important;
-    }
+.wijmo-wijtooltip .wijmo-wijtooltip-pointer {
+    opacity:0.8px;
+}
 
-    .ui-expander-right .ui-expander-content,.ui-accordion-right .ui-accordion-content {
-        border-top:solid 1px #A8A8A8 !important;
-        border-right:solid 1px #A8A8A8 !important;
-        border-bottom:solid 1px #A8A8A8 !important;
-        padding:0 1em !important;
-    }
+.wijmo-dropdown-item.ui-state-hover {
+    background:#5f83b9;
+    color:#fff;
+    /*text-shadow:1px 1px 0 rgba(0,0,0,0.50);*/
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    -moz-border-radius:0;
+    -webkit-border-radius:0;
+    border-radius:0;
+    padding-left: 14px !important;
+    margin:1px -4px !important;
+}
 
-    .ui-expander-left .ui-expander-content,.ui-accordion-left .ui-accordion-content {
-        border-top:solid 1px #A8A8A8 !important;
-        border-left:solid 1px #A8A8A8 !important;
-        border-bottom:solid 1px #A8A8A8 !important;
-        padding:0 1em !important;
-    }
-    div.wijmo-wijcalendar table.wijmo-wijcalendar-mygrid
-    {
-        margin: 0;
-        border-left: solid 1px #a8a8a8;
-    }
-    .wijmo-wijcalendar .ui-datepicker-group .ui-datepicker-header
-    {
-        border-right: solid 1px #a8a8a8;
-    }
-    div.wijmo-wijribbon .ui-icon, .wijmo-wijribbon-abbrevicon, div.wijmo-wijribbon-simple span.ui-icon, .wijmo-wijribbon .wijmo-wijribbon-group .ui-button:hover .ui-icon, div.wijmo-wijribbon-modes span.ui-icon, .wijmo-wijribbon-group .wijmo-wijribbon-abbrevgroup:hover .ui-icon, .wijmo-wijribbon-group .wijmo-wijribbon-abbrevgroup:hover .wijmo-wijribbon-abbrevicon
-    {
-        background-image: url("/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/wijmo-ui-icons_000000_240x112.png");
-    }
+.wijmo-wijlist-item.ui-state-hover,.wijmo-wijlist-item.ui-state-active {
+    /*  background:#5f83b9;
+     color:#fff;
+    text-shadow:1px 1px 0 rgba(0,0,0,0.50);*/
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    -moz-border-radius:0;
+    -webkit-border-radius:0;
+    border-radius:0;
+    padding-left:9px !important;
+    margin:1px -4px !important;
+}
+/*
+.wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-hover,.wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-active {
+   / *  background:#5f83b9;
+    color:#fff;
+    * /
+     background:#003333;
+    color:#00FFFF;
+    
+    
+   / * text-shadow:1px 1px 0 rgba(0,0,0,0.50); * /
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    -moz-border-radius:0;
+    -webkit-border-radius:0;
+    border-radius:0;
+    border-color:#5f83b9;
+}
 
-    .wijmo-wijinput .wijmo-wijinput-input 
-    {
-        color: #313131;
-    }
+.wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-hover .ui-icon,.wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-active .ui-icon {
+    width:16px;
+    height:16px;
+    background-image:url(images/ui-icons_ffffff_256x240.png);
+}
+*/
+.wijmo-wijcombobox-input {
+    background:#fff !important;
+    -moz-box-shadow:inset 0 2px 2px #8f8f8f;
+    -webkit-box-shadow:inset 0 2px 2px #8f8f8f;
+    box-shadow:inset 0 2px 2px #8f8f8f;
+}
+
+
+.wijmo-wijlist-ul .wijmo-wijcombobox-selecteditem, ul.wijmo-wijlist-ul li.wijmo-wijlist-item-selected
+{
+    background: #7389a5;
+}
+
+.wijmo-checkbox .wijmo-checkbox-box,.wijmo-wijradio-box {
+    -moz-box-shadow:0 1px 1px rgba(0,0,0,0.25);
+    -webkit-box-shadow:0 1px 1px rgba(0,0,0,0.25);
+    box-shadow:0 1px 1px rgba(0,0,0,0.25);
+}
+
+.wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-handle {
+    background:url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/scrollbar-vertical.png) repeat-y left;
+    -moz-border-radius:12px;
+    -webkit-border-radius:12px;
+    border-radius:12px;
+    -moz-box-shadow:inset 1px 0 0 rgba(255,255,255,0.25);
+    z-index:9;
+    border-color:#a5a9ae;
+    margin:-5px 0;
+}
+
+.wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-handle {
+    background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scrollbar-horizontal.png) repeat-x top;
+    -moz-border-radius:12px;
+    -webkit-border-radius:12px;
+    border-radius:12px;
+    -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);
+    z-index:9;
+    border-color:#a5a9ae;
+    margin:0 -5px;
+}
+
+.wijmo-wijsuperpanel-vbarcontainer {
+    background:#f8f8f8;
+    -moz-box-shadow:inset 3px 0 10px rgba(0,0,0,0.25);
+    -webkit-box-shadow:inset 3px 0 10px rgba(0,0,0,0.25);
+    box-shadow:inset 3px 0 10px rgba(0,0,0,0.25);
+}
+
+.wijmo-wijsuperpanel-hbarcontainer {
+    background:#f8f8f8;
+    -moz-box-shadow:inset 0 3px 10px rgba(0,0,0,0.25);
+    -webkit-box-shadow:inset 0 3px 10px rgba(0,0,0,0.25);
+    box-shadow:inset 0 3px 10px rgba(0,0,0,0.25);
+}
+
+.wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-handle .ui-icon,.wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-handle .ui-icon {
+    display:none;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttontop {
+    background:url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/scroller-up-arrow.png) no-repeat top;
+    border:none;
+    height:25px;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    width:18px;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttontop.ui-state-hover {
+    background:url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/scroller-up-arrow_hover.png) no-repeat top;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttonbottom {
+    background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-down-arrow.png) no-repeat bottom;
+    height:25px;
+    border:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    width:18px;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttonbottom.ui-state-hover {
+    background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-down-arrow_hover.png) no-repeat top;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonleft {
+    background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-left-arrow.png) no-repeat left;
+    width:25px;
+    border:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    height:18px;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonleft.ui-state-hover {
+    background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-left-arrow_hover.png) no-repeat top;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonright {
+    background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-right-arrow.png) no-repeat right;
+    width:25px;
+    border:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    height:18px;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonright.ui-state-hover {
+    background:url(/faces/javax.faces.resource/open/development-bundle/themes/proshop/images/scroller-right-arrow_hover.png) no-repeat top;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-vbarcontainer .wijmo-wijsuperpanel-vbar-buttonbottom .ui-icon {
+    margin-top:10px;
+}
+
+.wijmo-wijsuperpanel .wijmo-wijsuperpanel-hbarcontainer .wijmo-wijsuperpanel-hbar-buttonright .ui-icon {
+    margin-left:10px;
+}
+/* hope * /
+.wijmo-wijmenu-horizontal .wijmo-wijmenu-link.ui-state-hover,.wijmo-wijmenu-horizontal .wijmo-wijmenu-link.ui-state-active,.wijmo-wijmenu-horizontal .wijmo-wijmenu-link.ui-state-default,.wijmo-wijmenu .wijmo-wijmenu-link.ui-state-hover,.wijmo-wijmenu .wijmo-wijmenu-link.ui-state-active,.wijmo-wijmenu .wijmo-wijmenu-link.ui-state-focus {
+    border:solid 1px #587e93;* /
+    border:solid 1px #003333; / * hope * /
+}
+*/
+
+/*
+.wijmo-wijmenu-child .wijmo-wijmenu-link.ui-state-focus 
+{
+   / * background: #7389a5;
+   color: #fff;
+   * /
+    background: #006666; / * hope * /
+    color: red;
+   / * text-shadow: 1px 1px 1px rgba(0,0,0,0.50); * /
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+}
+*/
+
+.ui-tabs .ui-tabs-nav li.ui-state-default {
+    border:solid 1px #8b8b8b;
+}
+
+.ui-tabs-bottom .ui-tabs-nav li.ui-state-default {
+    border:solid 1px #8b8b8b !important;
+    margin-top: -1px;
+}
+div.ui-tabs-bottom .ui-tabs-nav li.ui-tabs-selected
+{
+    padding: 0;
+}
+.ui-tabs-left .ui-tabs-nav li.ui-state-default {
+    border-bottom:solid 1px #8b8b8b !important;
+    margin-right: 3px;
+    border-right: none;
+}
+
+.ui-tabs-right .ui-tabs-nav li.ui-state-default {
+    border-bottom:solid 1px #8b8b8b !important;
+    margin-left: 0;
+    border-left: none;
+}
+/* to jquery.wijmo.wijmenu
+.wijmo-wijmenu-horizontal .wijmo-wijmenu-child .wijmo-wijmenu-link {
+    margin-left:-4px;
+    padding-left:14px;
+    width:92%; 
+}
+*/
+.ui-datepicker-calendar td.ui-datepicker-today a.ui-state-default {
+    background:#7389a5;
+    -moz-box-shadow:inset 0 0 5px #364f72;
+    -webkit-box-shadow:inset 0 0 5px #364f72;
+    box-shadow:inset 0 0 5px #364f72;
+    color:#fff;
+}
+
+.ui-datepicker-calendar td a.ui-state-hover {
+    background:#5f83b9;
+}
+
+.wijmo-wijgrid tr.wijmo-wijgrid-row {
+    border-color:#dfdfdf;
+}
+
+.wijmo-wijgrid div.wijmo-wijgrid-footer {
+    border-top:solid 1px #A8A8A8 !important;
+    border-right:none;
+}
+
+.wijmo-wijgrid tr.wijmo-wijgrid-row:first {
+    border-top:none;
+}
+
+.wijmo-wijgrid tr.wijmo-wijgrid-row.ui-state-hover,.wijmo-wijgrid .wijmo-wijgrid-current-cell,.wijmo-wijgrid td.wijmo-wijgrid-rowheader.ui-state-active {
+    background:#5f83b9;
+    color:#fff;
+    /* text-shadow:1px 1px 1px #333;*/
+    border-color:transparent;
+}
+
+.wijmo-wijgrid tr.wijmo-wijgrid-row td.ui-state-highlight {
+    background:#7389a5;
+    border-color:transparent;
+}
+.wijmo-wijgrid tr.wijmo-wijgrid-row td.wijmo-wijgrid-current-cell {
+    background: #5d7798;
+    color: #FFFFFF !important;
+    /*text-shadow: 0 1px 1px #234386;*/
+    -moz-box-shadow: inset 0 0 5px rgba(0,0,0,0.50);
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.50);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.50);
+}
+.wijmo-wijgrid-alternatingrow {
+    background:#f2f5f9;
+}
+
+.wijmo-wijgrid th.wijmo-wijgrid-rowheader {
+    border-left:none;
+    border-top:none;
+}
+
+.wijmo-wijmenu-footer {
+    height:23px;
+    line-height:22px;
+    margin-top:3px;
+}
+
+.wijmo-wijtooltip-pointer {
+    border-color:transparent;
+}
+
+.ui-datepicker-multi .ui-datepicker-group table {
+    width:100%;
+}
+
+.ui-datepicker-multi .ui-datepicker-group table thead {
+    border-left:none;
+    border-right:solid 1px #A8A8A8;
+}
+
+.ui-datepicker-group-first {
+    border-left:solid 1px #A8A8A8;
+    margin-left:-1px;
+}
+
+.ui-datepicker-multi .ui-datepicker-group-last table thead {
+    border-right:none;
+}
+
+.ui-datepicker-group-last {
+    border-right:solid 1px #A8A8A8;
+    margin-right:-1px;
+}
+
+.ui-datepicker .wijmo-wijcalendar-header {
+    -moz-border-radius:0;
+}
+
+.ui-datepicker div.wijmo-wijcalendar-header-inner {
+    border:none;
+    background:none;
+}
+
+.wijmo-wijaccordion .ui-accordion-content-active {
+    margin-bottom:2px;
+}
+
+.wijmo-wijcalendar-preview-wrapper .wijmo-wijcalendar .ui-datepicker-header {
+    width:78.5%;
+    margin-left:16px;
+}
+
+.wijmo-wijcalendar .ui-datepicker-header .ui-state-default,.wijmo-wijmenu .ui-state-default,.wij-menu-ipod .wijmo-wijmenu-list,.wijmo-wijtooltip-close {
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+
+.wijmo-wijmenu-ipod .wijmo-wijmenu-item .wijmo-wijmenu-link.ui-state-hover .ui-icon,.wijmo-wijtooltip-close .ui-icon {
+    background-image:url(/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/ui-icons_ffffff_256x240.png);
+}
+
+.wijmo-wijmenu .wijmo-wijmenu-child,.wijmo-dropdown,.wijmo-wijgrid-filterlist {
+    -moz-box-shadow:0 5px 20px rgba(0,0,0,0.50);
+    -webkit-box-shadow:0 5px 20px rgba(0,0,0,0.50);
+    box-shadow:0 5px 20px rgba(0,0,0,0.50);
+}
+
+.ui-datepicker,.ui-accordion-content {
+    -moz-border-radius:0;
+    -webkit-border-radius:0;
+    border-radius:0;
+}
+
+.wijmo-wijcalendar .ui-datepicker-group .ui-datepicker-header,.ui-datepicker-multi .ui-datepicker-group table tbody {
+    border-right:none;
+    border-left:none;
+}
+
+.ui-datepicker tbody .ui-datepicker-week-col,td.wijmo-wijcalendar-outofrangeday {
+    border:solid 1px #a8a8a8;
+}
+
+.ui-expander-top .ui-expander-content,.ui-accordion-top .ui-accordion-content {
+    border-top:solid 1px #A8A8A8 !important;
+    margin-bottom:-1px !important;
+}
+
+.ui-expander-right .ui-expander-content,.ui-accordion-right .ui-accordion-content {
+    border-top:solid 1px #A8A8A8 !important;
+    border-right:solid 1px #A8A8A8 !important;
+    border-bottom:solid 1px #A8A8A8 !important;
+    padding:0 1em !important;
+}
+
+.ui-expander-left .ui-expander-content,.ui-accordion-left .ui-accordion-content {
+    border-top:solid 1px #A8A8A8 !important;
+    border-left:solid 1px #A8A8A8 !important;
+    border-bottom:solid 1px #A8A8A8 !important;
+    padding:0 1em !important;
+}
+div.wijmo-wijcalendar table.wijmo-wijcalendar-mygrid
+{
+    margin: 0;
+    border-left: solid 1px #a8a8a8;
+}
+.wijmo-wijcalendar .ui-datepicker-group .ui-datepicker-header
+{
+    border-right: solid 1px #a8a8a8;
+}
+div.wijmo-wijribbon .ui-icon, .wijmo-wijribbon-abbrevicon, div.wijmo-wijribbon-simple span.ui-icon, .wijmo-wijribbon .wijmo-wijribbon-group .ui-button:hover .ui-icon, div.wijmo-wijribbon-modes span.ui-icon, .wijmo-wijribbon-group .wijmo-wijribbon-abbrevgroup:hover .ui-icon, .wijmo-wijribbon-group .wijmo-wijribbon-abbrevgroup:hover .wijmo-wijribbon-abbrevicon
+{
+    background-image: url("/faces/javax.faces.resource/app/lib/open/development-bundle/themes/proshop/images/wijmo-ui-icons_000000_240x112.png");
+}
+
+.wijmo-wijinput .wijmo-wijinput-input 
+{
+    color: #313131;
+}
 
 
 

@@ -1,5 +1,5 @@
 
-define(['durandal/app', 'global/session'], function(app, session) {
+define(['dojo/i18n!app/nls/constants', 'durandal/app', 'global/services/session'], function(constants, app, session) {
 
 
     //var start = function() {
@@ -101,11 +101,21 @@ define(['durandal/app', 'global/session'], function(app, session) {
     };
 
 
+    var userphotoPanelImg = function() {
+        var observable = ko.observable().subscribeTo('USER_NEO4J_ID_STR');
+        return   ko.pureComputed({
+            read: function() {
+                return  constants.userImgFolder + observable() + '/' + observable() + constants.extJPG;
+            }
+        });
+
+    };
 
     return {
         attached: attached,
-        userphotoPanelImg: ko.observable().subscribeTo('USER_IMG'),
+        userphotoPanelImg: userphotoPanelImg(),
         activeEditorLink: ko.observable().publishOn('ACTIVE_EDITOR'),
+         userImgFolder2: ko.observable('13421').publishOn('USER_NEO4J_ID_STR'),
         onMyPhoto: function() {
             this.activeEditorLink('viewmodels/user_views/editor_panel/user_photo_editor');
         },

@@ -1,6 +1,6 @@
 define(['dojo/topic', "dojo/request", 'durandal/app',
     //'plugins/router',
-    'global/services/pageRouter','global/session', 'global/services/logger'
+    'global/services/pageRouter','global/services/session', 'global/services/logger'
 ], function(topic, request, app, pageRouter, session,logger
         ) {
 
@@ -208,11 +208,12 @@ define(['dojo/topic', "dojo/request", 'durandal/app',
         //From director.js.
         Router({
             '/intro': pageR.intro(),
-            '/join_editor_2': pageR.join_editor_2(null),
+            '/join_editor_2': pageR.join_editor_2(),
             '/join_editor_3': pageR.join_editor_3(),
             '/join_editor_complete': pageR.join_editor_complete(),
             '/home': pageR.home()
-        }).configure({notfound: pageR.notfound()}).init('intro');
+        })//.configure({notfound: pageR.notfound()})
+                .init('intro');
         //router.init('#/intro');
 
 

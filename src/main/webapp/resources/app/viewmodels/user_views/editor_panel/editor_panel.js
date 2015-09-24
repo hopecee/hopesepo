@@ -1,4 +1,4 @@
-define(['durandal/app', 'plugins/router', 'global/session', 'global/services/logger', 'global/services/imageSelectService'], function(app, router, session, logger, imageSelectService) {
+define(['durandal/app', 'plugins/router', 'global/services/session', 'global/services/logger', 'global/services/imageSelectService'], function(app, router, session, logger, imageSelectService) {
  "use strict";
 
 

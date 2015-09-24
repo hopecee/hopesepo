@@ -2,7 +2,7 @@ define(['dojo/i18n!app/nls/labels',
     'dojo/dom', 'dojo/dom-construct',
     'durandal/app', 'plugins/router',
     'global/services/layout',
-    'global/session', 'global/services/security',
+    'global/services/session', 'global/services/security',
     'global/services/logger'],
         function(labels, dom, domConstruct, app, router, layout, session, security, logger
                 ) {

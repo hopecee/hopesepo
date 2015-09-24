@@ -2,7 +2,7 @@
 
 define(['dojo/i18n!app/nls/labels',
     'dojo/dom', 'dojo/dom-construct',
-    'plugins/router', 'global/session',
+    'plugins/router', 'global/services/session',
     'global/services/security',
     'global/services/layout',
     'global/services/logger',

@@ -1,11 +1,11 @@
 
 define(['dojo/i18n!app/nls/labels',
-    'dojo/dom', 'dojo/dom-construct',
+    'dojo/dom', 'dojo/dom-construct','dijit/layout/TabContainer', 'dijit/layout/ContentPane',
     'plugins/router', 'global/services/session',
     'global/services/security',
     'global/services/layout',
     'global/services/logger'], function(labels,
-        dom, domConstruct,
+        dom, domConstruct,TabContainer,ContentPane,
         router, session, security,
         layout,
         logger) {
@@ -126,11 +126,16 @@ define(['dojo/i18n!app/nls/labels',
         });
     };
 
-    var layoutV = new layout();
+   // var layoutV = new layout();
 
 
     var attached = function(view, paren) {
 
+  $(function() {
+    $( '.ui-tabs' ).tabs();
+  });
+    
+/*
         layoutV.setInputStyle();//TODO should it be at the bottom element?
 
 //var labelemailNode = dom.byId('labelemail');
@@ -147,7 +152,7 @@ define(['dojo/i18n!app/nls/labels',
         dom.byId('labelAlreadyJoined').innerHTML = labels.alreadyJoined;
         dom.byId('labelSignIn').innerHTML = labels.signIn;
 
-
+*/
 
 
         /*
@@ -303,3 +308,4 @@ define(['dojo/i18n!app/nls/labels',
 
     };
 });
+

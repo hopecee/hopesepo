@@ -2937,11 +2937,10 @@ define(["./_base/kernel", "require", "./has", "./_base/array", "./_base/config",
 
 		getBundleName = function(moduleName, bundleName, locale){
 			locale = locale ? locale.toLowerCase() : dojo.locale;
-                        alert("polk");
+                        
 			moduleName = moduleName.replace(/\./g, "/");
 			bundleName = bundleName.replace(/\./g, "/");
-                        alert((moduleName + "/nls/" + locale + "/" + bundleName));
-			return (/root/i.test(locale)) ?
+                       return (/root/i.test(locale)) ?
 				(moduleName + "/nls/" + bundleName) :
 				(moduleName + "/nls/" + locale + "/" + bundleName);
 		},

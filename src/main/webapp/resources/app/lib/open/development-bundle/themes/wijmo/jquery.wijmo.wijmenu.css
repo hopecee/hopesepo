@@ -162,8 +162,10 @@ from  jquery-wijmo */
 {
     color: #fff;
     text-decoration: none;
-    /*text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);*/
-    border:solid 1px #000;
+    /*text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+    border:solid 1px #000;  hope
+    */
+    
 }
 
 .wijmo-wijmenu a.ui-state-default:link,.wijmo-wijmenu a.ui-state-default:visited,.wijmo-wijmenu a.ui-state-default:hover,.wijmo-wijmenu a.ui-state-default:active,.wijmo-wijmenu a.ui-state-hover:link,.wijmo-wijmenu a.ui-state-hover:visited,.wijmo-wijmenu a.ui-state-hover:hover,.wijmo-wijmenu a.ui-state-hover:active,.wijmo-wijmenu a.ui-state-active:link,.wijmo-wijmenu a.ui-state-active:visited,.wijmo-wijmenu a.ui-state-active:hover,.wijmo-wijmenu a.ui-state-active:active {

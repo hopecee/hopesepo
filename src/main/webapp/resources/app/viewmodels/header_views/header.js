@@ -1,6 +1,6 @@
 define(['dojo/i18n!app/nls/labels', 'dojo/i18n!app/nls/locales',
     'dojo/dom', 'dojo/dom-construct', 'dojo/dom-attr',
-    'durandal/app', 'global/session', 'global/services/security', 'global/services/stickyheaderSetter'],
+    'durandal/app', 'global/services/session', 'global/services/security', 'global/services/stickyheaderSetter'],
         function(labels, locales, dom, domConstruct, domAttr, app, session,
                 security, stickyheaderSetter) {
 

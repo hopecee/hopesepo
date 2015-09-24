@@ -1,5 +1,5 @@
 
-define(['plugins/router', 'global/session', 'global/services/logger'], function(router,session, logger) {
+define(['plugins/router', 'global/services/session', 'global/services/logger'], function(router,session, logger) {
     "use strict";
 
 

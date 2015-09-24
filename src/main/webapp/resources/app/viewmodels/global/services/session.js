@@ -65,7 +65,6 @@ define(['plugins/router'//, //'services/security',
                 if (user) {
                     session.userEmailAddress(user.emailAddress);
                     session.userNeo4jIdString(user.userNeo4jIdString);
-                    session.userImgFolder(img);
                     session.isUserImg(user.isUserImg);
 
                     if (user.isLoggedIn) {

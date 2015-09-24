@@ -81,12 +81,14 @@ var dojoConfig = {
         {name: 'dojox', location: 'app/lib/dojo/dojo-release-1.10.4/dojox'},
         {name: 'dijit', location: 'app/lib/dojo/dojo-release-1.10.4/dijit'},
         {name: 'app', location: 'app'},
+        
         //  {name: 'jquery', location: 'app/lib/wijmo/jquery-1.9.1.min'},
 
         //  {name: 'jquery-ui', location: 'app/lib/wijmo/jquery-ui-1.10.1.custom.min'},
         // {name: 'jquery.wijmo-open.all', location: 'app/lib/wijmo/jquery.wijmo-open.all.2.3.1.min'},
         //  {name: 'knockout', location: 'app/lib/knockout/knockout-3.2.0'},
         // {name: 'knockout-postbox', location: 'app/lib/knockout/knockout-postbox.min'},
+        
         {name: 'durandal', location: 'app/lib/durandal/js'},
         {name: 'plugins', location: 'app/lib/durandal/js/plugins'},
         {name: 'transitions', location: 'app/lib/durandal/js/transitions'},

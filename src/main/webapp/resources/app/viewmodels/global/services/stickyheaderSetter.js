@@ -1,4 +1,4 @@
-define(['plugins/router', 'global/session'//, //'services/security', 
+define(['plugins/router', 'global/services/session'//, //'services/security', 
             // 'knockout', 
             // 'jquery'
             //, 'jquery.utilities'
@@ -13,7 +13,7 @@ define(['plugins/router', 'global/session'//, //'services/security',
             function koSet(menuLayer) {
                 var menuHeight = 2.0625; //33 2.667
                 var oHH = 2.5; //40 3.333 (oficialheaderHeight) get it from header.html (height: 40px).
-                var sPad = 0.125; //2 0.167 (spanPadding) get it from header.html (<span> 2px).
+                var sPad = 0.1875; //2 0.167 (spanPadding) get it from header.html (<span> 2px).
                 var h, hi, hiR, h2, menuTotalHeight, menuContainer, menuContainerD16, hOpen, hiOpen, extrH, extrHOpen = 0;
                 h = $('.header').height();
                 //alert(h);

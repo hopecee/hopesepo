@@ -1,5 +1,5 @@
 define(['dojo/i18n!app/nls/countryIsoCodes',
-    'dojo/dom', 'global/session', 'global/services/logger'],
+    'dojo/dom', 'global/services/session', 'global/services/logger'],
         function(countryIsoCodes, dom, session, logger) {
             "use strict";
 
@@ -15,7 +15,7 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
                     }
                 };
             };
-            pageRouter.prototype.join_editor_2 = function(data) {
+            pageRouter.prototype.join_editor_2 = function() {
                 //alert(data);
                 return {
                     on: function() {
@@ -23,7 +23,7 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
                     },
                     before: function(data) {
                         //if (typeof (session.userEmailAddress()) !== "undefined") {
-                        var res = session.isLoggedIn();
+                        var res = true;//session.isLoggedIn();
                         if (!res)
                         {
                             ko.observable('viewmodels/intro').publishOn('ROUTE');
@@ -102,7 +102,7 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
                     },
                     before: function(data) {
                         //if (typeof (session.userEmailAddress()) !== "undefined") {
-                        var res = session.isLoggedIn();
+                        var res = true;//session.isLoggedIn();
                         if (!res)
                         {
                             ko.observable('viewmodels/intro').publishOn('ROUTE');
