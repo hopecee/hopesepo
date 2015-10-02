@@ -1,11 +1,11 @@
 
 define(['dojo/i18n!app/nls/labels',
-    'dojo/dom', 'dojo/dom-construct','dijit/layout/TabContainer', 'dijit/layout/ContentPane',
+    'dojo/dom', 'dojo/dom-construct', 'dijit/layout/TabContainer', 'dijit/layout/ContentPane',
     'plugins/router', 'global/services/session',
     'global/services/security',
     'global/services/layout',
     'global/services/logger'], function(labels,
-        dom, domConstruct,TabContainer,ContentPane,
+        dom, domConstruct, TabContainer, ContentPane,
         router, session, security,
         layout,
         logger) {
@@ -126,33 +126,162 @@ define(['dojo/i18n!app/nls/labels',
         });
     };
 
-   // var layoutV = new layout();
+    // var layoutV = new layout();
 
 
     var attached = function(view, paren) {
 
-  $(function() {
-    $( '.ui-tabs' ).tabs();
-  });
-    
-/*
-        layoutV.setInputStyle();//TODO should it be at the bottom element?
+        //$(function() {
+        // $("#tabs").tabs();
+        // });
+        $('#tab-container').easytabs({
+            uiTabs: false,
+            updateHash: false,
+            tabs: "> div > div > ul > li"
+                    //,
+                    /* tabsClass: "ui-tabs-nav",
+                     tabClass: "",
+                     panelClass: "ui-tabs-panel",
+                     containerClass: ""  */
+        });
 
-//var labelemailNode = dom.byId('labelemail');
-// domConstruct.place('<span>' + labels.emailAddress + '</span>', dom.byId('labelemail'));
-        dom.byId('joinEditorHeader').innerHTML = labels.joinToday;
-        dom.byId('email').placeholder = labels.emailAddress;
-        dom.byId('usersName').placeholder = labels.userName;
-        dom.byId('firstName').placeholder = labels.firstName;
-        dom.byId('lastName').placeholder = labels.lastName;
-        dom.byId('password').placeholder = labels.password;
-        dom.byId('confirm').placeholder = labels.confirm;
-        dom.byId('labelTuShopTerms').innerHTML = labels.tuShopTerms;
-        dom.byId('joinEditorButtonJoinNow').innerHTML = labels.joinNow;
-        dom.byId('labelAlreadyJoined').innerHTML = labels.alreadyJoined;
-        dom.byId('labelSignIn').innerHTML = labels.signIn;
 
-*/
+        var firstIdx = 0;
+        var container = $('.scroll-container').find('ul li');
+        var num = container.length;
+        //alert(num);
+//$(function() {
+        $(".scroll-left").on("click", function(e) {
+
+            // alert(firstIdx);
+            if (firstIdx < (num - 1)) {
+                container.eq(firstIdx).hide();
+                firstIdx++;
+            }
+            /*
+             var position = container.position();
+             container.animate({
+             left: position.left - 100
+             }, 1000);
+             */
+
+
+        });
+
+        $(".scroll-right").on("click", function(e) {
+            //var container = $('.scroll-container').find('ul li');
+
+            //alert(firstIdx);
+            if (firstIdx > 0) {
+                container.eq(firstIdx - 1).show();
+
+                firstIdx--;
+            }
+
+            // container.data('current-child');
+            // container.find('li:lt(3)').show();
+            //alert(container.eq(1).hide());
+
+
+            /*
+             var position = container.position();
+             container.animate({
+             left: position.left + 100
+             }, 1000);
+             */
+
+        });
+
+
+        //return false;
+
+
+        /*/ Clears animation queue and jumps to the last would-be position
+         container.stop(true, true);
+         alert(container.data('current-child'));
+         // Retrieve the current child, set the data if not set already
+         var nCurrentChild = container.data('current-child');
+         if (nCurrentChild == null) {
+         container.data('current-child', 0);
+         nCurrentChild = 0;
+         }
+         
+         // Jump to top if last child, otherwise bump by the next child's offset
+         if (nCurrentChild == container.children().length - 1) {
+         container.animate(
+         { 
+         
+         // { top: 0 },
+         // 300
+         //);
+         
+         // container.data('current-child', 0);
+         
+         scrollLeft: container.data('current-child', 0).offset().left
+         }, 600);
+         currentIdx++;
+         
+         
+         } else {
+         var jNextChild = $(container.children()[nCurrentChild + 1]);
+         var nDiff = jNextChild.offset().top - container.offset().top;
+         
+         container.animate(
+         { top: -nDiff },
+         300
+         );
+         container.data('current-child', nCurrentChild + 1);
+         }
+         
+         */
+
+
+
+
+
+
+//});
+
+        /*
+         var tabs;
+         $(function() {
+         tabs = $('.tabscontent').tabbedContent({loop: true}).data('api');
+         
+         // switch to tab...
+         $('a[href=#click-to-switch]').on('click', function(e) {
+         var tab = prompt('Tab to switch to (number or id)?');
+         if (!tabs.switchTab(tab)) {
+         alert('That tab does not exist :\\');
+         }
+         e.preventDefault();
+         });
+         
+         // Next and prev actions
+         $('.controls a').on('click', function(e) {
+         var action = $(this).attr('href').replace('#', '');
+         tabs[action]();
+         e.preventDefault();
+         });
+         });
+         */
+        /*
+         layoutV.setInputStyle();//TODO should it be at the bottom element?
+         
+         //var labelemailNode = dom.byId('labelemail');
+         // domConstruct.place('<span>' + labels.emailAddress + '</span>', dom.byId('labelemail'));
+         dom.byId('joinEditorHeader').innerHTML = labels.joinToday;
+         dom.byId('email').placeholder = labels.emailAddress;
+         dom.byId('usersName').placeholder = labels.userName;
+         dom.byId('firstName').placeholder = labels.firstName;
+         dom.byId('lastName').placeholder = labels.lastName;
+         dom.byId('password').placeholder = labels.password;
+         dom.byId('confirm').placeholder = labels.confirm;
+         dom.byId('labelTuShopTerms').innerHTML = labels.tuShopTerms;
+         dom.byId('joinEditorButtonJoinNow').innerHTML = labels.joinNow;
+         dom.byId('labelAlreadyJoined').innerHTML = labels.alreadyJoined;
+         dom.byId('labelSignIn').innerHTML = labels.signIn;
+         
+         */
 
 
         /*

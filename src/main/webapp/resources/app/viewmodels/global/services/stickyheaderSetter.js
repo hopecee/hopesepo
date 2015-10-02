@@ -54,7 +54,7 @@ define(['plugins/router', 'global/services/session'//, //'services/security',
             }
             function set() {
                 if (!session.isLoggedIn()) {
-                    if ($('#headContainer').width() <= 500) {
+                    if ($('body').width() <= 500) {
                         koSet(2);
                     } else {
                         koSet(1);
@@ -82,6 +82,3 @@ define(['plugins/router', 'global/services/session'//, //'services/security',
                 }
             }
         });
-
-
-

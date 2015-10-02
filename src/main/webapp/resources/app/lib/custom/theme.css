@@ -18,12 +18,9 @@ img {
 /*
 .ui-panel-content {
     padding: 0px !important;
-
 }
-
 ui-panel {
    padding:0.2em;
-
 }
 */
 .menuContainer_1 {
@@ -34,7 +31,10 @@ ui-panel {
 }
 
 
-
+.header{
+  background-color: #666666 ; 
+  width: 100%;  
+}
 
 /* -----------------------------------*/
 .headContainer {
@@ -70,11 +70,10 @@ ui-panel {
     /* Fix box-sizing in IE 7 and 6 */
     *behavior: url(boxsizing.htc);
 }
- 
-    
+
 .column {
     float: left;
-    /*padding:  10px 10px 0px 10px;*/
+   /*padding:  10px 10px 0px 10px;*/
 }
 .column.noPadding { padding: 0px; }
 /* Must not change */
@@ -106,7 +105,6 @@ ui-panel {
     / * background: #99CC99 ; * /
     background: #99CC99 ;
     border-bottom: solid 0.083em #333333 ;
-
 }
 */
 
@@ -118,7 +116,6 @@ ui-panel {
 
 /* ==================== */
 /* stickyheader * /
-
 /* ============================ */
 
 .test{
