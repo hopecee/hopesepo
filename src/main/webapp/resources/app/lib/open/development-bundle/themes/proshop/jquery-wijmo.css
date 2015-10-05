@@ -122,6 +122,10 @@ body  {
         width: 100%;
         float: left;
     }
+    .col-userPanel-inner-1 {
+        width: 100%;
+        float: left;
+    }
 
     .col-advPanel {
         width: 100%;
@@ -137,7 +141,7 @@ body  {
         float: left;
     }
 
-    .col-startPage {
+    .col-mainPage {
         width: 100%;
         float: left;
     }
@@ -226,6 +230,17 @@ body  {
         display: table;
         border-collapse: separate;
     }
+    
+    .ui-input-group.block {
+        width: 100%;
+        border: 1px solid #ccc;
+        display: inline-block;
+        background: #fff; 
+        min-height: 20em;
+        border-radius: 3px;
+    }
+    
+    
     .ui-input-group-menu {
         margin: 0.2em 0.25em ;
         position: relative;
@@ -260,6 +275,18 @@ body  {
         border-top-right-radius: 0em;
 
     }
+
+    .ui-form-control.po-1 {
+        display: table-cell;
+        width: 60%;
+    }
+    .ui-form-control.po-2 {
+        display: table-cell;
+        width: 38%;
+        border-radius:  0px;
+        margin-left: 3px;
+    }
+
     .ui-input-group-addon {
         display: table-cell;
 
@@ -2138,25 +2165,10 @@ body  {
     .etabs { 
         padding: 0;
 
-        width: 120%;
+        width: 200%;
         margin: -0.25em -0.4375em;
     }
     .tab { 
-        /*
-        display: inline-block; 
-        zoom:1; 
-        *display:inline; 
-        background: #eee; 
-        border: solid 1px #999; 
-        border-bottom: none; 
-        -moz-border-radius: 4px 4px 0 0; 
-        -webkit-border-radius: 4px 4px 0 0; 
-        */
-
-        /*top: 1px;
-        margin: -1.6875em 0.0em 0.0625em -0.0625em;*/
-
-
         list-style: none;
         float: left;
         position: relative;
@@ -2184,13 +2196,7 @@ body  {
 
     }
     .tab a { 
-        /*
-        font-size: 14px; 
-        line-height: 2em; 
-        display: block; 
-        padding: 0 10px; 
-        outline: none;
-        */
+
 
         color: #333 !important;
 
@@ -2224,7 +2230,7 @@ body  {
     }
 
     .tab-container {
-        border:solid 1px #666666 !important;  
+        border:solid 1px #A8A8A8 !important;  
     }
 
 
@@ -2237,11 +2243,11 @@ body  {
         border-style: solid;
         border-color: #A1D99B;
 
-        padding: 1em 1.4em; 
-        margin-top: -0.1875em ;
-        /*
-        -moz-border-radius: 0 4px 4px 4px; 
-        -webkit-border-radius: 0 4px 4px 4px;
+        padding: 0em 0.5em 0.5em; 
+        /* margin-top: -0.1875em ;
+         
+         -moz-border-radius: 0 4px 4px 4px; 
+         -webkit-border-radius: 0 4px 4px 4px;
         */
 
 
@@ -2273,26 +2279,35 @@ body  {
         background: #D9D9D9;
     }
 
-    .tab-container .ui-input-group {
+    .tab-input-group {
         margin:  -0.125em 0 0;
-        position:  static;
+        position:  relative;
+        display: table;
+        border-collapse: separate;
+    }
 
-    }
-    .tab-container .ui-form-control {
-        /* border: 0px; */
+    .tab-form-control {
+        padding: 0.25em 0.375em 0.25em 0.4375em;
+        border-radius: 0.25em 0px 0px;
         height: 1.6em;
-        border: none;
+        border: medium none;
         overflow: hidden;
-        border-bottom-left-radius: 0px;
-        padding-left: 0.4375em ;
-        background: #F7FCF5;
+        background: #C7E9C0 ;
     }
-    .tab-container .ui-input-group-addon:last-child {
-        /* border: 0px; */
-        height: 1.4em;
-        border: 1px solid #666666;
-        border-bottom-right-radius: 0px;
+
+    .tab-input-group-addon {
+        display: table-cell;
+        line-height: 1;
+        min-width: 2.8125em;
+        text-align: center;
+        background-color: #E5F5E0;
+        width: 1%;
+        vertical-align: middle;
+        border-radius: 0px 0.25em 0px 0px;
+        border: 1px solid #A8A8A8;
     }
+
+
 
 
     /*
@@ -3333,7 +3348,7 @@ body  {
         float: left;
     }
 
-    .col-startPage {
+    .col-mainPage {
         width: 75%;
         float: left;
     }
@@ -3425,6 +3440,17 @@ body  {
         display: table;
         border-collapse: separate;
     }
+
+    .ui-input-group.block {
+        width: 100%;
+        border: 1px solid #ccc;
+        display: inline-block;
+        background: #fff; 
+        min-height: 20em;
+        border-radius: 3px;
+    }
+   
+
     .ui-input-group-menu {
         margin: 0.2em;
         position: relative;
@@ -3459,6 +3485,17 @@ body  {
         border-top-right-radius: 0px;
 
     }
+    .ui-form-control.po-1 {
+        display: table-cell;
+        width: 60%;
+    }
+    .ui-form-control.po-2 {
+        display: table-cell;
+        width: 39%;
+        border-radius:  0px;
+        margin-left: 3px;
+    }
+
     .ui-input-group-addon {
         display: table-cell;
 
@@ -5384,25 +5421,10 @@ body  {
     .etabs { 
         padding: 0;
 
-        width: 120%;
+        width: 200%;
         margin: -0.25em -0.4375em;
     }
     .tab { 
-        /*
-        display: inline-block; 
-        zoom:1; 
-        *display:inline; 
-        background: #eee; 
-        border: solid 1px #999; 
-        border-bottom: none; 
-        -moz-border-radius: 4px 4px 0 0; 
-        -webkit-border-radius: 4px 4px 0 0; 
-        */
-
-        /*top: 1px;
-        margin: -1.6875em 0.0em 0.0625em -0.0625em;*/
-
-
         list-style: none;
         float: left;
         position: relative;
@@ -5430,21 +5452,12 @@ body  {
 
     }
     .tab a { 
-        /*
-        font-size: 14px; 
-        line-height: 2em; 
-        display: block; 
-        padding: 0 10px; 
-        outline: none;
-        */
 
         color: #333 !important;
 
         float: left;
         padding: 0.11em 0.6em;
         text-decoration: none !important;
-
-
     }
     /* .tab a:hover { 
           text-decoration: underline; 
@@ -5470,7 +5483,7 @@ body  {
     }
 
     .tab-container {
-        border:solid 1px #666666 !important;  
+        border:solid 1px #A8A8A8 !important;  
     }
 
 
@@ -5483,23 +5496,14 @@ body  {
         border-style: solid;
         border-color: #A1D99B;
 
-        padding: 1em 1.4em; 
-        margin-top: -0.1875em ;
-        /*
-        -moz-border-radius: 0 4px 4px 4px; 
-        -webkit-border-radius: 0 4px 4px 4px;
-        */
-
-
-
-
+        padding: 0em 0.5em 0.5em;  
+        /* margin-top: -0.1875em ; */
 
     }
 
 
 
     .tab .ui-tabs-close {
-
         vertical-align: top;
         font-size: 0.75em;
         margin-right: 0.1875em;
@@ -5517,36 +5521,34 @@ body  {
         -webkit-border-radius: 0.1875em; 
 
         background: #D9D9D9;
-    }
+    }  
 
-    .tab-container .ui-input-group {
+
+    .tab-input-group {
         margin:  -0.125em 0 0;
-        position:  static;
-
+        position:  relative;
+        display: table;
+        border-collapse: separate;
     }
-    .tab-container .ui-form-control {
-        /* border: 0px; */
+    .tab-form-control {
+        padding: 0.25em 0.375em 0.25em 0.4375em;
+        border-radius: 0.25em 0px 0px;
         height: 1.6em;
-        border: none;
+        border: medium none;
         overflow: hidden;
-        border-bottom-left-radius: 0px;
-        padding-left: 0.4375em ;
-        background: #F7FCF5;
+        background: #C7E9C0 ;
     }
-    .tab-container .ui-input-group-addon:last-child {
-        /* border: 0px; */
-        height: 1.4em;
-        border: 1px solid #666666;
-        border-bottom-right-radius: 0px;
+    .tab-input-group-addon {
+        display: table-cell;
+        line-height: 1;
+        min-width: 2.8125em;
+        text-align: center;
+        background-color: #E5F5E0;
+        width: 1%;
+        vertical-align: middle;
+        border-radius: 0px 0.25em 0px 0px;
+        border: 1px solid #A8A8A8;
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -6556,7 +6558,7 @@ body  {
         width: 100%;
         float: left;
     }
-    .col-startPage {
+    .col-mainPage {
         width: 75%;
         float: left; 
     }
@@ -6638,6 +6640,7 @@ body  {
         /* background-color: #F7FBF7; 
         background-color: #F9FCF9; */
     }
+
     .ui-input-group {
         margin: 0.625em 0px;
 
@@ -6645,6 +6648,18 @@ body  {
         display: table;
         border-collapse: separate;
     }
+
+    .ui-input-group.block {
+        width: 100%;
+        border: 1px solid #ccc;
+        display: inline-block;
+        background: #fff; 
+        min-height: 20em;
+        border-radius: 3px;
+    }
+
+   
+
     .ui-input-group-menu {
         margin: 0.25em;
         position: relative;
@@ -6679,6 +6694,46 @@ body  {
         border-top-right-radius: 0px;
 
     }
+    .ui-form-control.po-1 {
+        display: table-cell;
+        width: 60%;
+    }
+    .ui-form-control.po-2 {
+        display: table-cell;
+        width: 39.2%;
+        border-radius:  0px;
+        margin-left: 3px;
+    }
+  .ui-form-control-wrapper{
+       
+      /*  
+        display: block;
+        width: 100%;
+        padding: 0.25em 0.375em;
+        color:  #555;
+        border-radius: 0.25em;
+*/
+       
+    }
+.ui-form-control-inner:last-child {
+     border-top: 1px solid #ccc;
+}
+
+.ui-input-group-addon.inner:first-child {
+     border-width:  0px 1px 0px 0px;
+     border-style:  solid ;
+     border-color: #ccc;
+     border-radius: 0px;
+}
+.ui-input-group-addon.inner:last-child{
+     border-width:  0px 0px 0px 1px;
+     border-style:  solid ;
+     border-color: #ccc;
+     
+     min-width: 0.625em;
+     border-radius: 0px;
+     background: #A1D99B; 
+}
     .ui-input-group-addon {
         display: table-cell;
 
@@ -8631,24 +8686,10 @@ body  {
     .etabs { 
         padding: 0;
 
-        width: 120%;
+        width: 200%;
         margin: -0.25em -0.4375em;
     }
     .tab { 
-        /*
-        display: inline-block; 
-        zoom:1; 
-        *display:inline; 
-        background: #eee; 
-        border: solid 1px #999; 
-        border-bottom: none; 
-        -moz-border-radius: 4px 4px 0 0; 
-        -webkit-border-radius: 4px 4px 0 0; 
-        */
-
-        /*top: 1px;
-        margin: -1.6875em 0.0em 0.0625em -0.0625em;*/
-
 
         list-style: none;
         float: left;
@@ -8677,13 +8718,6 @@ body  {
 
     }
     .tab a { 
-        /*
-        font-size: 14px; 
-        line-height: 2em; 
-        display: block; 
-        padding: 0 10px; 
-        outline: none;
-        */
 
         color: #333 !important;
 
@@ -8717,7 +8751,7 @@ body  {
     }
 
     .tab-container {
-        border:solid 1px #666666 !important;  
+        border:solid 1px #A8A8A8 !important;  
     }
 
 
@@ -8730,23 +8764,11 @@ body  {
         border-style: solid;
         border-color: #A1D99B;
 
-        padding: 1em 1.4em; 
-        margin-top: -0.1875em ;
-        /*
-        -moz-border-radius: 0 4px 4px 4px; 
-        -webkit-border-radius: 0 4px 4px 4px;
-        */
-
-
-
-
+        padding: 0em 0.5em 0.5em; 
 
     }
 
-
-
     .tab .ui-tabs-close {
-
         vertical-align: top;
         font-size: 0.75em;
         margin-right: 0.1875em;
@@ -8755,6 +8777,7 @@ body  {
         border: 1px solid transparent;
         padding: 0px 0.125em;
     }
+
     .tab .ui-tabs-close:hover {
         margin-top:  0px;
         border: 1px solid #A8A8A8;
@@ -8766,55 +8789,37 @@ body  {
         background: #D9D9D9;
     }
 
-    .tab-container .ui-input-group {
+
+
+
+    .tab-input-group {
         margin:  -0.125em 0 0;
-        position:  static;
+        position:  relative;
+        display: table;
+        border-collapse: separate;
 
     }
-    .tab-container .ui-form-control {
-        /* border: 0px; */
+    .tab-form-control {
+        padding: 0.25em 0.375em 0.25em 0.4375em;
+        border-radius: 0.25em 0px 0px;
         height: 1.6em;
-        border: none;
+        border: medium none;
         overflow: hidden;
-        border-bottom-left-radius: 0px;
-        padding-left: 0.4375em ;
-        background: #F7FCF5;
-    }
-    .tab-container .ui-input-group-addon:last-child {
-        /* border: 0px; */
-        height: 1.4em;
-        border: 1px solid #666666;
-        border-bottom-right-radius: 0px;
+        background: #C7E9C0 ;
     }
 
+    .tab-input-group-addon {
+        display: table-cell;
+        line-height: 1;
+        min-width: 2.8125em;
+        text-align: center;
+        background-color: #E5F5E0;
+        width: 1%;
+        vertical-align: middle;
+        border-radius: 0px 0.25em 0px 0px;
+        border: 1px solid #A8A8A8;
+    }
 
-    /*
-        .ui-tabs
-        {
-            padding: 0;
-        }
-    
-        .ui-tabs .ui-tabs-nav
-        {
-            background: #A8A8A8;
-            background: #A8A8A8 linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
-            background: #A8A8A8 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
-            background: #A8A8A8 -moz-linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0)); / *    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF);     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDFFFFFF, endColorstr=#00FFFFFF)"; * /
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-
-
-.ui-tabs .ui-tabs-nav .ui-tabs-selected
-{
-    background: #fff;
-    border-bottom: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-    */
 
 
     /*

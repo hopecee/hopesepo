@@ -1,51 +1,44 @@
 
 <div align ="center" id="tab-container" class=" boxShadow tab-container ui-widget ui-widget-content  ui-corner-all " style="  ">
-    
-   
-        <div class="ui-input-group" style="">
-            <div  class="scroll-container ui-form-control" style="">
-                <ul class='etabs ' style="">
-                    <li class='tab' ><a href="#tab-1">Nunc tincidunt</a></li>
-                    <li class='tab' ><a href="#tab-2">Proin dolor</a><span class="ui-tabs-close"><i class="fa fa-close"></i></span></li>
-                    <li class='tab' ><a href="#tab-3">Proin dolor 3</a><span class="ui-tabs-close"><i class="fa fa-close"></i></span></li>
-                    <li class='tab' ><a href="#tab-4">Tab 4</a></li>
-                    <li class='tab' ><a href="#tab-5">Tab 5</a></li>
-                     <li class='tab' ><a href="#tab-6">Tab 6</a></li>
-                    <li class='tab' ><a href="#tab-7">Tab 7</a></li>
-                    <li class='tab' ><a href="#tab-8">Tab 8</a></li>
-                   <!-- <li class='tab' ><a href="#tab-3">Tab 9</a></li>
-                    <li class='tab' ><a href="#tab-4">Tab 10</a></li>
-                    <li class='tab' ><a href="#tab-5">Tab 11</a></li>
-                    <li class='tab' ><a href="#tab-6">Tab 12</a></li>
-                    <li class='tab' ><a href="#tab-7">Tab 13</a></li>
-                    <li class='tab' ><a href="#tab-8">Tab 14</a></li> -->
-                </ul>
-            </div>
-            <span class="ui-input-group-addon">
-                <button type="button" class="scroll-left btn btn-custom dropdown-toggle" data-toggle="dropdown">
-                    <span class="fa fa-caret-left ui-icon-White ui-icon-compact "></span>
-                </button>
-                <button type="button" class="scroll-right btn btn-custom dropdown-toggle" data-toggle="dropdown">
-                    <span class="fa fa-caret-right ui-icon-White ui-icon-compact "></span>
-                </button>
-            </span>
+    <div class="tab-input-group" style="">
+        <div  class="scroll-container tab-form-control " style="">
+            <ul class='etabs ' style="">
+                <li class='tab' ><a href="#startPage">Start Page</a></li>
+                <li class='tab' ><a href="#companyPage">Company</a><span class="ui-tabs-close"><i class="fa fa-close"></i></span></li>
+                <li class='tab' ><a href="#userPage">User</a><span class="ui-tabs-close"><i class="fa fa-close"></i></span></li>
+                 <li class='tab' ><a href="#tab-4">Tab 4</a></li>
+                <li class='tab' ><a href="#tab-5">Tab 5</a></li>
+                <li class='tab' ><a href="#tab-6">Tab 6</a></li>
+                <li class='tab' ><a href="#tab-7">Tab 7</a></li>
+                <li class='tab' ><a href="#tab-8">Tab 8</a></li>
+                <li class='tab' ><a href="#tab-3">Tab 9</a></li>
+                 <li class='tab' ><a href="#tab-4">Tab 10</a></li>
+                 <li class='tab' ><a href="#tab-5">Tab 11</a></li>
+                 <li class='tab' ><a href="#tab-6">Tab 12</a></li>
+                 <li class='tab' ><a href="#tab-7">Tab 13</a></li>
+                 <li class='tab' ><a href="#tab-8">Tab 14</a></li> 
+            </ul>
         </div>
+        <span class="tab-input-group-addon">
+            <button type="button" class="scroll-left btn btn-custom dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-caret-left ui-icon-White ui-icon-compact "></span>
+            </button>
+            <button type="button" class="scroll-right btn btn-custom dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-caret-right ui-icon-White ui-icon-compact "></span>
+            </button>
+        </span>
+    </div>
 
-        <div class='panel-container'>
-            <div id="tab-1">
-                <h2>HTML Markup for these tabs 1</h2>
-            </div>
-            <div id="tab-2">
-                <h2>CSS Styles for these tabs 2 </h2>
-            </div>
+    <div class='panel-container'>
+        <div id="startPage" data-bind="compose:'viewmodels/user_views/mainPage/startPage/startPage_panel'"></div> 
+        <div id="companyPage" data-bind="compose:'viewmodels/user_views/mainPage/companyPage/companyPage_panel'"></div> 
+        <div id="userPage" data-bind="compose:'viewmodels/user_views/mainPage/userPage/userPage_panel'"></div> 
 
-            <div id="tab-3">
-                <h2>CSS Styles for these tabs 3</h2>
-            </div>
 
-        </div>  
 
-       
+    </div>  
+
+
 
 </div> 
 
@@ -59,7 +52,7 @@
                     <li class='tab'><a href="#tab-2">Tab 2</a></li>
                     <li class='tab'><a href="#tab-3">Tab 3</a></li>
                     <li class='tab'><a href="#tab-4">Tab N</a></li>
-                    <li class='tab'><a href="#tab-5">Tab 1</a></li>
+                   <!-- <li class='tab'><a href="#tab-5">Tab 1</a></li>
                     <li class='tab'><a href="#tab-6">Tab 2</a></li>
                     <li class='tab'><a href="#tab-7">Tab 3</a></li>
                     <li class='tab'><a href="#tab-8">Tab N</a></li>

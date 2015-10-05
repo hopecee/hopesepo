@@ -153,10 +153,11 @@ define(['dojo/i18n!app/nls/labels',
 //$(function() {
         $(".scroll-left").on("click", function(e) {
 
-            // alert(firstIdx);
-            if (firstIdx < (num - 1)) {
-                container.eq(firstIdx).hide();
-                firstIdx++;
+//alert(firstIdx);
+            if (firstIdx > 0) {
+                container.eq(firstIdx - 1).show();
+
+                firstIdx--;
             }
             /*
              var position = container.position();
@@ -171,13 +172,13 @@ define(['dojo/i18n!app/nls/labels',
         $(".scroll-right").on("click", function(e) {
             //var container = $('.scroll-container').find('ul li');
 
-            //alert(firstIdx);
-            if (firstIdx > 0) {
-                container.eq(firstIdx - 1).show();
 
-                firstIdx--;
+
+// alert(firstIdx);
+            if (firstIdx < (num - 1)) {
+                container.eq(firstIdx).hide();
+                firstIdx++;
             }
-
             // container.data('current-child');
             // container.find('li:lt(3)').show();
             //alert(container.eq(1).hide());

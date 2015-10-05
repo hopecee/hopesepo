@@ -32,8 +32,8 @@ ui-panel {
 
 
 .header{
-  background-color: #666666 ; 
-  width: 100%;  
+    background-color: #666666 ; 
+    width: 100%;  
 }
 
 /* -----------------------------------*/
@@ -73,9 +73,15 @@ ui-panel {
 
 .column {
     float: left;
-   /*padding:  10px 10px 0px 10px;*/
+    /*padding:  10px 10px 0px 10px;*/
 }
-.column.noPadding { padding: 0px; }
+.noPadding { padding: 0px; }
+.noMargin {margin: 0px;}
+.ui-align-right {
+    text-align: right; 
+}
+.noBorder {border: 0px;}
+.search {cursor:  pointer;}
 /* Must not change */
 .column.full { width: 100%; }
 .column.two-thirds { width: 66.7%; }
