@@ -1,8 +1,8 @@
 define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/services/stickyheaderSetter'],
         function(on, session, logger, stickyheaderSetter) {
-            
+
             var router = new Router().init();
-            
+
             var intro = 'intro',
                     home = 'home',
                     join_Editor_2 = 'join_editor_2',
@@ -35,6 +35,11 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
             function setEmailAddress(jData, usersEmailAddress) {
                 jData['usersEmailAddress'] = usersEmailAddress;
             }
+            function setUserNeo4jIdString(jData, id) {
+                jData['userNeo4jIdString'] = id;
+            }
+
+
 
             // Route operations
             function externalLoginsUrl(returnUrl, generateState) {
@@ -87,6 +92,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 joinEditor3: joinEditor3,
                 localeManager: localeManager,
                 logout: logout,
+                findUser: findUser,
                 register: register,
                 registerExternal: registerExternal,
                 removeLogin: removeLogin,
@@ -191,7 +197,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                 showToast: true,
                                 type: "error"
                             });
-                             router.setRoute(intro);
+                            router.setRoute(intro);
                         } else {
                             if (id === "userId") {
                                 user.emailAddress = value;
@@ -237,7 +243,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                         type: "error",
                                         title: "Access Denied."
                                     });
-                                    router.setRoute(intro); 
+                                    router.setRoute(intro);
                                 }
                             }
 
@@ -325,7 +331,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                 if (user.isLoggedIn) {
                                     // alert("home");
                                     session.setUser(user, false);
-                                   router.setRoute(join_Editor_2);
+                                    router.setRoute(join_Editor_2);
                                     stickyheaderSetter.set();
                                 }
                             } else {
@@ -336,7 +342,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                     type: "error",
                                     title: "Access Denied."
                                 });
-                               router.setRoute(intro);
+                                router.setRoute(intro);
                             }
                         }
                     });
@@ -376,7 +382,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                             });
                         } else {
 
-                           router.setRoute(join_Editor_3);
+                            router.setRoute(join_Editor_3);
                             // alert("submitted!hhhhhhho");
                             // $(".reload").click(); // what is this?
                         }
@@ -430,7 +436,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                             });
                         } else {
                             //  alert("submitted!hhhhhhho");
-                           router.setRoute(home); 
+                            router.setRoute(home);
                             // $(".reload").click(); // what is this?
                         }
                     });
@@ -460,6 +466,180 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                     headers: getSecurityHeaders()
                 });
             }
+
+
+            function findUser(url, jData, busy) {
+                // Clear session first.
+                //session.clearUser();
+
+                //Append RequestVerificationToken value to the jData before posting.
+                addRequestVerificationToken(jData);
+                setMethod(jData, "findUser");
+                //setEmailAddress(jData, session.userEmailAddress);
+                //setUserNeo4jIdString(jData, session.userNeo4jIdString);//TODO use this.
+                setUserNeo4jIdString(jData, "13421");
+               // alert(jData.userNeo4jIdString);
+                //post data.
+                $.post(url, jData, function(data) {
+
+                    busy.remove();
+                    $("#userSearchBusy").addClass('ui-helper-hidden');
+
+                    var userSearch = {
+                        userId: ko.observable(undefined),
+                        name: ko.observable(undefined),
+                        usersName: ko.observable(undefined),
+                        usersFirstname: ko.observable(undefined),
+                        usersLastname: ko.observable(undefined),
+                        usersStatus: ko.observable(undefined)
+                    };
+
+                    $.each(data, function(id, value) {
+                        userSearch = {};
+                        // alert("submitted!hhhhhhho");
+                        //  router.navigate('#/join_editor_2');
+                        // arrayName3.push(value);
+                        if (id === "BadToken") {
+                            alert("BadToken");
+                            logger.log({
+                                message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
+                                showToast: true,
+                                type: "error"
+                            });
+                        } else {
+                            if (id === "array") {
+                                var userArray = value;
+                               
+                                /* 
+                                alert(userArray.length);
+                                var allUserArray = [];
+
+                               
+                                 for (var i = 0; i < userArray.length; i++) {
+                                 var map = userArray[i];
+                                 
+                                 $.each(map, function(id, value) {
+                                 userSearch = {};
+                                 
+                                 if (id === "userId") {
+                                 userSearch.userId = value;
+                                 //alert(value);
+                                 }
+                                 if (id === "name") {
+                                 userSearch.name = value;
+                                 //alert(value);
+                                 }
+                                 if (id === "usersName") {
+                                 userSearch.usersName = value;
+                                 //alert(value);
+                                 }
+                                 if (id === "usersFirstname") {
+                                 userSearch.usersFirstname = value;
+                                 // alert(value);
+                                 }
+                                 if (id === "usersLastname") {
+                                 userSearch.usersLastname = value;
+                                 //alert(value);
+                                 }
+                                 if (id === "usersStatus") {
+                                 userSearch.usersStatus = value;
+                                 // alert(value);
+                                 }
+                                 
+                                 allUserArray.push(userSearch);
+                                 
+                                 });
+                                 
+                                 }
+                                 */
+                                //allUserArray.push(userSearch);
+
+                                /*
+                                 for (var i = 0; i < allUserArray.length; i++) {
+                                 var map1 = allUserArray[i];
+                                 
+                                 $.each(map1, function(id, value) {
+                                 
+                                 alert(id + " " +value);
+                                 });
+                                 }
+                                 */
+
+                                session.userSearchArr(userArray);
+
+                                // session.userSearchArr(allUserArray);
+                                ko.observable('viewmodels/user_views/mainPage/userPage/userSearchWidget/allCustomersWidget').publishOn('USER_SEARCH_PANEL');
+
+
+                            } else {
+                                //  session.userSearch('');//Clear First.
+                                  
+                                if (id === "userId") {
+                                    userSearch.userId = value;
+                                    //alert("userId : " +value);
+                                }
+                                if (id === "name") {
+                                    userSearch.name = value;
+                                   // alert("name : " +value);
+                                }
+                                if (id === "usersName") {
+                                    userSearch.usersName = value;
+                                    //alert("usersName : " +value);
+                                }
+                                if (id === "usersFirstname") {
+                                    userSearch.usersFirstname = value;
+                                    //alert("usersFirstname : " +value);
+                                }
+                                if (id === "usersLastname") {
+                                    userSearch.usersLastname = value;
+                                    alert("usersLastname : " +value);
+                                }
+                                if (id === "usersStatus") {
+                                    userSearch.usersStatus = value;
+                                    //alert("usersStatus : " +value);
+                                }
+
+
+
+                                //TODO what is this?
+                                if (id === "isLoggedIn" && value === false) {
+                                    //alert(value);
+                                    logger.log({
+                                        message: "Please log in  and try again",
+                                        showToast: true,
+                                        type: "error"
+                                    });
+                                }
+
+                                session.userSearch(userSearch);
+                                ko.observable('viewmodels/user_views/mainPage/userPage/userSearchWidget/findUserWidget').publishOn('USER_SEARCH_PANEL');
+
+                            }
+
+
+                        }
+                    });
+
+                });
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             function register(data) {
                 return $.ajax(registerUrl, {
                     type: "POST",

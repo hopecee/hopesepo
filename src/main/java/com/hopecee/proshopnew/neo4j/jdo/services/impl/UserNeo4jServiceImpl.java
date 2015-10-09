@@ -10,6 +10,7 @@ import com.hopecee.proshopnew.neo4j.jdo.services.DAOException;
 import com.hopecee.proshopnew.neo4j.jdo.services.UserNeo4jService;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
@@ -135,6 +136,27 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
         return null;
     }
 
+    @Override
+    public User findByUsersName(String usersName) {
+        PersistenceManager pm =
+                JDOUtil.persistenceManagerFactory.getPersistenceManager();
+        try {
+            Query q = pm.newQuery(User.class);
+            q.setFilter("usersName.equals(value)");
+            q.declareParameters("String value");
+            //q.setUnique(true);
+            List<User> users = (List<User>) q.execute(usersName);
+            if (users != null && !users.isEmpty()) {
+                return users.get(0);
+            }
+        } finally {
+            pm.close();
+        }
+        return null;
+    }
+
+ 
+       
     @Override
     public User findById(Long id) {
         if (id == null) {

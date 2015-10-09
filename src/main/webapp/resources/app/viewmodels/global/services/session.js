@@ -54,10 +54,12 @@ define(['plugins/router'//, //'services/security',
                 isAuthCallback: isAuthCallback,
                 userRemembered: userRemembered,
                 rememberedToken: rememberedToken,
-                //==============================
-                // userphotoImg: ko.observable(undefined),
-                // setActiveEditor: setActiveEditor
-                mediaViewType: ko.observable(1) //initial = menu with 1 layer.
+                //========mediaView======================
+                mediaViewType: ko.observable(1), //initial = menu with 1 layer.
+                //========userSearch======================
+                userSearch: ko.observableArray([]),
+                 userSearchArr: ko.observableArray([])
+
             };
             return session;
 

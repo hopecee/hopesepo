@@ -77,9 +77,11 @@ ui-panel {
 }
 .noPadding { padding: 0px; }
 .noMargin {margin: 0px;}
-.ui-align-right {
-    text-align: right; 
-}
+.ui-align-right { text-align: right;  }
+.ui-align-center { text-align: center;  }
+.width100 {width: 100%;}
+.width50 {width: 50%;}
+
 .noBorder {border: 0px;}
 .search {cursor:  pointer;}
 /* Must not change */
@@ -192,7 +194,7 @@ input{
 
 input.error {
     background-color: #FFCCCC !important; 
-    border: solid 0.083em #CC6600;
+    border: solid 1px #CC6600;
 }
 
 input.valid {
@@ -223,13 +225,20 @@ input.valid {
 
 
 .joinEditorBusyPanel{
+    display: inline-block;
     padding: 0px;
     width: 4.167em; 
     height: 4.167em; 
-    border: #CCC solid 0.083em; 
+    border: #CCC solid 1px; 
     overflow: hidden;
 }
-
+.joinEditorBusyPanel.ht2{
+    padding: 0px;
+    width: 2em; 
+    height: 2em; 
+    border: #CCC solid 1px; 
+    overflow: hidden;
+}
 .boxShadow {
     -moz-box-shadow: 0.15em 0.15em 0.15em rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 0.15em 0.15em 0.15em rgba(0, 0, 0, 0.5);

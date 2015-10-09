@@ -11,5 +11,8 @@ import com.hopecee.proshopnew.neo4j.jdo.model.User;
  * @author hope
  */
 public interface UserNeo4jService extends DefaultDAO<User, Long> {
-    public User findByName( String name );
+
+    public User findByName(String name);
+
+    public User findByUsersName(String usersName);
 }

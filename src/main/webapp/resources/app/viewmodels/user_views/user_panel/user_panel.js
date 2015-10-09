@@ -108,7 +108,6 @@ define(['dojo/i18n!app/nls/constants', 'durandal/app', 'global/services/session'
                 return  constants.userImgFolder + observable() + '/' + observable() + constants.extJPG;
             }
         });
-
     };
 
     return {

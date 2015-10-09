@@ -287,6 +287,38 @@ body  {
         margin-left: 3px;
     }
 
+       .ui-form-control-wrapper{
+       
+      /*  
+        display: block;
+        width: 100%;
+        padding: 0.25em 0.375em;
+        color:  #555;
+        border-radius: 0.25em;
+*/
+       
+    }
+    
+.ui-form-control-inner:last-child {
+     border-top: 1px solid #ccc;
+}
+
+.ui-input-group-addon.inner:first-child {
+     border-width:  0px 1px 0px 0px;
+     border-style:  solid ;
+     border-color: #ccc;
+     border-radius: 0px;
+     padding: 0.25em 0.25em;
+}
+.ui-input-group-addon.inner:last-child{
+     border-width:  0px 0px 0px 1px;
+     border-style:  solid ;
+     border-color: #ccc;
+     
+     min-width: 0.625em;
+     border-radius: 0px;
+     background: #A1D99B; 
+}
     .ui-input-group-addon {
         display: table-cell;
 
@@ -3493,9 +3525,40 @@ body  {
         display: table-cell;
         width: 39%;
         border-radius:  0px;
-        margin-left: 3px;
+        margin-left: 0.1875em;
     }
+      .ui-form-control-wrapper{
+       
+      /*  
+        display: block;
+        width: 100%;
+        padding: 0.25em 0.375em;
+        color:  #555;
+        border-radius: 0.25em;
+*/
+       
+    }
+    
+.ui-form-control-inner:last-child {
+     border-top: 1px solid #ccc;
+}
 
+.ui-input-group-addon.inner:first-child {
+     border-width:  0px 1px 0px 0px;
+     border-style:  solid ;
+     border-color: #ccc;
+     border-radius: 0px;
+     padding: 0.25em 0.25em;
+}
+.ui-input-group-addon.inner:last-child{
+     border-width:  0px 0px 0px 1px;
+     border-style:  solid ;
+     border-color: #ccc;
+     
+     min-width: 0.625em;
+     border-radius: 0px;
+     background: #A1D99B; 
+}
     .ui-input-group-addon {
         display: table-cell;
 
@@ -6724,6 +6787,7 @@ body  {
      border-style:  solid ;
      border-color: #ccc;
      border-radius: 0px;
+     padding: 0.25em 0.25em;
 }
 .ui-input-group-addon.inner:last-child{
      border-width:  0px 0px 0px 1px;

@@ -37,7 +37,7 @@ import org.picketlink.idm.common.exception.IdentityException;
  * @author hope
  */
 @WebServlet(value = "/joinEditor3Servlet", name = "joinEditor3Servlet")
-public class JoinEditor3Servlet extends HttpServlet {
+public class JoinEditor3Servlet_NOOOOT extends HttpServlet {
 
     private static final long serialVersionUID = 937096710183005490L;
     private ResourceBundle bundle = ResourceBundle.getBundle("constants");
@@ -217,10 +217,10 @@ public class JoinEditor3Servlet extends HttpServlet {
             // return "index?faces-redirect=true";
         } catch (DAOException ex) {
             exceptionEvent.fire(new ExceptionEventRollback());
-            Logger.getLogger(JoinEditor3Servlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JoinEditor3Servlet_NOOOOT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             exceptionEvent.fire(new ExceptionEventRollback());
-            Logger.getLogger(JoinEditor3Servlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JoinEditor3Servlet_NOOOOT.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 

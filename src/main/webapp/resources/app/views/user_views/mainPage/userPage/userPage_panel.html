@@ -1,91 +1,21 @@
 <div class="container ui-form-group noPadding ">
+    <form id="userSearchform" name="userSearchform" method="post" action="/" enctype="multipart/form-data">
 
-    <div class="ui-input-group ui-align-right">
-        <input id="usersName" class="ui-form-control po-1 inputWithPlaceholder bgColour noCache" name="usersName" type="text" placeholder="User Name_" onclick="hide();" data-bind="value: usersName" />
-        <input id="usersName1" class="ui-form-control po-2 inputWithPlaceholder bgColour noCache" name="usersName1" type="text" placeholder="User Name_" onclick="hide();" data-bind="value: usersName1" />
-
-        
-            <span class="ui-input-group-addon search" style="">
+        <div class="ui-input-group ui-align-right">
+            <input id="searchValue" class="ui-form-control po-1 inputWithPlaceholder bgColour noCache" name="searchValue" type="text" placeholder="Value_" onclick="hide();" data-bind="value: searchValue" />
+            <input id="searchType" class="ui-form-control po-2 inputWithPlaceholder bgColour noCache" name="searchType" type="text" placeholder="Type_" onclick="hide();" data-bind="value: searchType" />
+            <span id="userSearch" class="ui-input-group-addon search" data-bind="click: onSearch" onmouseover="$(this).addClass('ui-state-hover');" onmouseout="$(this).removeClass(' ui-state-hover');">
                 <i class="fa fa-search"></i>
             </span >
-        
-
-
-    </div>
-
-
-    <div class="ui-input-group block ui-align-right " style=" ">
-
-        <div class="row ui-helper-clearfix">
-            <div class="" style="width: 50%; float: left; padding: 5px;"  >
-                <div class="ui-input-group  noMargin" style=" border: 1px solid #ccc; border-radius: 3px; background: #F7FCF5;">
-                    <span class="ui-input-group-addon inner" style="">
-                        <img id="userW"  src="u/1.jpg"  alt="userImg"  style="max-width: 2.5em;"  />
-                    </span>
-                    <div  class="ui-form-control-wrapper  "  style=" " >
-                        <div class="row ui-helper-clearfix">
-                            <div class="" style="width: 100%; float: left;"  >
-                                <div  class="ui-form-control-inner   "  style="text-align: center; " >
-                                    <div >  <span style=" font-size:  14px;font-weight: bold;" >Hope-ceeAnyaogu </span></div>
-                                    <div > <span style="font-size: 12px; font-weight: 400;" >Hope-cee Anyaogu </span></div>
-                                </div> 
-                                <div  class="ui-form-control-inner  "  style=" " >
-                                    <div style=" vertical-align:  middle;" > 
-                                        <div class="row ui-helper-clearfix">
-                                            <div class="column half" style=" text-align: center;"  >
-                                                <span style="">email</span>
-                                            </div > 
-                                            <div class="column half" style="text-align: center;"  >
-                                                <span style="">edit</span>
-                                            </div > 
-                                        </div > 
-                                    </div > 
-                                </div> 
-                            </div> 
-                        </div> 
-                    </div>
-                    <span class="ui-input-group-addon inner" style="">
-                        <!-- <i class="fa fa-user"></i>-->
-                    </span>
-                </div>
-            </div>
-
-            <div class="" style="width: 50%; float: left; padding: 5px;"  >
-                <div class="ui-input-group  noMargin" style=" border: 1px solid #ccc; border-radius: 3px; background: #F7FCF5;">
-                    <span class="ui-input-group-addon inner" style="">
-                        <img id="userW"  src="u/1.jpg"  alt="userImg"  style="max-width: 2.5em;"  />
-                    </span>
-                    <div  class="ui-form-control-wrapper  "  style=" " >
-                        <div class="row ui-helper-clearfix">
-                            <div class="" style="width: 100%; float: left;"  >
-                                <div  class="ui-form-control-inner   "  style="text-align: center; " >
-                                    <div >  <span style=" font-size:  14px;font-weight: bold;" >Hope-ceeAnyaogu </span></div>
-                                    <div > <span style="font-size: 12px; font-weight: 400;" >Hope-cee Anyaogu </span></div>
-                                </div> 
-                                <div  class="ui-form-control-inner  "  style=" " >
-                                    <div style=" vertical-align:  middle;" > 
-                                        <div class="row ui-helper-clearfix">
-                                            <div class="column half" style="  text-align: center;"  >
-                                                <span style="">email</span>
-                                            </div > 
-                                            <div class="column half" style=" text-align: center;"  >
-                                                <span style="">edit</span>
-                                            </div > 
-                                        </div > 
-                                    </div > 
-                                </div> 
-                            </div> 
-                        </div> 
-                    </div>
-                    <span class="ui-input-group-addon inner" style="">
-                        <!-- <i class="fa fa-user"></i>-->
-                    </span>
-                </div>
-            </div>
 
         </div>
+        <div id="userSearchBusy" class="ui-input-group width100 ui-helper-hidden ui-align-center" style="">
+            <div  class="joinEditorBusyPanel ht2 ui-corner-all"  ></div>
+        </div>
+        <!-- <div  data-bind="compose:'viewmodels/user_views/mainPage/userPage/userSearchWidget/findUserWidget'" class="ui-input-group block ui-align-right" ></div>-->
+        <div id="userSearchPanel" data-bind="compose: userSearchPanel" class="ui-input-group block ui-align-right" ></div>
 
-    </div>
+    </form>
 </div>
 
 

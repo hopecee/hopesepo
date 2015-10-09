@@ -121,7 +121,9 @@ define(['dojo/i18n!app/nls/labels',
                     "email": "Please enter a valid Email Address.",
                     "required": "Please enter your email address."
                 },
-                'agree': "Please accept our terms and policy."
+                'agree': {
+                    "required": "Please accept our terms and policy."
+                }
             }
         });
     };

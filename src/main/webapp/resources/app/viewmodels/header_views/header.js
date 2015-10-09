@@ -9,16 +9,20 @@ define(['dojo/i18n!app/nls/labels', 'dojo/i18n!app/nls/locales',
             });
 
 
-            var localeWidget = function localeWidget(locale, value) {
-                return {locale: locale, value: value};
-            };
+            //var localeWidget = function(locale, value) {
+            //    return {locale: locale, value: value};
+            //};
 
 
             var localeWidgets = function() {
-                var arr = [];
+                var arr = [],
+                        localeWidget = {};
                 $.each(locales, function(key, value) {
+                    localeWidget = {};//Clear first.
+                    localeWidget.locale = key;
+                    localeWidget.value = value;
                     if (key.length < 5) {
-                        arr.push(new localeWidget(key, value));
+                        arr.push(localeWidget);
                         // alert(key.length + " : " + key + "  :  " + value);
 
                         // var li = domConstruct.create("li", {id: key}, "dropdownLocale");

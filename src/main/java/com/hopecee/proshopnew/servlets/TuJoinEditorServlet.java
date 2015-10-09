@@ -652,10 +652,10 @@ public class TuJoinEditorServlet extends HttpServlet {
 
         } catch (DAOException ex) {
             exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(JoinEditor3Servlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(JoinEditor3Servlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
             Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
