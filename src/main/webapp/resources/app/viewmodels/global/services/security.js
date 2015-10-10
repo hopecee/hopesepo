@@ -92,7 +92,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 joinEditor3: joinEditor3,
                 localeManager: localeManager,
                 logout: logout,
-                findUser: findUser,
+                searchUser: searchUser,
                 register: register,
                 registerExternal: registerExternal,
                 removeLogin: removeLogin,
@@ -468,17 +468,17 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
             }
 
 
-            function findUser(url, jData, busy) {
+            function searchUser(url, jData, busy) {
                 // Clear session first.
                 //session.clearUser();
 
                 //Append RequestVerificationToken value to the jData before posting.
                 addRequestVerificationToken(jData);
-                setMethod(jData, "findUser");
+                setMethod(jData, "searchUser");
                 //setEmailAddress(jData, session.userEmailAddress);
                 //setUserNeo4jIdString(jData, session.userNeo4jIdString);//TODO use this.
                 setUserNeo4jIdString(jData, "13421");
-               // alert(jData.userNeo4jIdString);
+                // alert(jData.userNeo4jIdString);
                 //post data.
                 $.post(url, jData, function(data) {
 
@@ -507,14 +507,14 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                 type: "error"
                             });
                         } else {
-                            if (id === "array") {
+                            if (id === "findAllCustomers") {
                                 var userArray = value;
-                               
-                                /* 
-                                alert(userArray.length);
-                                var allUserArray = [];
 
-                               
+                                /* 
+                                 alert(userArray.length);
+                                 var allUserArray = [];
+                                 
+                                 
                                  for (var i = 0; i < userArray.length; i++) {
                                  var map = userArray[i];
                                  
@@ -565,40 +565,44 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                  }
                                  */
 
-                                session.userSearchArr(userArray);
+                                session.userAllSearch(userArray);
 
-                                // session.userSearchArr(allUserArray);
+                                // session.userAllSearch(allUserArray);
                                 ko.observable('viewmodels/user_views/mainPage/userPage/userSearchWidget/allCustomersWidget').publishOn('USER_SEARCH_PANEL');
 
 
-                            } else {
-                                //  session.userSearch('');//Clear First.
-                                  
-                                if (id === "userId") {
-                                    userSearch.userId = value;
-                                    //alert("userId : " +value);
-                                }
-                                if (id === "name") {
-                                    userSearch.name = value;
-                                   // alert("name : " +value);
-                                }
-                                if (id === "usersName") {
-                                    userSearch.usersName = value;
-                                    //alert("usersName : " +value);
-                                }
-                                if (id === "usersFirstname") {
-                                    userSearch.usersFirstname = value;
-                                    //alert("usersFirstname : " +value);
-                                }
-                                if (id === "usersLastname") {
-                                    userSearch.usersLastname = value;
-                                    alert("usersLastname : " +value);
-                                }
-                                if (id === "usersStatus") {
-                                    userSearch.usersStatus = value;
-                                    //alert("usersStatus : " +value);
-                                }
+                            }
 
+                            if (id === "findUser") {
+
+                                var userArray = value;
+
+                                /*
+                                 if (id === "userId") {
+                                 userSearch.userId = value;
+                                 //alert("userId : " +value);
+                                 }
+                                 if (id === "name") {
+                                 userSearch.name = value;
+                                 // alert("name : " +value);
+                                 }
+                                 if (id === "usersName") {
+                                 userSearch.usersName = value;
+                                 //alert("usersName : " +value);
+                                 }
+                                 if (id === "usersFirstname") {
+                                 userSearch.usersFirstname = value;
+                                 //alert("usersFirstname : " +value);
+                                 }
+                                 if (id === "usersLastname") {
+                                 userSearch.usersLastname = value;
+                                 alert("usersLastname : " + value);
+                                 }
+                                 if (id === "usersStatus") {
+                                 userSearch.usersStatus = value;
+                                 //alert("usersStatus : " +value);
+                                 }
+                                 */
 
 
                                 //TODO what is this?
@@ -611,7 +615,9 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                     });
                                 }
 
-                                session.userSearch(userSearch);
+                                session.userSearch.length = 0;//Clear First.
+                               // alert("usersStatus : " + userArray);
+                                session.userSearch(userArray);
                                 ko.observable('viewmodels/user_views/mainPage/userPage/userSearchWidget/findUserWidget').publishOn('USER_SEARCH_PANEL');
 
                             }

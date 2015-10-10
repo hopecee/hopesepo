@@ -131,14 +131,20 @@ define(['dojo/i18n!app/nls/constants', 'dojo/i18n!app/nls/labels',
 
     var userSearchData = function() {
         var userData = {},
-                userDataObj = session.userSearch(),
-                userId = userDataObj.userId,
-                usersName = userDataObj.usersName,
-                usersFullname = userDataObj.usersLastname + " " + userDataObj.usersFirstname;
-
-        userData['img'] = constants.userImgFolder + userId + '/' + userId + constants.extJPG;
-        userData['usersName'] = usersName;
-        userData['usersFullname'] = usersFullname;
+                userId,
+                usersName,
+                usersFullname,
+                userDataArr = session.userSearch();
+        $.each(userDataArr, function(index, value) {
+           // console.log(value);
+            userId = value.userId;
+            usersName = value.usersName;
+            usersFullname = value.usersLastname + " " + value.usersFirstname;
+        });
+       
+        userData.img = constants.userImgFolder + userId + '/' + userId + constants.extJPG;
+        userData.usersName = usersName;
+        userData.usersFullname = usersFullname;
         return userData;
     };
 

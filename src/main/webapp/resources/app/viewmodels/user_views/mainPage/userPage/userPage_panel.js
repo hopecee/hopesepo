@@ -181,7 +181,7 @@ define(['dojo/i18n!app/nls/labels',
                 var busy = getBusyOverlay(document.getElementById('userSearchBusy'), {color: 'white', opacity: 0.05, text: '', style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'}, {color: 'black', size: 32, type: 'o'});
 
                 //post data.
-                security.findUser(url, jData, busy);
+                security.searchUser(url, jData, busy);
                 // $("#userSearchBusy").addClass('ui-helper-hidden');
 
             } else {

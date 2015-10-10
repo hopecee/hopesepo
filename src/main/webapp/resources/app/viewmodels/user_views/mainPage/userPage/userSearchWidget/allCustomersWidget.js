@@ -132,117 +132,26 @@ define(['dojo/i18n!app/nls/constants', 'dojo/i18n!app/nls/labels',
     var userSearchDataArr = function() {
         var userDataArr = [],
                 userData = {},
-       userDataObjArr = session.userSearchArr();
-/*
-        userDataObjArr = [{
-                userId: '1',
-                usersName: 'usersName@hb.vom',
-                usersLastname: 'usersLastname',
-                usersFirstname: 'usersFirstname'
-
-            }, {
-                userId: '2',
-                usersName: '2usersName@hb.vom',
-                usersLastname: '2usersLastname',
-                usersFirstname: '2usersFirstname'
-            }, {userId: '3',
-                usersName: '3usersName@hb.vom',
-                usersLastname: '2usersLastname',
-                usersFirstname: '2usersFirstname'}];
-        */
-
-        //alert(userDataObjArr.length);
+                userDataObjArr = session.userAllSearch();
 
         var userId, usersName, usersLastname, usersFirstname, usersFullname;
-       // var count = 0;
-        for (var i = 0; i < userDataObjArr.length; i++) {
-            var uObj = userDataObjArr[i];
-            $.each(uObj, function(id, value) {
-                if (id === 'userId') {
-                    userId = value;
-                    // alert('userId : ' + userId);
-                }
-                if (id === 'usersName') {
-                    usersName = value;
-                    // alert('usersName : ' + usersName);
-                }
-                if (id === 'usersLastname') {
-                    usersLastname = value;
-                    // alert('usersName : ' + usersLastname);
-                }
-                if (id === 'usersFirstname') {
-                    usersFirstname = value;
-                    // alert('usersFirstname : ' + usersFirstname);
-                }
-                usersFullname = usersLastname + " " + usersFirstname;
-                // alert('userId' + " :1 " + userId + " :2 " + 'usersLastname' + " :3 " + usersLastname);
 
-                // var userId = userDataObj[id];
+        $.each(userDataObjArr, function(id, value) {
+            userId = value.userId;
+            usersName = value.usersName;
+            usersLastname = value.usersLastname;
+            usersFirstname = value.usersFirstname;
+            usersFullname = usersLastname + " " + usersFirstname;
 
-
-            });
             userData = {}; //Clear First.  
             userData.img = constants.userImgFolder + userId + '/' + userId + constants.extJPG;
             userData.usersName = usersName;
             userData.usersFullname = usersFullname;
 
-          //  alert('img : ' + userData.img + ' usersName : ' + userData.usersName + ' usersName : ' + userData.usersFullname);
-
             userDataArr.push(userData);
-            //count++;
+        });
 
-        }
-
-        //alert(count);
         return userDataArr;
-        /*
-         var userId = userDataObj.userId,
-         usersName = userDataObj.usersName,
-         usersLastname = " ",
-         usersFirstname = " ";
-         if (userDataObj.usersLastname !== undefined) {
-         usersLastname = userDataObj.usersLastname;
-         }
-         if (userDataObj.usersFirstname !== undefined) {
-         usersFirstname = userDataObj.usersFirstname;
-         }
-         var usersFullname = usersLastname + " " + usersFirstname;
-         alert(userDataObj.userId + " : " + userDataObj.name + " : " + usersName + " : " + usersFullname);
-         //TODO you can get more data.
-         userData = {}; //Clear First.  
-         userData['img'] = constants.userImgFolder + userId + '/' + userId + constants.extJPG;
-         userData['usersName'] = usersName;
-         userData['usersFullname'] = usersFullname;
-         
-         */
-        //add to the array.
-        // userDataArr.push(userData);
-
-        /* 
-         }
-         
-         
-         for (var i = 0; i < userDataArr.length; i++) {
-         var map = userDataArr[i];
-         
-         //alert(userDataArr[i]);
-         
-         $.each(map, function(id, value) {
-         
-         // alert(id + " " +value);
-         
-         
-         });
-         
-         }
-         ;
-         */
-
-
-
-
-
-
 
     };
 

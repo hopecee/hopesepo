@@ -76,14 +76,14 @@ public class TuUsersSearchServlet extends HttpServlet {
             System.out.println("DDDDDDDDD = : " + method);
             System.out.println("DDDDDDDDD = : ");
 
-            if ("findUser".equals(method) && "user".equals(searchType)) {
+            if ("searchUser".equals(method) && "@tushop.com".equals(searchType)) {
 
                 System.out.println("DDDDDDDDD = : ");
 
                 findUser(req, resp);
             }
 
-            if ("findUser".equals(method) && "all".equals(searchType)) {
+            if ("searchUser".equals(method) && "all friends".equals(searchType)) {
 
                 System.out.println("DDDDDDDDD = : ");
 
@@ -102,26 +102,37 @@ public class TuUsersSearchServlet extends HttpServlet {
 
 
         try {
-            //=======neo4j==============================//
-            //find User  from neo4j DB. 
-            User user = userNeo4jService.findByUsersName(searchValue);
-
             //  Map<Object, Object> userMap = new LinkedHashMap<>();
             userMap.clear(); //Clear First.
 
+            userMap.put("isLoggedIn", true);//Check login.
+
+            List customersArr = new ArrayList();
+            customersArr.clear();  //Clear First.
+
+            Map<Object, Object> customersMap = new LinkedHashMap<>();
+            customersMap.clear();//Clear First.
+
+            //=======neo4j==============================//
+            //find User  from neo4j DB. 
+            User user = userNeo4jService.findByUsersName(searchValue);
             if (user != null) {
-                userMap.put("userId", user.getId());
-                userMap.put("name", user.getName());
-                userMap.put("usersName", user.getUsersName());
-                userMap.put("usersFirstname", user.getUsersFirstname());
-                userMap.put("usersLastname", user.getUsersLastname());
-                userMap.put("usersStatus", user.getUsersStatus());
+                customersMap.put("userId", user.getId());
+                customersMap.put("name", user.getName());
+                customersMap.put("usersName", user.getUsersName());
+                customersMap.put("usersFirstname", user.getUsersFirstname());
+                customersMap.put("usersLastname", user.getUsersLastname());
+                customersMap.put("usersStatus", user.getUsersStatus());
 
                 System.out.println("userId : " + user.getId());
                 System.out.println("userName : " + user.getName());
             }
 
-            userMap.put("isLoggedIn", true);//Check login.
+            customersArr.add(customersMap);
+
+            userMap.put("findUser", customersArr);
+            // ArrayList arr = (ArrayList) userMap.get("array");
+
             String json = new Gson().toJson(userMap);
 
             resp.setContentType(JSON);
@@ -140,8 +151,6 @@ public class TuUsersSearchServlet extends HttpServlet {
         String searchType = req.getParameter("searchType");//TODO NOT NEEDED.
         String userNeo4jIdString = req.getParameter("userNeo4jIdString");
 
-
-
         System.out.println(searchValue);
         System.out.println(searchType);
         System.out.println(userNeo4jIdString);
@@ -152,8 +161,8 @@ public class TuUsersSearchServlet extends HttpServlet {
 
         //allCustomersMap.clear();//Clear First.
 
-        List allCustomers = new ArrayList();
-        allCustomers.clear();  //Clear First.
+        List customersArr = new ArrayList();
+        customersArr.clear();  //Clear First.
 
         try {
             userMap.put("isLoggedIn", true);//Check login.
@@ -181,7 +190,7 @@ public class TuUsersSearchServlet extends HttpServlet {
                 customersMap.put("usersLastname", customer.getUsersLastname());
                 customersMap.put("usersStatus", customer.getUsersStatus());
 
-                allCustomers.add(customersMap);
+                customersArr.add(customersMap);
 
 
                 System.out.println(customer.getId() + " : " + customer.getName() + " : " + customer.getUsersName() + " : " + customer.getUsersStatus());
@@ -230,26 +239,26 @@ public class TuUsersSearchServlet extends HttpServlet {
     
              }
              */
-            userMap.put("array", allCustomers);
-            ArrayList arr = (ArrayList) userMap.get("array");
+            userMap.put("findAllCustomers", customersArr);
+            // ArrayList arr = (ArrayList) userMap.get("array");
 
-            System.out.println("====" + arr);
-            System.out.println("=================================");
+            // System.out.println("====" + arr);
+            // System.out.println("=================================");
            /* for (int i = 0; i < arr.size(); i++) {
-                Map<Object, Object> tmpData = (Map<Object, Object>) arr.get(i);
-                Set<String> key = (Set<String>) ((Map) tmpData).keySet();
+             Map<Object, Object> tmpData = (Map<Object, Object>) arr.get(i);
+             Set<String> key = (Set<String>) ((Map) tmpData).keySet();
 
-                Iterator<String> it = key.iterator();
-                while (it.hasNext()) {
-                    String hmKey =  it.next();
-                    Object hmData =  tmpData.get(hmKey);
+             Iterator<String> it = key.iterator();
+             while (it.hasNext()) {
+             String hmKey =  it.next();
+             Object hmData =  tmpData.get(hmKey);
 
-                    System.out.println("Key: " + hmKey + " & Data: " + hmData);
-                    it.remove(); // avoids a ConcurrentModificationException
-                }
+             System.out.println("Key: " + hmKey + " & Data: " + hmData);
+             it.remove(); // avoids a ConcurrentModificationException
+             }
 
-            }
-            */
+             }
+             */
 
 
 

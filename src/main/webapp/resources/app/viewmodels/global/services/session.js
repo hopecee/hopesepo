@@ -58,7 +58,7 @@ define(['plugins/router'//, //'services/security',
                 mediaViewType: ko.observable(1), //initial = menu with 1 layer.
                 //========userSearch======================
                 userSearch: ko.observableArray([]),
-                 userSearchArr: ko.observableArray([])
+                 userAllSearch: ko.observableArray([])
 
             };
             return session;
