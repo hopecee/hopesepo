@@ -124,7 +124,20 @@ define(['dojo/i18n!app/nls/constants', 'dojo/i18n!app/nls/labels',
 
         // dom.byId('labelTuShopTerms').innerHTML = labels.tuShopTerms;
 
-
+        /*
+         $('#allCustomersWidget').on('dblclick',  function (event) {
+         
+         $.each(event, function(id, value) {
+         alert(id+ " : " +value);
+         });
+         
+         var myViewModelFragment = ko.dataFor(this);
+         $.each(myViewModelFragment, function(id, value) {
+         alert(id+ " : " +value);
+         });
+         
+         });
+         */
     };
 
 
@@ -143,7 +156,8 @@ define(['dojo/i18n!app/nls/constants', 'dojo/i18n!app/nls/labels',
             usersFirstname = value.usersFirstname;
             usersFullname = usersLastname + " " + usersFirstname;
 
-            userData = {}; //Clear First.  
+            userData = {}; //Clear First. 
+            userData.userId = userId;
             userData.img = constants.userImgFolder + userId + '/' + userId + constants.extJPG;
             userData.usersName = usersName;
             userData.usersFullname = usersFullname;
@@ -160,7 +174,10 @@ define(['dojo/i18n!app/nls/constants', 'dojo/i18n!app/nls/labels',
 //activate: activate,
         attached: attached,
         //userIdSearch: ko.observable('1'),
-        userSearchDataArr: userSearchDataArr()
+        userSearchDataArr: userSearchDataArr(),
+        userdblclick: function(data, event) {
+            ko.postbox.publish('OPEN_USER_PROFILE_PANEL', event.currentTarget.id);
+        }
     };
 
 

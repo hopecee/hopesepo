@@ -1,5 +1,5 @@
-define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/services/stickyheaderSetter'],
-        function(on, session, logger, stickyheaderSetter) {
+define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/services/stickyheaderSetter', 'global/services/busy'],
+        function(on, session, logger, stickyheaderSetter, _busy) {
 
             var router = new Router().init();
 
@@ -468,7 +468,10 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
             }
 
 
-            function searchUser(url, jData, busy) {
+            function searchUser(url, jData) {
+                ko.observable('viewmodels/task/busyWidget').publishOn('USER_SEARCH_PANEL');
+                //_busy.userSearchBusyRemove();
+
                 // Clear session first.
                 //session.clearUser();
 
@@ -482,8 +485,8 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 //post data.
                 $.post(url, jData, function(data) {
 
-                    busy.remove();
-                    $("#userSearchBusy").addClass('ui-helper-hidden');
+                    //busy.remove();
+                    // $("#userSearchBusy").addClass('ui-helper-hidden');
 
                     var userSearch = {
                         userId: ko.observable(undefined),
@@ -495,6 +498,9 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                     };
 
                     $.each(data, function(id, value) {
+                        //Remove Busy first.
+                        _busy.userSearchBusyRemove();
+                        
                         userSearch = {};
                         // alert("submitted!hhhhhhho");
                         //  router.navigate('#/join_editor_2');
@@ -509,7 +515,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                         } else {
                             if (id === "findAllCustomers") {
                                 var userArray = value;
-
+                                // alert( "arrayT ");
                                 /* 
                                  alert(userArray.length);
                                  var allUserArray = [];
@@ -564,10 +570,13 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                  });
                                  }
                                  */
-
+                                // alert( "array1 " +session.userAllSearch());
+                                session.userAllSearch([]);//Clear First.
+                                // alert( "array " +session.userAllSearch());
                                 session.userAllSearch(userArray);
+                                //alert( "arrayo " +session.userAllSearch());
 
-                                // session.userAllSearch(allUserArray);
+
                                 ko.observable('viewmodels/user_views/mainPage/userPage/userSearchWidget/allCustomersWidget').publishOn('USER_SEARCH_PANEL');
 
 
@@ -614,10 +623,13 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                         type: "error"
                                     });
                                 }
-
-                                session.userSearch.length = 0;//Clear First.
-                               // alert("usersStatus : " + userArray);
+//alert("usersStatus1 : " + session.userSearch());
+                                session.userSearch([]);//Clear First.
+                                // alert("usersStatus2 : " + session.userSearch());
                                 session.userSearch(userArray);
+                                //alert("usersStatus3 : " + session.userSearch());
+                                //Remove Busy first.
+                                //  busy.remove();
                                 ko.observable('viewmodels/user_views/mainPage/userPage/userSearchWidget/findUserWidget').publishOn('USER_SEARCH_PANEL');
 
                             }

@@ -133,7 +133,7 @@ define('knockout', [], function() {
 });
 
 //define('Router', [], function() {
- //  return routr;
+//  return routr;
 //});
 
 
@@ -143,6 +143,18 @@ define('knockout', [], function() {
 
 require(['durandal/system', 'durandal/app', 'durandal/viewLocator'
 ], function(system, app, viewLocator) {
+
+ //adding function to ko.observableArray(),ko.observable().
+    ko.observableArray.fn.refresh = function() {
+        // var data = this().slice(0);
+        // this([]);
+        // this(data);
+        var data = this()/*.slice()*/;
+        this(null);
+        this(data);
+    };
+    
+    
 
 
     //>>excludeStart("build", true);

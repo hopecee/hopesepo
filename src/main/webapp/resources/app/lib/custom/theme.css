@@ -13,6 +13,7 @@
 img { 
     border-style: none;
     vertical-align: middle; /*Hope*/
+  
 }
 
 /*
@@ -43,11 +44,13 @@ ui-panel {
     text-align: left;
     /*height: 72px; determined through 'header' viewmodel */
 
-    -moz-box-shadow: 0px 0px 1.67em #000;
+   /* -moz-box-shadow: 0px 0px 1.67em #000;
     -webkit-box-shadow: 0px 0px 1.67em #000;
-    box-shadow: 0px 0px 1.67em #000;
+    box-shadow: 0px 0px 1.67em #000; */
 
-
+ -moz-box-shadow: 0px 0px 1em #000;
+    -webkit-box-shadow: 0px 0px 1em #000;
+    box-shadow: 0px 0px 1em #000;
 
 }
 .container {

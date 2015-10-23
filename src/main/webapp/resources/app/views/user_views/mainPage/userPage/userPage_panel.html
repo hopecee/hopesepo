@@ -9,14 +9,74 @@
             </span >
 
         </div>
-        <div id="userSearchBusy" class="ui-input-group width100 ui-helper-hidden ui-align-center" style="">
+        <!-- <div id="userSearchBusy" class="ui-input-group width100 ui-helper-hidden ui-align-center" style="">
             <div  class="joinEditorBusyPanel ht2 ui-corner-all"  ></div>
-        </div>
-        <!-- <div  data-bind="compose:'viewmodels/user_views/mainPage/userPage/userSearchWidget/findUserWidget'" class="ui-input-group block ui-align-right" ></div>-->
-        <div id="userSearchPanel" data-bind="compose: userSearchPanel" class="ui-input-group block ui-align-right" ></div>
-
+        </div>  -->
     </form>
+    <!-- <div  data-bind="compose:'viewmodels/user_views/mainPage/userPage/userSearchWidget/findUserWidget'" class="ui-input-group block ui-align-right" ></div> - ->
+    
+    
+    <div id="userSearchPanel" data-bind="compose: userSearchPanel" class="ui-input-group block ui-align-right" ></div>
+
+    -->
+
+    <div align ="center" id="tab-container-userInner" class=" tab-container ui-widget ui-widget-content  ui-corner-all " style=" margin-top: 50px; ">
+        <div class="tab-input-group" style="">
+            <div  class="scroll-container-userInner tab-form-control inner" style="">
+                <ul class="etabs " data-bind="template: { name: userTabsTemplate_ul, foreach: userTabs, as: 'tab'}"  style="">
+                    <!--  <li class='tab inner' ><a href="#" data-bind="attr: {href: '#'+id}, text: userName"></a></li>
+ 
+                     <!- -
+                     <li class='tab inner' ><a href="#uProfileOutput">Profile</a><span class="ui-tabs-close"><i class="fa fa-close"></i></span></li>
+                     <li class='tab inner' ><a href="#uSearchOutput_2">Profile-not</a><span class="ui-tabs-close"><i class="fa fa-close"></i></span></li>
+                    -->
+                </ul>
+                
+                <script type="text/html" id="unclosable_ul">
+                     <li class="tab inner" ><a href="#" data-bind="attr: {href: '#'+id}, text: userName"></a></li>
+                </script>
+                <script type="text/html" id="closable_ul">
+                      <li class="tab inner" ><a href="#" data-bind="attr: {href: '#'+id}, text: userName"></a><span class="ui-tabs-close" data-bind="click: $parent.userClose"><i class="fa fa-close"></i></span></li>
+                </script>
+
+            </div>
+            <span class="tab-input-group-addon">
+                <button type="button" class="scroll-left-userInner btn btn-custom dropdown-toggle" data-toggle="dropdown">
+                    <span class="fa fa-caret-left ui-icon-White ui-icon-compact "></span>
+                </button>
+                <button type="button" class="scroll-right-userInner btn btn-custom dropdown-toggle" data-toggle="dropdown">
+                    <span class="fa fa-caret-right ui-icon-White ui-icon-compact "></span>
+                </button>
+            </span>
+        </div>
+
+        <div class="panel-container inner" data-bind="template: { name: userTabsTemplate, foreach: userTabs, as: 'tab'}" >
+            <!--
+                        <div  data-bind="attr: {id: id}, compose: userSearchPanel " class="ui-input-group block " ></div>
+            
+            
+                        <!- -
+                        <div id="uProfileOutput" data-bind="compose:'viewmodels/user_views/mainPage/userPage/userProfileWidget'" class="ui-input-group block"></div> 
+                        <div id="uSearchOutput_2" data-bind="compose:'viewmodels/user_views/mainPage/userPage/userProfileWidget'"></div> 
+            -->
+        </div>  
+
+        <script type="text/html" id="unclosable">
+            <div  data-bind="attr: {id: id}, compose: userSearchPanel" class="ui-input-group block" ></div>
+        </script>
+        <script type="text/html" id="closable">
+            <div  data-bind="attr: {id: id},  compose: userProfilePanel" class="ui-input-group block" ></div>
+        </script>
+    </div> 
+
+
+
+
 </div>
+
+
+
+
 
 
 

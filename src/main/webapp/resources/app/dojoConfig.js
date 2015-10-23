@@ -72,7 +72,7 @@ var dojoConfig = {
     locale: locale,
     //extraLocale: ['fr,de'],
     aliases: [['text', 'dojo/text']],
-    lib: '/faces/javax.faces.resource/app/lib',
+    lib: '/faces/javax.faces.resource/app/lib', //NOT USED YET.
     // Register the packages we are going to be using. These same packages should be defined in the
     // build profile in `app.profile.js`.
     packages: [
