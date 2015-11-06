@@ -132,9 +132,7 @@ define('knockout', [], function() {
     return ko;
 });
 
-//define('Router', [], function() {
-//  return routr;
-//});
+
 
 
 
@@ -165,8 +163,9 @@ require(['durandal/system', 'durandal/app', 'durandal/viewLocator'
 
 //specify which plugins to install and their configuration
     app.configurePlugins({
-        //router: true,//TODO dojo/router is now used.
-        dialog: true
+        //router: true,//TODO Router From director.js is now used.
+        dialog: true,
+      widget: true
     });
 
     app.start().then(function() {

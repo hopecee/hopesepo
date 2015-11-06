@@ -11,6 +11,7 @@ import com.hopecee.proshopnew.neo4j.jdo.services.UserNeo4jService;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
+import javax.jdo.FetchGroup;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
@@ -41,7 +42,7 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
      tx.begin();
 
 
-     User user = new User(usersEmailAddress, usersFirstname, usersLastname, usersStatus, usersDor);
+     Userfriendship user = new Userfriendship(usersEmailAddress, usersFirstname, usersLastname, usersStatus, usersDor);
      //Product product = new Product("Sony Discman2", "A standard discman from Sony2", 49.99);
      //inv.getProducts().add(product);
      pm.makePersistent(user);
@@ -64,12 +65,12 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
      try {
      tx.begin();
 
-     Query q = pm.newQuery("SELECT FROM " + User.class.getName());
+     Query q = pm.newQuery("SELECT FROM " + Userfriendship.class.getName());
      List<User> users = (List<User>) q.execute();
      Iterator<User> iter = users.iterator();
      while (iter.hasNext()) {
-     User u = iter.next();
-     System.out.println("User Name        : " + u.getId() + " " + u.getName() + " : " + u.getUsersFirstname() + " : " + u.getUsersLastname() + " : " + u.getUsersStatus() + " : " + u.getUsersDor());
+     Userfriendship u = iter.next();
+     System.out.println("Userfriendship Name        : " + u.getId() + " " + u.getName() + " : " + u.getUsersFirstname() + " : " + u.getUsersLastname() + " : " + u.getUsersStatus() + " : " + u.getUsersDor());
 
      }
 
@@ -100,6 +101,7 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
          }
          */
         List<User> users = null;
+        pm.getFetchPlan().setGroup(FetchGroup.ALL);
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
@@ -155,8 +157,6 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
         return null;
     }
 
- 
-       
     @Override
     public User findById(Long id) {
         if (id == null) {
@@ -249,9 +249,12 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
             if (!(user.getLast_modified() == null)) {
                 userToUpdate.setLast_modified(user.getLast_modified());
             }
-            if (!(user.getCustomers() == null)) {
-                userToUpdate.setCustomers(user.getCustomers());
+            if (!(user.getFriendshipsTO() == null)) {
+                userToUpdate.setFriendshipsTO(user.getFriendshipsTO());
             }
+            //if (!(user.getFriendshipsFROM() == null)) {
+             //   userToUpdate.setFriendshipsFROM(user.getFriendshipsFROM());
+            //}
             tx.commit();
 
         } finally {

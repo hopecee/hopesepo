@@ -80,6 +80,7 @@ ui-panel {
 }
 .noPadding { padding: 0px; }
 .noMargin {margin: 0px;}
+.backgroundW {background: #fff;}
 .ui-align-right { text-align: right;  }
 .ui-align-center { text-align: center;  }
 .width100 {width: 100%;}

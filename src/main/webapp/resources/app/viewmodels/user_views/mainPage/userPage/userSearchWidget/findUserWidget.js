@@ -141,7 +141,7 @@ define(['dojo/i18n!app/nls/constants', 'dojo/i18n!app/nls/labels',
             usersName = value.usersName;
             usersFullname = value.usersLastname + " " + value.usersFirstname;
         });
-       
+        userData.id =  userId;
         userData.img = constants.userImgFolder + userId + '/' + userId + constants.extJPG;
         userData.usersName = usersName;
         userData.usersFullname = usersFullname;
@@ -153,7 +153,10 @@ define(['dojo/i18n!app/nls/constants', 'dojo/i18n!app/nls/labels',
 //activate: activate,
         attached: attached,
         //userIdSearch: ko.observable('1'),
-        userSearchData: userSearchData()
+        userSearchData: userSearchData(),
+        userdblclick: function(data, event) {
+            ko.postbox.publish('OPEN_USER_PROFILE_PANEL', event.currentTarget.id);
+        }
     };
 
 

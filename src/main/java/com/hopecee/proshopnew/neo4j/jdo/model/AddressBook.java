@@ -49,6 +49,9 @@ public class AddressBook implements Serializable {
     @Persistent
     private String entry_phone2 = null;
 
+    
+    
+    
     public long getId() {
         return id;
     }

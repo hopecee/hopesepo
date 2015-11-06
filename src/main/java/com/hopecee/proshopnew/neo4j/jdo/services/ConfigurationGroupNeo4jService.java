@@ -11,9 +11,10 @@ import com.hopecee.proshopnew.neo4j.jdo.model.ConfigurationGroup;
  * @author hope
  */
 public interface ConfigurationGroupNeo4jService extends DefaultDAO<ConfigurationGroup, Long> {
-    public ConfigurationGroup findByName( String name ); 
-     public void addConfiguration(long confGrpId, long confId) throws DAOException ;
-      public void removeConfiguration(long confGrpId, long confId) throws DAOException ;
 
+    public ConfigurationGroup findByName(String name);
+
+    public void addConfiguration(long confGrpId, long confId) throws DAOException;
+
+    public void removeConfiguration(long confGrpId, long confId) throws DAOException;
 }
-

@@ -16,6 +16,7 @@
             <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.BitronixJtaPlatform"/>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="false"/>
+            <!-- uncomment this line when you want to add new tables. -->
             <!-- <property name="hibernate.hbm2ddl.auto" value="update"/> -->
             <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>-->
             <!-- Only format when you need to debug, because it slows things down -->
@@ -33,6 +34,7 @@
         <class>com.hopecee.proshopnew.neo4j.jdo.model.Product</class>
         <class>com.hopecee.proshopnew.neo4j.jdo.model.Inventory</class>
         <class>com.hopecee.proshopnew.neo4j.jdo.model.User</class>
+        <class>com.hopecee.proshopnew.neo4j.jdo.model.UserFriendship</class>
         <class>com.hopecee.proshopnew.neo4j.jdo.model.Country</class>
         <class>com.hopecee.proshopnew.neo4j.jdo.model.AddressBook</class>
         <class>com.hopecee.proshopnew.neo4j.jdo.model.Configuration</class>
@@ -41,14 +43,28 @@
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.jdo.PersistenceManagerFactoryClass" value="org.datanucleus.api.jdo.JDOPersistenceManagerFactory"/>
-            <property name="datanucleus.ConnectionURL" value="neo4j:data/graph"/>
-            <property name="datanucleus.autoCreateSchema" value="true"/>
-            <property name="datanucleus.autoCreateColumns" value="true"/>
+            <property name="javax.jdo.option.ConnectionURL" value="neo4j:data/graph"/>
+            
+            <property name="datanucleus.DetachAllOnCommit" value="true"/>
+            <property name="datanucleus.schema.autoCreateAll" value="true"/>
+            
             <property name="datanucleus.cache.level2.type" value="ehcache"/>
             <property name="datanucleus.cache.level2.cacheName" value="myEntitycache"/>
+            <property name="javax.jdo.option.Optimistic" value="true"/>
+            
+            <!-- ==== TODO ALLOW UPDATE OF DATABASE ===== -->
+            <property name="datanucleus.ConnectionPropertiesFile" value="neo4j.properties"/>
+            
             <!--
-                      <property name="datanucleus.validateTables" value="false"/>
-                      <property name="datanucleus.validateConstraints" value="false"/>
+            
+            
+            <property name="datanucleus.schema.autoCreateTables" value="true"/>
+            <property name="datanucleus.schema.autoCreateColumns" value="true"/>
+            <property name="datanucleus.schema.validateAll" value="false"/>
+                     
+                  <property name="datanucleus.schema.validateTables" value="false"/>
+                      <property name="datanucleus.schema.validateColumns" value="false"/>
+                      <property name="datanucleus.schema.validateConstraints" value="false"/>
             -->
            
             

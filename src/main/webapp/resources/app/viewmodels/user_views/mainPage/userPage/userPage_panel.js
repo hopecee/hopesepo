@@ -108,7 +108,6 @@ define(['dojo/i18n!app/nls/labels',
             }
         });
     };
-
     /*
      function easytabs(tabToSelect) {
      var select = "";
@@ -162,13 +161,13 @@ define(['dojo/i18n!app/nls/labels',
     // var layoutV = new layout();
 
 
-    var attached = function(view, paren) {
-        // $tabContainer = $('#tab-container-userInner');
-        //   easytabs();
-        //var v =  new $tabContainer;
-        // alert($tabContainer);
-        // alert(v);
-        // $easytabs =
+    var attached = function(view, parent) {
+// $tabContainer = $('#tab-container-userInner');
+//   easytabs();
+//var v =  new $tabContainer;
+// alert($tabContainer);
+// alert(v);
+// $easytabs =
         $('#tab-container-userInner').easytabs({
             uiTabs: false,
             updateHash: false,
@@ -179,17 +178,8 @@ define(['dojo/i18n!app/nls/labels',
                      panelClass: "ui-tabs-panel",
                      containerClass: ""  */
         });
-
         //tabs scroller.
         scroller();
-
-
-
-
-
-
-
-
         /*
          layoutV.setInputStyle();//TODO should it be at the bottom element?
          */
@@ -198,11 +188,6 @@ define(['dojo/i18n!app/nls/labels',
         dom.byId('searchValue').placeholder = labels.emailAddress;
         dom.byId('searchType').placeholder = labels.userName;
     };
-
-
-
-
-
     //var userSearchPanel = {
 //var obj={};
 //obj.persons = ko.observable().subscribeTo("USER_SEARCH_PANEL");
@@ -248,24 +233,18 @@ define(['dojo/i18n!app/nls/labels',
     // var userTabs = ko.observableArray(userTabsObjArr);
 
     var addTab1 = function() {
-        // return ko.postbox.subscribe('OPEN_USER_PROFILE_PANEL', function(newValue) {
-        //   alert("Value: " + newValue);
-        //   newTab(newValue);
-        //});
+// return ko.postbox.subscribe('OPEN_USER_PROFILE_PANEL', function(newValue) {
+//   alert("Value: " + newValue);
+//   newTab(newValue);
+//});
     };
-
-
-
-
-
-
     return {
 //activate: activate,
         attached: attached,
         searchValue: ko.observable(),
         searchType: ko.observable(),
         userTabs: userTabsObjArr(),
-        // addTab: addTab(),
+        //  userProfilePanel: ko.observable().subscribeTo('LOAD_USER_PROFILE_PANEL'),
         userTabsTemplate: function(tab) {
             return tab.closable() ? "closable" : "unclosable";
         },
@@ -284,103 +263,131 @@ define(['dojo/i18n!app/nls/labels',
                 searchType: this.searchType()
             };
             var url = '/tuUsersSearchServlet';
-
             //validate data first.
             if ($("#userSearchform").valid()) {
 
-                //$("#uSearchOutput").html('');
+//$("#uSearchOutput").html('');
 
-                // $("#userSearchBusy").removeClass('ui-helper-hidden');
-                //     ko.observable('viewmodels/task/busyWidget').publishOn('USER_SEARCH_PANEL');
-                // var _busy = busy.userSearchBusy(); //getBusyOverlay(document.getElementById('userSearchBusy'), {color: 'white', opacity: 0.05, text: '', style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'}, {color: 'black', size: 32, type: 'o'});
-                //ko.observable().publishOn('USER_PROFILE_PANEL');
+// $("#userSearchBusy").removeClass('ui-helper-hidden');
+//     ko.observable('viewmodels/task/busyWidget').publishOn('USER_SEARCH_PANEL');
+// var _busy = busy.userSearchBusy(); //getBusyOverlay(document.getElementById('userSearchBusy'), {color: 'white', opacity: 0.05, text: '', style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'}, {color: 'black', size: 32, type: 'o'});
+//ko.observable().publishOn('USER_PROFILE_PANEL');
 
-                //post data.
+//post data.
                 security.searchUser(url, jData);
                 // $("#userSearchBusy").addClass('ui-helper-hidden');
 
             } else {
-                // Display an error toast, without a title
+// Display an error toast, without a title
                 logger.log({
                     message: "Please fill the Form correctly and accept our Terms and Policy.",
                     showToast: true,
                     type: "error"
                 });
-
             }
-
-
         },
         userClose: function(data, event) {
             ko.postbox.publish('REMOVE_USER_PROFILE_PANEL', $(event.currentTarget).prev().attr('href'));
         }
 
     };
-
-
     function userTabsObjArr() {
 
-        var self = ko.observableArray([{id: 'uSearchOutput', userName: 'Persons', closable: ko.observable(false), userSearchPanel: ko.observable().subscribeTo("USER_SEARCH_PANEL")}]);
-
+        var self = ko.observableArray([{id: 'uSearchOutput', userName: 'Persons', closable: ko.observable(false), userSearchPanel: ko.observable().subscribeTo("USER_SEARCH_PANEL")
+            }]);
         ko.postbox.subscribe('OPEN_USER_PROFILE_PANEL', function(userId) {
             var userData = getUserFromAllSearch(userId);
             var array = self();
             if (!checkUserExistInArr(array, userId)) {
-                var newArr = [{id: userId, userName: userData.usersName, closable: ko.observable(true), userProfilePanel: ko.observable().subscribeTo("USER_PROFILE_PANEL")}];
+                //  var userProfilePanel = 'userProfilePanel_'+userId;
+                // var obj = {};
+                // obj.id = userId;
+                // obj.userName = userData.usersName;
+                //obj.closable = ko.observable(true);
+                //obj['userProfilePanel'] = ko.observable('viewmodels/user_views/mainPage/userPage/userProfileWidget/userProfileWidget');
+
+                var newArr = [{id: userId, userName: userData.usersName, closable: ko.observable(true)//, userProfilePanel: ko.observable().subscribeTo("LOAD_USER_PROFILE_PANEL")
+                    }];
+                // var newArr = [obj];
+
                 ko.utils.arrayPushAll(array, newArr);
             }
             // self.valueHasMutated();
             self.refresh();
-
             var $tabContainer = $('#tab-container-userInner');
-            var myeasytabs = $tabContainer.data('easytabs');
+            $tabContainer.data('easytabs', myeasytabsObj($tabContainer));
+            $tabContainer.easytabs('select', '#' + userId);
+            //  alert('select#' + userId);
+            //Load user profile panel.
+            //ko.observable('viewmodels/user_views/mainPage/userPage/userProfileWidget/userProfileWidget').publishOn('LOAD_USER_PROFILE_PANEL');
+            //ko.observable(userId).publishOn("USER");
 
-//  $.each($('#tab-container-userInner').data('easytabs'), function(id, value) {
-            //     alert(id + " : " + value);
-            // });all friends
-
-            myeasytabs.tabs.removeClass(myeasytabs.settings.tabActiveClass);
-            myeasytabs.panels.removeClass(myeasytabs.settings.panelActiveClass);
-            myeasytabs.getTabs();
-            myeasytabs.init();
-
-            myeasytabs.publicMethods.select('#' + userId);
-
-            $tabContainer.data('easytabs', myeasytabs);
-            //$tabContainer.easytabs('select', '#13420');
             scroller();
         });
-
         ko.postbox.subscribe('REMOVE_USER_PROFILE_PANEL', function(tabhref) {
-           // var userData = getUserFromAllSearch(userId);
-            
-            alert(tabhref);
-           // scroller();
+            var userId = tabhref.slice(1);
+            // var userData = getUserFromAllSearch(userId);
+
+            var array = self();
+            //get the tab.
+            var tab;
+            $.each(array, function(id, value) {
+                if (value.id === userId) {
+                    tab = value;
+                }
+            });
+            //alert(array.length);
+            //gremove the tab.
+            ko.utils.arrayRemoveItem(array, tab);
+            // alert(array.length);
+            self.refresh();
+            var $tabContainer = $('#tab-container-userInner');
+            $tabContainer.data('easytabs', myeasytabsObj($tabContainer));
+            //TODO check position and know which to open.
+            //$tabContainer.easytabs('select', '#' + userId);
+            scroller();
         });
-
-
         return self;
     }
 
-
+    function myeasytabsObj($tabContainer) {
+        var myeasytabs = $tabContainer.data('easytabs');
+// alert(  myeasytabs.settings.panelContext.find("#" ).not(myeasytabs.settings.panelActiveClass));
+        myeasytabs.tabs.removeClass(myeasytabs.settings.tabActiveClass);
+        myeasytabs.panels.removeClass(myeasytabs.settings.panelActiveClass);
+        myeasytabs.getTabs();
+        myeasytabs.init();
+        // myeasytabs.publicMethods.select('#' + userId);
+        return myeasytabs;
+    }
 
     function getUserFromAllSearch(userId) {
-        var userData = {};
-        //var userId, usersName, usersLastname, usersFirstname, usersFullname;     
-        var userDataObjArr = session.userAllSearch();
-        $.each(userDataObjArr, function(id, value) {
+        var userData = {},
+                control;
+        var userOneObjArr = session.userSearch(); //check on single user data store first.
+        $.each(userOneObjArr, function(id, value) {
             if (userId.toString() === value.userId.toString()) { //convert, so that === will work well.
                 userData.userId = value.userId;
                 userData.usersName = value.usersName;
+                control = 1;
             }
         });
+        if (control === undefined) {//check on all user data store if not on all user store.
+            var userAllObjArr = session.userAllSearch();
+            $.each(userAllObjArr, function(id, value) {
+               if (userId.toString() === value.userId.toString()) { //convert, so that === will work well.
+                userData.userId = value.userId;
+                userData.usersName = value.usersName;
+            }
+            });
+        }
         return userData;
     }
 
     function checkUserExistInArr(array, userId) {
         var result = false;
         $.each(array, function(id, value) {
-          //  alert(userId.toString() + ' ' + value.id.toString());
+//  alert(userId.toString() + ' ' + value.id.toString());
             if (userId.toString() === value.id.toString()) { //convert, so that === will work well.
                 result = true;
             }
@@ -405,15 +412,14 @@ define(['dojo/i18n!app/nls/labels',
              }, 1000);
              */
         });
-
         $(".scroll-right-userInner").on("click", function(e) {
             if (firstIdx < (num - 1)) {
                 container.eq(firstIdx).hide();
                 firstIdx++;
             }
-            // container.data('current-child');
-            // container.find('li:lt(3)').show();
-            //alert(container.eq(1).hide());
+// container.data('current-child');
+// container.find('li:lt(3)').show();
+//alert(container.eq(1).hide());
             /*
              var position = container.position();
              container.animate({

@@ -1782,7 +1782,7 @@ body  {
     }
     .ui-button-text-only .ui-button-text
     {
-        padding: .1em 1em;
+         padding: .11em 1em;
     }
     .ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text
     {
@@ -5022,7 +5022,7 @@ body  {
     }
     .ui-button-text-only .ui-button-text
     {
-        padding: .1em 1em;
+        padding: .11em 1em;
     }
     .ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text
     {
@@ -8262,7 +8262,7 @@ body  {
     }
     .ui-button-text-only .ui-button-text
     {
-        padding: .1em 1em;
+        padding: .11em 1em;
     }
     .ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text
     {
@@ -8576,7 +8576,7 @@ body  {
 
     }
 
-
+/*
     .r-tabs {
         position: relative;
     }
@@ -8630,7 +8630,7 @@ body  {
         border-left: 1px solid #ccc;
         margin-bottom: 0;
     }
-
+*/
 
     /*
      * jQuery UI Tabs @VERSION

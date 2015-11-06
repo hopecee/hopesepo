@@ -1,0 +1,24 @@
+  
+
+
+<table class='table'>
+	<thead>
+		<tr data-bind="foreach: columns">
+			<th data-bind="
+				css: {
+					'active': $parent.sortColumn() === $index()
+				}">
+				<span data-bind="text: $data, click: $parent.toggleSort.bind($parent, $index())"></span>
+				<i class="glyphicon" data-bind="css: {
+					'glyphicon-chevron-down': $parent.sortColumn() === $index() && $parent.sortDirection() === -1,
+					'glyphicon-chevron-up': $parent.sortColumn() === $index() && $parent.sortDirection() === 1
+				}"></i>
+			</th>
+		</tr>
+	</thead>
+	<tbody data-bind="foreach: {data: rows, as: 'row'}">
+		<tr data-bind="foreach: {data: $parent.columnsKeys, as: 'key'}">
+			<td data-bind="attr: {'class': key }, text: $parentContext.$parents[0]._(key, row[key])"></td>
+		</tr>
+	</tbody>
+</table>

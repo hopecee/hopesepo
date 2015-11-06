@@ -9,9 +9,8 @@ import com.hopecee.proshopnew.events.ExceptionEventBadToken;
 import com.hopecee.proshopnew.neo4j.jdo.model.User;
 import com.hopecee.proshopnew.neo4j.jdo.model.UserFriendship;
 import com.hopecee.proshopnew.neo4j.jdo.services.DAOException;
+import com.hopecee.proshopnew.neo4j.jdo.services.UserFriendshipNeo4jService;
 import com.hopecee.proshopnew.neo4j.jdo.services.UserNeo4jService;
-import com.hopecee.proshopnew.neo4j.jdo.util.JDOUtil;
-import static com.hopecee.proshopnew.servlets.TuJoinEditorServlet.JSON;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -33,11 +32,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jboss.seam.security.Credentials;
-import org.jboss.seam.security.Identity;
 import org.jboss.seam.transaction.ExceptionEventRollback;
-import org.neo4j.tool.StoreCopyRevert;
-import org.picketlink.idm.api.IdentitySession;
 import org.picketlink.idm.api.Role;
 import org.picketlink.idm.common.exception.IdentityException;
 import org.picketlink.idm.impl.api.PasswordCredential;
@@ -46,10 +41,10 @@ import org.picketlink.idm.impl.api.PasswordCredential;
  *
  * @author hope
  */
-@WebServlet(name = "tuUsersSearchServlet", urlPatterns = {"/tuUsersSearchServlet"})
-public class TuUsersSearchServlet extends HttpServlet {
+@WebServlet(name = "tuFriendServlet", urlPatterns = {"/tuFriendServlet"})
+public class TuFriendServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1668280781030491205L;
+    private static final long serialVersionUID = 3045632562463132734L;
     public static final String JSON = "application/json";
     private final String BAD_TOKEN = "BadToken";
     @Inject
@@ -59,14 +54,8 @@ public class TuUsersSearchServlet extends HttpServlet {
     @Inject
     private UserNeo4jService userNeo4jService;
     @Inject
-    private IdentitySession identitySession;
-    @Inject
-    private Identity identity;
-    @Inject
-    private Credentials credentials;
+    private UserFriendshipNeo4jService UserFriendshipNeo4jService;
     Map<Object, Object> userMap = new LinkedHashMap<>();
-    @Inject
-    private StoreCopyRevert storeCopyRevert;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -76,7 +65,7 @@ public class TuUsersSearchServlet extends HttpServlet {
         try {
             token = req.getAttribute("CheckRequestVerificationToken").toString();
         } catch (NullPointerException e) {
-            Logger.getLogger(TuUsersSearchServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(TuFriendServlet.class.getName()).log(Level.SEVERE, null, e);
         }
         if (token.equals(BAD_TOKEN)) {
             //getBadToken(req, resp);
@@ -85,112 +74,53 @@ public class TuUsersSearchServlet extends HttpServlet {
             //  String RequestVerificationToken = req.getParameter("RequestVerificationToken");
             System.out.println("DDDDDDDDD = ,,,,,,,,,,,,,,,,,,,,,,,,");
             String method = req.getParameter("method");
-            String searchType = req.getParameter("searchType");
+            // String searchType = req.getParameter("searchType");
 
             System.out.println("DDDDDDDDD = : " + method);
             System.out.println("DDDDDDDDD = : ");
 
-            if ("searchUser".equals(method) && "@tushop.com".equals(searchType)) {
+            if ("addFriend".equals(method) && true) {
 
                 System.out.println("DDDDDDDDD = : ");
 
-                findUser(req, resp);
+                addFriendship(req, resp);
             }
 
-            if ("searchUser".equals(method) && "all friends".equals(searchType)) {
+            if ("searchUser".equals(method) && true) {
 
                 System.out.println("DDDDDDDDD = : ");
 
                 findAllCustomers(req, resp);
-                //storeCopyRevert();
             }
 
         }
     }
 
-    protected void storeCopyRevert() {
-        // Usage: StoryCopy source:version target:version [rel,types,to,ignore] [properties,to,ignore]
-        // String path = getServletContext().getRealPath("/data/");
-        // System.out.println(">>>> StoreCopyRevert: " + path);
+    protected void addFriendship(HttpServletRequest req, HttpServletResponse resp) {
+        String userNeo4jIdString = req.getParameter("userNeo4jIdString");
+        String friendNeo4jIdString = req.getParameter("userId");//userId becomes friendId.
 
-        String[] args = {"data/graph:2.1.0-M01", "data/fixed:2.0.0"};
-        try {
-            storeCopyRevert.copyRevert(args);
-        } catch (Exception ex) {
-            Logger.getLogger(TuUsersSearchServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println(">>>> StoreCopyRevert: Converting Neo4j database.");
-        System.out.println(">>>> StoreCopyRevert: Converting Neo4j database.");
-
-    }
-
-    protected void findUser(HttpServletRequest req, HttpServletResponse resp) {
-        String userNeo4jIdString = req.getParameter("userSession[0][uNIString]");
-        String searchValue = req.getParameter("searchValue");
-        String searchType = req.getParameter("searchType");
-
-        System.out.println("hdthh- : " + searchValue);
-        System.out.println(searchType);
-        System.out.println(req.getParameter("userSession"));
-        if (userNeo4jIdString != null) {
-            // for (int i = 0; i < userSession; i++) {
-            System.out.print(" Action: " + userNeo4jIdString);
-            // }  
-        } else {
-            System.out.println("Action is null");
-        }
+        System.out.println("friendNeo4jIdString : " + friendNeo4jIdString);
+        System.out.println("userNeo4jIdString : " + userNeo4jIdString);
 
 
         try {
-            //  Map<Object, Object> userMap = new LinkedHashMap<>();
-            userMap.clear(); //Clear First.
+            UserFriendshipNeo4jService.createFriendship(userNeo4jIdString, friendNeo4jIdString);
+/*
+            List<UserFriendship> friendships = UserFriendshipNeo4jService.findAllTO();
+            Iterator<UserFriendship> iterR = friendships.iterator();
+            // List list = new ArrayList();
+            //int i = 0;
+            while (iterR.hasNext()) {
+                UserFriendship friendship = iterR.next();//User is now refered as customer.
+                System.out.println("==============================");
+                System.out.println(friendship);
+                System.out.println("==============================");
 
-            userMap.put("isLoggedIn", true);//Check login.
-
-            List customersArr = new ArrayList();
-            customersArr.clear();  //Clear First.
-
-            Map<Object, Object> customersMap = new LinkedHashMap<>();
-            customersMap.clear();//Clear First.
-
-            //=======neo4j==============================//
-            //find Userfriendship  from neo4j DB. 
-            User user = userNeo4jService.findByUsersName(searchValue);
-            if (user != null) {
-                boolean friend = false;
-                //req.getSession().
-                user.getFriendshipsTO().iterator().next().getUserId();
-                identity.getUser().getId();
-                System.out.println("identity.getUser().getId() : " + identity.getUser().getId());
-
-                customersMap.put("userId", user.getId());
-                customersMap.put("name", user.getName());
-                customersMap.put("usersName", user.getUsersName());
-                customersMap.put("usersFirstname", user.getUsersFirstname());
-                customersMap.put("usersLastname", user.getUsersLastname());
-                customersMap.put("usersStatus", user.getUsersStatus());
-                customersMap.put("friendshipsTO", user.getFriendshipsTO());
-                customersMap.put("friendship", friend);
-                customersMap.put("numberOfFriendshipsTO", user.getNumberOfFriendshipsTO());
-
-                System.out.println("userId : " + user.getId());
-                System.out.println("userName : " + user.getName());
             }
-
-            customersArr.add(customersMap);
-
-            userMap.put("findUser", customersArr);
-            // ArrayList arr = (ArrayList) userMap.get("array");
-
-            String json = new Gson().toJson(userMap);
-
-            resp.setContentType(JSON);
-            resp.getWriter().print(json);
-
-            // throw new IllegalStateException();
-        } catch (IllegalArgumentException | JDOFatalUserException | IllegalStateException | IOException ex) {
-            exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(TuUsersSearchServlet.class.getName()).log(Level.SEVERE, null, ex);
+*/
+        } catch (DAOException e) {
+            Logger.getLogger(TuFriendServlet.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -238,13 +168,11 @@ public class TuUsersSearchServlet extends HttpServlet {
                 customersMap.put("usersFirstname", customer.getUsersFirstname());
                 customersMap.put("usersLastname", customer.getUsersLastname());
                 customersMap.put("usersStatus", customer.getUsersStatus());
-                customersMap.put("friendshipsTO", customer.getFriendshipsTO());
-                customersMap.put("numberOfFriendshipsTO", customer.getNumberOfFriendshipsTO());
 
                 customersArr.add(customersMap);
 
-                System.out.println(customer.getId() + " : " + customer.getName() + " : " + customer.getUsersName() + " : " + customer.getUsersStatus());
 
+                System.out.println(customer.getId() + " : " + customer.getName() + " : " + customer.getUsersName() + " : " + customer.getUsersStatus());
                 if (customer.getFriendshipsTO() != null) {
                     Iterator<UserFriendship> iterRc = customer.getFriendshipsTO().iterator();
                     while (iterRc.hasNext()) {

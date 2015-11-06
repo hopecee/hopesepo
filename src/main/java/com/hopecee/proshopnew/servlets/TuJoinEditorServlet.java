@@ -85,9 +85,9 @@ public class TuJoinEditorServlet extends HttpServlet {
     private final String USER_DATE_FORMAT = bundle.getString("userDateFormat");
     private final String BAD_TOKEN = "BadToken";
     @Inject
-     private Event<ExceptionEventRollback> exceptionEvent;
+    private Event<ExceptionEventRollback> exceptionEvent;
     @Inject
-     private Event<ExceptionEventBadToken> exceptionEventBadToken;
+    private Event<ExceptionEventBadToken> exceptionEventBadToken;
     @Inject
     private IdentitySession identitySession;
     @Inject
@@ -137,8 +137,6 @@ public class TuJoinEditorServlet extends HttpServlet {
     // private SeamTransaction tx;
     Map<Object, Object> map = new LinkedHashMap<Object, Object>();
 
-   
-
     /**
      * Handles an HTTP POST request from TuJoinEditorServlet.
      *
@@ -165,7 +163,7 @@ public class TuJoinEditorServlet extends HttpServlet {
             /* try {*/
             if ("joinEditor".equals(method)) {
 
-                System.out.println("DDDDDDDDD = : " );
+                System.out.println("DDDDDDDDD = : ");
 
                 createUser(req, resp);
             }
@@ -254,7 +252,7 @@ public class TuJoinEditorServlet extends HttpServlet {
         try {
 
             //=======MYSQL==============================//
-            //create User  for  Jpa MYSQL.
+            //create Userfriendship  for  Jpa MYSQL.
             // System.out.println("usersEmailAddress 2: = " + usersEmailAddress);
             userJpaService.createUser(usersEmailAddress);
             //create userPassword for  Jpa MYSQL.
@@ -266,7 +264,7 @@ public class TuJoinEditorServlet extends HttpServlet {
             // System.out.println("IException >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
             //=======neo4j==============================//
-            //create User  for neo4j DB. 
+            //create Userfriendship  for neo4j DB. 
             User user = new User();
             user.setName(usersEmailAddress);
             user.setUsersName(usersName);
@@ -293,7 +291,7 @@ public class TuJoinEditorServlet extends HttpServlet {
             //String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
             //String usersPassword = req.getParameter("usersPasswordMenu");
 
-            //Logout any User that may be hanging arround.
+            //Logout any Userfriendship that may be hanging arround.
             identity.logout();
 
             credentials.setUsername(usersEmailAddress);
@@ -438,7 +436,7 @@ public class TuJoinEditorServlet extends HttpServlet {
 
         try {
 
-            //create User AddressBook for neo4j DB. 
+            //create Userfriendship AddressBook for neo4j DB. 
             AddressBook addressBook = new AddressBook();
             addressBook.setEntry_street_address(street);
             addressBook.setEntry_street_address2(street2);
@@ -589,7 +587,7 @@ public class TuJoinEditorServlet extends HttpServlet {
 
 
 
-            //update User for neo4j DB. 
+            //update Userfriendship for neo4j DB. 
             //convert USER_DATE_FORMAT to Date.
             SimpleDateFormat formatter = new SimpleDateFormat(USER_DATE_FORMAT); // 2001-07-04T12:08:56.235-0700
             Date date = formatter.parse(dob);

@@ -26,9 +26,9 @@
 
 
 if (typeof window !== 'undefined') {
-    var language = window.navigator.languages ? window.navigator.languages[0]: ( window.navigator.userLanguage || window.navigator.language);
- 
-     var req = new XMLHttpRequest();
+    var language = window.navigator.languages ? window.navigator.languages[0] : (window.navigator.userLanguage || window.navigator.language);
+
+    var req = new XMLHttpRequest();
     req.open('GET', 'tuLocaleManagerServlet', false);
     req.send(null);
     //alert(req.getResponseHeader('Content-language'));
@@ -36,19 +36,19 @@ if (typeof window !== 'undefined') {
 //alert(req.getResponseHeader('control'));
 //alert(req.getAllResponseHeaders());
 //alert(req.getResponseHeader('control'));
-var respH = req.getResponseHeader('control');
-if((respH != 'control')&&(respH != null)){
-  language =  req.getResponseHeader('control')|| req.getResponseHeader('Content-language');
-  // alert('window.navigator.languages' ); 
-}
+    var respH = req.getResponseHeader('control');
+    if ((respH != 'control') && (respH != null)) {
+        language = req.getResponseHeader('control') || req.getResponseHeader('Content-language');
+        // alert('window.navigator.languages' ); 
+    }
 
-   
- // We're running inside a browser.
+
+    // We're running inside a browser.
 //window.dojoConfig = window.dojoConfig || {};
 //window.dojoConfig.locale = language.toLowerCase() || window.dojoConfig.locale;
 //alert("language4 : " + window.dojoConfig.locale);
 //alert("location : " + language.toLowerCase());
-var locale = language.toLowerCase();
+    var locale = language.toLowerCase();
 }
 
 
@@ -81,21 +81,22 @@ var dojoConfig = {
         {name: 'dojox', location: 'app/lib/dojo/dojo-release-1.10.4/dojox'},
         {name: 'dijit', location: 'app/lib/dojo/dojo-release-1.10.4/dijit'},
         {name: 'app', location: 'app'},
-        
         //  {name: 'jquery', location: 'app/lib/wijmo/jquery-1.9.1.min'},
 
         //  {name: 'jquery-ui', location: 'app/lib/wijmo/jquery-ui-1.10.1.custom.min'},
         // {name: 'jquery.wijmo-open.all', location: 'app/lib/wijmo/jquery.wijmo-open.all.2.3.1.min'},
         //  {name: 'knockout', location: 'app/lib/knockout/knockout-3.2.0'},
         // {name: 'knockout-postbox', location: 'app/lib/knockout/knockout-postbox.min'},
-        
-        {name: 'durandal', location: 'app/lib/durandal/js'},
-        {name: 'plugins', location: 'app/lib/durandal/js/plugins'},
-        {name: 'transitions', location: 'app/lib/durandal/js/transitions'},
+
+        {name: 'durandal', location: 'app/lib/durandal_2.1.0/js'},
+        {name: 'plugins', location: 'app/lib/durandal_2.1.0/js/plugins'},
+        {name: 'transitions', location: 'app/lib/durandal_2.1.0/js/transitions'},
         {name: 'views', location: 'app/views'},
         {name: 'viewmodels', location: 'app/viewmodels'},
         {name: 'customjs', location: 'app/viewmodels/customjs'},
-        {name: 'global', location: 'app/viewmodels/global'}
+        {name: 'global', location: 'app/viewmodels/global'},
+        {name: 'widgets', location: 'app/widgets'},
+        {name: 'lib', location: 'app/lib'}
         //{name: 'knockout', location: 'app/lib/knockout/knockout-2.3.0'}
         //   {name: 'jquery.bgiframe', location: 'app/lib/wijmo/jquery.bgiframe'},
         //  {name: 'jquery.cookie', location: 'app/lib/wijmo/jquery.cookie'},

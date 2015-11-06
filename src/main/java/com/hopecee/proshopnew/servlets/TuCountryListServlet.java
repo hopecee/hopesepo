@@ -68,7 +68,7 @@ public class TuCountryListServlet extends HttpServlet {
         try {
             token = req.getAttribute("CheckRequestVerificationToken").toString();
         } catch (NullPointerException e) {
-            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(TuCountryListServlet.class.getName()).log(Level.SEVERE, null, e);
         }
         if (token.equals(BAD_TOKEN)) {
             //getBadToken(req, resp);

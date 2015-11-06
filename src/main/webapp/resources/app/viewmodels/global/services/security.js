@@ -2,12 +2,10 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
         function(on, session, logger, stickyheaderSetter, _busy) {
 
             var router = new Router().init();
-
             var intro = 'intro',
                     home = 'home',
                     join_Editor_2 = 'join_editor_2',
                     join_Editor_3 = 'join_editor_3';
-
             /*
              // Routes
              var baseUrl = $.getBasePath(),
@@ -38,7 +36,14 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
             function setUserNeo4jIdString(jData, id) {
                 jData['userNeo4jIdString'] = id;
             }
-
+            function getUserSession(jData) {
+                var userSession = {};
+                userSession.uNIString = session.userNeo4jIdString;
+                var array = [];
+                array.push(userSession);
+                
+                jData['userSession'] = array;
+            }
 
 
             // Route operations
@@ -93,6 +98,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 localeManager: localeManager,
                 logout: logout,
                 searchUser: searchUser,
+                addFriend: addFriend,
                 register: register,
                 registerExternal: registerExternal,
                 removeLogin: removeLogin,
@@ -100,8 +106,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 //returnUrl: siteUrl,
                 toErrorString: toErrorString
             };
-
-
             $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
                 jqXHR.failJSON = function(callback) {
                     jqXHR.fail(function(jqXHR, textStatus, error) {
@@ -117,9 +121,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 };
             });
             return securityService;
-
-
-
 // Data access operations
             function addExternalLogin(data) {
                 return $.ajax(addExternalLoginUrl, {
@@ -226,7 +227,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                             if (id === "isLoggedIn") {
                                 if (value === true) {
                                     user.isLoggedIn = true;
-
                                     if (user.isLoggedIn) {
                                         // alert("home");
                                         session.setUser(user, false);
@@ -259,7 +259,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 //alert("surrrho");
                 // Clear session first.
                 session.clearUser();
-
                 //Append RequestVerificationToken value to the jData before posting.
                 addRequestVerificationToken(jData);
                 setMethod(jData, "joinEditor");
@@ -327,7 +326,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                         if (id === "isLoggedIn") {
                             if (value === true) {
                                 user.isLoggedIn = true;
-
                                 if (user.isLoggedIn) {
                                     // alert("home");
                                     session.setUser(user, false);
@@ -348,7 +346,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                     });
                     //alert("op " + arrayName);
                 });
-
             }
 
             function joinEditor2(url, jData, busy) {
@@ -400,12 +397,10 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 addRequestVerificationToken(jData);
                 setMethod(jData, "joinEditor3");
                 setEmailAddress(jData, session.userEmailAddress);
-
                 //post data.
                 $.post(url, jData, function(data) {
 
                     busy.remove();
-
                     var user = {
                         emailAddress: ko.observable(undefined),
                         userNeo4jIdString: ko.observable(undefined),
@@ -422,7 +417,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                 // userRemembered: userRemembered,
                                 //rememberedToken: rememberedToken
                     };
-
                     $.each(data, function(id, value) {
                         // alert("submitted!hhhhhhho");
                         //  router.navigate('#/join_editor_2');
@@ -447,7 +441,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
             function localeManager(url, jData, busy) {
                 addRequestVerificationToken(jData);
                 setMethod(jData, "localeManager");
-
                 var form = $('<form action="' + url + '" method="post">' +
                         '<input type="hidden"  name="RequestVerificationToken" value="' + jData['RequestVerificationToken'] + '" />' +
                         '<input type="hidden"  name="language" value="' + jData['language'] + '" />' +
@@ -480,7 +473,8 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 setMethod(jData, "searchUser");
                 //setEmailAddress(jData, session.userEmailAddress);
                 //setUserNeo4jIdString(jData, session.userNeo4jIdString);//TODO use this.
-                setUserNeo4jIdString(jData, "13421");
+                //setUserNeo4jIdString(jData, "13421");
+                getUserSession(jData);
                 // alert(jData.userNeo4jIdString);
                 //post data.
                 $.post(url, jData, function(data) {
@@ -488,20 +482,21 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                     //busy.remove();
                     // $("#userSearchBusy").addClass('ui-helper-hidden');
 
-                    var userSearch = {
-                        userId: ko.observable(undefined),
-                        name: ko.observable(undefined),
-                        usersName: ko.observable(undefined),
-                        usersFirstname: ko.observable(undefined),
-                        usersLastname: ko.observable(undefined),
-                        usersStatus: ko.observable(undefined)
-                    };
+                    /*
+                     var userSearch = {
+                     userId: ko.observable(undefined),
+                     name: ko.observable(undefined),
+                     usersName: ko.observable(undefined),
+                     usersFirstname: ko.observable(undefined),
+                     usersLastname: ko.observable(undefined),
+                     usersStatus: ko.observable(undefined)
+                     };
+                     */
 
                     $.each(data, function(id, value) {
                         //Remove Busy first.
                         _busy.userSearchBusyRemove();
-                        
-                        userSearch = {};
+                        //   userSearch = {};
                         // alert("submitted!hhhhhhho");
                         //  router.navigate('#/join_editor_2');
                         // arrayName3.push(value);
@@ -571,21 +566,18 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                  }
                                  */
                                 // alert( "array1 " +session.userAllSearch());
-                                session.userAllSearch([]);//Clear First.
+                                session.userAllSearch([]); //Clear First.
                                 // alert( "array " +session.userAllSearch());
                                 session.userAllSearch(userArray);
                                 //alert( "arrayo " +session.userAllSearch());
 
 
                                 ko.observable('viewmodels/user_views/mainPage/userPage/userSearchWidget/allCustomersWidget').publishOn('USER_SEARCH_PANEL');
-
-
                             }
 
                             if (id === "findUser") {
 
                                 var userArray = value;
-
                                 /*
                                  if (id === "userId") {
                                  userSearch.userId = value;
@@ -624,28 +616,43 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                     });
                                 }
 //alert("usersStatus1 : " + session.userSearch());
-                                session.userSearch([]);//Clear First.
+                                session.userSearch([]); //Clear First.
                                 // alert("usersStatus2 : " + session.userSearch());
                                 session.userSearch(userArray);
                                 //alert("usersStatus3 : " + session.userSearch());
                                 //Remove Busy first.
                                 //  busy.remove();
                                 ko.observable('viewmodels/user_views/mainPage/userPage/userSearchWidget/findUserWidget').publishOn('USER_SEARCH_PANEL');
-
                             }
 
 
                         }
                     });
-
                 });
             }
 
 
 
 
+            function addFriend(url, jData) {
+                // ko.observable('viewmodels/task/busyWidget').publishOn('USER_SEARCH_PANEL');
+                //_busy.userSearchBusyRemove();
 
+                // Clear session first.
+                //session.clearUser();
 
+                //Append RequestVerificationToken value to the jData before posting.
+                addRequestVerificationToken(jData);
+                setMethod(jData, "addFriend");
+                //setEmailAddress(jData, session.userEmailAddress);
+                //setUserNeo4jIdString(jData, session.userNeo4jIdString);//TODO use this.
+                setUserNeo4jIdString(jData, "13421");
+                // alert(jData.userNeo4jIdString);
+                //post data.
+                $.post(url, jData, function(data) {
+
+                });
+            }
 
 
 

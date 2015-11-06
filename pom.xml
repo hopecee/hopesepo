@@ -377,7 +377,7 @@ constraint annotations are incorrectly used. -->
             <groupId>org.neo4j</groupId>
             <!--
             <artifactId>neo4j</artifactId>
-<version>2.0.0</version>
+               <version>2.0.0</version>
             -->
             <artifactId>neo4j-enterprise</artifactId>
             <version>2.1.0-M01</version>
@@ -389,10 +389,14 @@ constraint annotations are incorrectly used. -->
             </exclusions>
         </dependency>
         
+        
+        
+        
+        
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-neo4j</artifactId>
-            <version>4.0.0-m4</version>
+            <version>4.1.1</version>
             <exclusions>
                 <exclusion>
                     <artifactId>neo4j</artifactId>
@@ -406,12 +410,12 @@ constraint annotations are incorrectly used. -->
          <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-core</artifactId>
-            <version>4.0.0-m4</version>
+            <version>4.1.0-release</version>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-api-jdo</artifactId>
-            <version>4.0.0-m4</version>
+            <version>4.2.0-release</version>
         </dependency>
         <!--
          <dependency>
@@ -420,10 +424,11 @@ constraint annotations are incorrectly used. -->
             <version>3.3.7</version>
         </dependency>
         -->
+        <!--
         <dependency>
             <groupId>javax.jdo</groupId>
             <artifactId>jdo-api</artifactId>
-            <version>3.1-rc1</version>
+            <version>3.1</version>
             <exclusions>
                 <exclusion>
                     <artifactId>transaction-api</artifactId>
@@ -431,10 +436,23 @@ constraint annotations are incorrectly used. -->
                 </exclusion>
             </exclusions>
         </dependency>
+        -->
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>javax.jdo</artifactId>
+            <version>3.2.0-m3</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>transaction-api</artifactId>
+                    <groupId>javax.transaction</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
           <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-cache</artifactId>
-            <version>4.0.0-m4</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -673,21 +691,21 @@ constraint annotations are incorrectly used. -->
             <plugin>
                 <groupId>org.datanucleus</groupId>
                 <artifactId>datanucleus-maven-plugin</artifactId>
-                <version>4.0.0-m2</version>
-                <dependencies>
+                <version>4.0.1</version>
+              <!--  <dependencies>
                     <dependency>
-                        <!-- Force the enhancer to use the same version of core as the JDO objectstore -->
+                        <!- - Force the enhancer to use the same version of core as the JDO objectstore - ->
                         <groupId>org.datanucleus</groupId>
                         <artifactId>datanucleus-core</artifactId>
-                        <version>4.0.0-m4</version>
+                        <version>(4.1, 4.9)</version>
                     </dependency>
                     <dependency>
-                        <!-- Force the enhancer to use the same version of jdo-api as the JDO objectstore -->
+                        <!- - Force the enhancer to use the same version of jdo-api as the JDO objectstore - ->
                         <groupId>javax.jdo</groupId>
                         <artifactId>jdo-api</artifactId>
-                        <version>3.1-rc1</version>
+                        <version>3.1</version>
                     </dependency>
-                </dependencies>
+                </dependencies>-->
                 <configuration>
                     <!-- <api>JPA</api> -->
                     <api>JDO</api>

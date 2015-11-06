@@ -173,7 +173,7 @@ public class TuLogInOutServlet extends HttpServlet {
 String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
             String usersPassword = req.getParameter("usersPasswordMenu");
 
-        //Logout any User that may be hanging arround.
+        //Logout any Userfriendship that may be hanging arround.
         identity.logout();
 
         credentials.setUsername(usersEmailAddress);

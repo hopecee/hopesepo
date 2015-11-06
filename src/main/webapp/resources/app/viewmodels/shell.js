@@ -12,7 +12,7 @@ define(['dojo/topic', "dojo/request", 'durandal/app',
     });
     
     
-    var activate = function(view, paren) {
+    var activate = function(view, parent) {
         //Initialization.
        // Check veiwpiont through 'Animation' and set the session mediaViewType.
         if($('body').width()< 500) {
