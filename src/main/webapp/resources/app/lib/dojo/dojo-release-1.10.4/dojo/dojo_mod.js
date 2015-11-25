@@ -11268,7 +11268,8 @@ define(["exports", "./sniff", "./_base/lang", "./dom", "./dom-style", "./dom-pro
 		};
 
 	function _hasAttr(node, name){
-		var attr = node.getAttributeNode && node.getAttributeNode(name);
+		//var attr = node.getAttributeNode && node.getAttributeNode(name);//hope
+		var attr = node.getAttribute && node.getAttribute(name);
 		return !!attr && attr.specified; // Boolean
 	}
 	
@@ -11494,7 +11495,7 @@ define(["exports", "./_base/kernel", "./sniff", "./_base/window", "./dom", "./do
 				);
 			}
 			destroy(div);
-		}
+		};
 	}
 
 	function _insertBefore(/*DomNode*/ node, /*DomNode*/ ref){

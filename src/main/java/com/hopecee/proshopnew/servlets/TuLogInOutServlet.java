@@ -104,8 +104,8 @@ public class TuLogInOutServlet extends HttpServlet {
     private ConfigurationNeo4jService configurationNeo4jService;
     @Inject
     private ConfigurationGroupNeo4jService configurationGroupNeo4jService;
-    @Inject
-    private UserBean_NOOOT userBean;
+    //@Inject
+    //private UserBean_NOOOT userBean;
     @Inject
     private Identity identity;
     @Inject
@@ -146,22 +146,28 @@ public class TuLogInOutServlet extends HttpServlet {
         }
         if (token.equals(BAD_TOKEN)) {
             map.put("isLoggedIn", "false");//TO_DO is it necessry?
-             map.put(BAD_TOKEN, BAD_TOKEN);
+            map.put(BAD_TOKEN, BAD_TOKEN);
             String json = new Gson().toJson(map);
             resp.setContentType(JSON);
             resp.getWriter().print(json);
         } else {
             //String RequestVerificationToken = req.getParameter("RequestVerificationToken");
             String method = req.getParameter("method");
-            
+
+
+
+
             try {
                 if ("login".equals(method)) {
+
+                    System.out.println("DDDDDDDDD = ================= : ");
+                    System.out.println("DDDDDDDDD =      ==============: "
+                            + req.getParameter("hope"));
+
                     login(req, resp);
                 }
 
-            } catch (IllegalStateException ex) {
-                Logger.getLogger(TuLogInOutServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SystemException ex) {
+            } catch (IllegalStateException | SystemException ex) {
                 Logger.getLogger(TuLogInOutServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -170,8 +176,8 @@ public class TuLogInOutServlet extends HttpServlet {
 
     public void login(HttpServletRequest req, HttpServletResponse resp) throws IllegalStateException, SystemException, IOException// throws IdentityException, UnsupportedCriterium, DAOException, NamingException, SystemException, NotSupportedException, RollbackException, HeuristicMixedException, HeuristicRollbackException 
     {
-String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
-            String usersPassword = req.getParameter("usersPasswordMenu");
+        String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
+        String usersPassword = req.getParameter("usersPasswordMenu");
 
         //Logout any Userfriendship that may be hanging arround.
         identity.logout();
@@ -192,7 +198,7 @@ String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
             long userNeo4jId = userNeo4jService.findByName(userId).getId();
             // convert long to String type
             String userNeo4jIdString = Long.toString(userNeo4jId);
-           System.out.println(userNeo4jIdString);
+            System.out.println(userNeo4jIdString);
 
             System.out.println(userNeo4jId + " ==jj=====nn== : " + userId);
 

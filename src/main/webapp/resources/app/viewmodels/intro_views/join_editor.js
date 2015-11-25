@@ -146,8 +146,8 @@ define(['dojo/i18n!app/nls/labels',
         dom.byId('confirm').placeholder = labels.confirm;
         dom.byId('labelTuShopTerms').innerHTML = labels.tuShopTerms;
         dom.byId('joinEditorButtonJoinNow').innerHTML = labels.joinNow;
-        dom.byId('labelAlreadyJoined').innerHTML = labels.alreadyJoined;
-        dom.byId('labelSignIn').innerHTML = labels.signIn;
+       // dom.byId('labelAlreadyJoined').innerHTML = labels.alreadyJoined;
+        //dom.byId('labelSignIn').innerHTML = labels.signIn;
 
 
 

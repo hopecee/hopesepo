@@ -41,7 +41,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 userSession.uNIString = session.userNeo4jIdString;
                 var array = [];
                 array.push(userSession);
-                
+
                 jData['userSession'] = array;
             }
 
@@ -168,89 +168,230 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
 
 //Hopecee
             function login(url, jData, busy) {
-                // Clear session first.
-                session.clearUser();
-                //Append RequestVerificationToken value to the jData before posting.
-                addRequestVerificationToken(jData);
-                setMethod(jData, "login");
-                //post data.
-                $.post(url, jData, function(data) {    // var roles = [];
-                    var user = {
-                        emailAddress: ko.observable(undefined),
-                        userNeo4jIdString: ko.observable(undefined),
-                        isUserImg: ko.observable(false),
-                        isLoggedIn: ko.observable(false),
-                        //isBusy: ko.observable(false),
-                        // userGroups: ko.observableArray(),
-                        userRoles: ko.observableArray(),
-                        userIsInRole: ko.observable(false)
-                                //  setUser: setUser,
-                                // clearUser: clearUser,
-                                // archiveSessionStorageToLocalStorage: archiveSessionStorageToLocalStorage,
-                                // isAuthCallback: isAuthCallback,
-                                // userRemembered: userRemembered,
-                                //rememberedToken: rememberedToken
-                    };
-                    $.each(data, function(id, value) {
-                        if (id === "BadToken") {
-                            logger.log({
-                                message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
-                                showToast: true,
-                                type: "error"
+
+                /*
+                 // Encrypt with the public key...
+                 var encrypt = new JSEncrypt();
+                 var decrypt = new JSEncrypt();
+                 var urls = "/tuCryptoServlet?generateKeyPair=true&RequestVerificationToken=ZmVBZ59oUad1Fr33BuPxANKY9q3Srr56fGBtLZZmVBZ59oUad1FrZZmVBZ59oUad";
+                 $.getJSON(urls, function(data1) {
+                 //$.each(data1.publickey, function(id, value) {
+                 //   alert(id + " :" + value);
+                 // });
+                 alert( " : bnh " );
+                 
+                 
+                 encrypt.setPublicKey(data1.publickey);
+                 var encrypted = encrypt.encrypt("hope");
+                 alert("encrypted :" + encrypted);
+                 
+                 
+                 decrypt.setPrivateKey(data1.privateKey);
+                 var uncrypted = decrypt.decrypt(encrypted);
+                 alert("uncrypted :" + uncrypted);
+                 
+                 
+                 
+                 });
+                 
+                 */
+
+
+
+
+                //encrypt.setPublicKey($('#pubkey').val());
+
+
+                // Decrypt with the private key...
+
+
+                /*
+                 // Encrypt with the public key...
+                 var encrypt = new JSEncrypt();
+                 var decrypt = new JSEncrypt();
+                 var urls = "/tuCryptoServlet?generateKeyPair=true&RequestVerificationToken=ZmVBZ59oUad1Fr33BuPxANKY9q3Srr56fGBtLZZmVBZ59oUad1FrZZmVBZ59oUad";
+                 $.getJSON(urls, function(data1) {
+                 $.each(data1.publickey, function(id, value) {
+                 alert(id + " :" + value);
+                 });
+                 
+                 encrypt.setPublicKey($('#pubkey').val());
+                 
+                 });
+                 
+                 var encrypted = encrypt.encrypt('hope');
+                 alert("encrypted :" + encrypted);
+                 
+                 decrypt.setPrivateKey($('#privkey').val());
+                 
+                 var uncrypted = decrypt.decrypt(encrypted);
+                 alert("uncrypted :" + uncrypted);
+                 */
+
+                // Decrypt with the private key...
+                // var urls2 = "/tuCryptoServlet?handshake=true&RequestVerificationToken=ZmVBZ59oUad1Fr33BuPxANKY9q3Srr56fGBtLZZmVBZ59oUad1FrZZmVBZ59oUad";
+                // var decrypt = new JSEncrypt();
+                // $.post(urls2, null, function(data2) {
+
+                //   $.each(data2.privateKey, function(id, value) {
+                //       alert(id + "privateKey  ==========:" + value);
+                //  });
+
+                // decrypt.setPrivateKey(data2.privateKey);
+
+                // });
+
+                //var uncrypted = decrypt.decrypt(encrypted);
+                // alert("uncrypted :" + uncrypted);
+
+
+                function makeid() {
+                    var text = "";
+                    var textLenght = 32;
+                    var possible = "ACDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz2345679";//remove l,1,0,o,8,B.
+                    for (var i = 0; i < textLenght; i++)
+                        text += possible.charAt(Math.floor(Math.random() * possible.length));
+                    return text;
+                }
+
+                //var hashObj = new jsSHA("SHA-1", "TEXT");
+                // hashObj.setHMACKey("abc", "TEXT");
+                //  hashObj.update("m");
+                //  var password = hashObj.getHMAC("HEX");
+                // var password = hashObj.getHash("HEX");
+                //password="password";
+                //  alert('password : ' + password);
+
+                var key = makeid();
+
+                // alert("key : " + key);
+
+                //alert('makeid : ' + makeid());
+
+                // shaObj.setHMACKey("abc", "TEXT");
+                //shaObj.update("This is a test");
+                //var hmac = shaObj.getHMAC("HEX");
+                var encryptedString = $.jCryption.encrypt("hope 12 Ten @ & $%^&*()!~p+", key);
+
+
+
+                $.jCryption.authenticate(key, "/tuCryptoServlet?hope=" + encryptedString + "&generateKeyPair=true&RequestVerificationToken=ZmVBZ59oUad1Fr33BuPxANKY9q3Srr56fGBtLZZmVBZ59oUad1FrZZmVBZ59oUad",
+                        "/tuCryptoServlet?handshake=true&RequestVerificationToken=ZmVBZ59oUad1Fr33BuPxANKY9q3Srr56fGBtLZZmVBZ59oUad1FrZZmVBZ59oUad",
+                        function(AESKey) {
+                            alert('serverChallenged');
+                            //$("#text,#encrypt,#decrypt,#serverChallenge").attr("disabled",false);
+                            //$("#status").html('<span style="font-size: 16px;">Let\'s Rock!</span>');
+                            jData.hope1 = encryptedString;
+                            addRequestVerificationToken(jData);
+                            $.post("/tuCryptoServlet", jData, function(data) {
+                                alert('data');
                             });
-                            router.setRoute(intro);
-                        } else {
-                            if (id === "userId") {
-                                user.emailAddress = value;
-                                alert(value);
-                            }
 
-                            if (id === "userNeo4jIdString") {
-                                user.userNeo4jIdString = value;
-                                alert(value);
-                            }
-
-                            if (id === "isUserImg") {
-                                user.isUserImg = value;
-                            }
-
-                            if (id === "rolesData") {
-                                $.each(value, function(id, v) {
-                                    user.userRoles.push(v);
-                                });
-                                //alert(user.userRoles());
-                                //alert(user.userRoles()[0]);
-                                //alert(user.userRoles()[1]);
-                                //alert(user.userRoles()[2]);
-                            }
-
-                            if (id === "isLoggedIn") {
-                                if (value === true) {
-                                    user.isLoggedIn = true;
-                                    if (user.isLoggedIn) {
-                                        // alert("home");
-                                        session.setUser(user, false);
-                                        busy.remove();
-                                        router.setRoute(home);
-                                        stickyheaderSetter.set();
-                                    }
-
-                                } else {
-                                    busy.remove();
-                                    logger.log({
-                                        message: "Please check your E-mail Address and Password.",
-                                        showToast: true,
-                                        type: "error",
-                                        title: "Access Denied."
-                                    });
-                                    router.setRoute(intro);
-                                }
-                            }
-
+                        },
+                        function() {
+                            // Authentication failed
+                            alert("Authentication failed");
                         }
+                );
 
-                    });
-                });
+
+                //  alert(encryptedString);
+
+                // var decryptedString = $.jCryption.decrypt(encryptedString, password);
+
+                // alert(decryptedString);
+
+//url= "/TuCryptoServlet";
+
+                // jData.hope = $.jCryption.encrypt("hope", password);
+
+
+                /*
+                 // Clear session first.
+                 session.clearUser();
+                 //Append RequestVerificationToken value to the jData before posting.
+                 addRequestVerificationToken(jData);
+                 setMethod(jData, "login");
+                 //post data.
+                 $.post(url, jData, function(data) {    // var roles = [];
+                 var user = {
+                 emailAddress: ko.observable(undefined),
+                 userNeo4jIdString: ko.observable(undefined),
+                 isUserImg: ko.observable(false),
+                 isLoggedIn: ko.observable(false),
+                 //isBusy: ko.observable(false),
+                 // userGroups: ko.observableArray(),
+                 userRoles: ko.observableArray(),
+                 userIsInRole: ko.observable(false)
+                 //  setUser: setUser,
+                 // clearUser: clearUser,
+                 // archiveSessionStorageToLocalStorage: archiveSessionStorageToLocalStorage,
+                 // isAuthCallback: isAuthCallback,
+                 // userRemembered: userRemembered,
+                 //rememberedToken: rememberedToken
+                 };
+                 $.each(data, function(id, value) {
+                 if (id === "BadToken") {
+                 logger.log({
+                 message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
+                 showToast: true,
+                 type: "error"
+                 });
+                 router.setRoute(intro);
+                 } else {
+                 if (id === "userId") {
+                 user.emailAddress = value;
+                 alert(value);
+                 }
+                 
+                 if (id === "userNeo4jIdString") {
+                 user.userNeo4jIdString = value;
+                 alert(value);
+                 }
+                 
+                 if (id === "isUserImg") {
+                 user.isUserImg = value;
+                 }
+                 
+                 if (id === "rolesData") {
+                 $.each(value, function(id, v) {
+                 user.userRoles.push(v);
+                 });
+                 //alert(user.userRoles());
+                 //alert(user.userRoles()[0]);
+                 //alert(user.userRoles()[1]);
+                 //alert(user.userRoles()[2]);
+                 }
+                 
+                 if (id === "isLoggedIn") {
+                 if (value === true) {
+                 user.isLoggedIn = true;
+                 if (user.isLoggedIn) {
+                 // alert("home");
+                 session.setUser(user, false);
+                 busy.remove();
+                 router.setRoute(home);
+                 stickyheaderSetter.set();
+                 }
+                 
+                 } else {
+                 busy.remove();
+                 logger.log({
+                 message: "Please check your E-mail Address and Password.",
+                 showToast: true,
+                 type: "error",
+                 title: "Access Denied."
+                 });
+                 router.setRoute(intro);
+                 }
+                 }
+                 
+                 }
+                 
+                 });
+                 });
+                 
+                 */
             }
 
 

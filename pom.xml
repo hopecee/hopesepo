@@ -24,7 +24,25 @@
 
 
     <dependencies>
-         <dependency> 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>not-yet-commons-ssl</artifactId>
+            <version>0.3.9</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcprov-jdk14</artifactId>
+            <version>132</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>sshtools</groupId>
+            <artifactId>j2ssh-core</artifactId>
+            <version>0.2.7</version>
+            <type>jar</type>
+        </dependency>
+        <dependency> 
             <groupId>javax</groupId> 
             <artifactId>javaee-api</artifactId> 
             <version>7.0</version> 
