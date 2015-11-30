@@ -4,7 +4,7 @@
  */
 package com.hopecee.proshopnew.util.javacryption.aes;
 
-import com.hopecee.proshopnew.util.javacryption.exception.CryptoException;
+import com.hopecee.proshopnew.util.javacryption.exception.CryptoException_NOOT;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -25,7 +25,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 //import org.apache.commons.codec.binary.Base64;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+//import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -49,7 +49,7 @@ public class AesCtr implements Serializable {
     private static final int DECRYPT_MODE = Cipher.DECRYPT_MODE;
     private static final int ENCRYPT_MODE = Cipher.ENCRYPT_MODE;
 
-    public String encrypt(String password, String text) throws Exception {
+    public String encrypt(String text, String password) throws Exception {
         SecureRandom random = new SecureRandom();
         byte[] salt = random.generateSeed(8);
         byte[] pass = password.getBytes(CHAR_SET);
@@ -74,15 +74,18 @@ public class AesCtr implements Serializable {
          */
         Cipher cipher = createCipher(ENCRYPT_MODE, pass, salt);
         byte[] encrypted = cipher.doFinal(text.getBytes(CHAR_SET));
-
         byte[] saltedAndSalt = concat(salted, salt);
         byte[] saltedAndSaltAndEncrypted = concat(saltedAndSalt, encrypted);
-
         return new String(Base64.encodeBase64(saltedAndSaltAndEncrypted));
     }
 
-    public String decrypt(String password, String text) throws Exception {
+    public String decrypt(String text, String password) throws Exception {
+        //System.out.println("data ========  : " + text);
+
         byte[] data = Base64.decodeBase64(text);
+       // System.out.println(text + "  data ========  : " + data.toString());
+       // System.out.println("data ========h  : " + data.length);
+
         byte[] salt = Arrays.copyOfRange(data, 8, 16);
         byte[] ct = Arrays.copyOfRange(data, 16, data.length);
 
@@ -114,11 +117,8 @@ public class AesCtr implements Serializable {
          cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
          */
         Cipher cipher = createCipher(DECRYPT_MODE, pass, salt);
-
         byte[] decrypted = cipher.doFinal(ct);
-
         String clearText = new String(decrypted, CHAR_SET);
-
         return clearText;
     }
 
@@ -154,7 +154,7 @@ public class AesCtr implements Serializable {
  Rijndael aes = new Rijndael();
 
  if ((nBits != 128) && (nBits != 192) && (nBits != 256)) {
- throw new CryptoException("Invalid key size (" + nBits + " bits)");
+ throw new CryptoException_NOOT("Invalid key size (" + nBits + " bits)");
  }
 
  int nBytes = nBits / 8;

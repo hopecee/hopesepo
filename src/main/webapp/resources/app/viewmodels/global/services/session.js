@@ -39,6 +39,7 @@ define(['plugins/router'//, //'services/security',
                 userEmailAddress: ko.observable(undefined).publishOn('USER_EMAIL_ADDRESS'),
                 userNeo4jIdString: ko.observable(undefined).publishOn('USER_NEO4J_ID_STR'),
                 isLoggedIn: ko.observable(false).publishOn('IS_LOGGEDIN'),
+                makeId: ko.observable(undefined),
                 showMenu: ko.observable(true).publishOn('SHOWMENU'),
                 showMenuNot: ko.observable(false).publishOn('SHOWMENU_NOT'),
                 //headContainerClass: ko.observable().publishOn('HEADCONTAINER_CLASS'),
@@ -68,7 +69,7 @@ define(['plugins/router'//, //'services/security',
                     session.userEmailAddress(user.emailAddress);
                     session.userNeo4jIdString(user.userNeo4jIdString);
                     session.isUserImg(user.isUserImg);
-
+                    session.makeId(user.makeId);
                     if (user.isLoggedIn) {
                         session.showMenu(false);
                         session.showMenuNot(true);
@@ -109,7 +110,8 @@ define(['plugins/router'//, //'services/security',
                 clearAccessToken();
                 session.userEmailAddress('');
                 session.userNeo4jIdString('');
-
+                session.makeId('');
+                
                 session.userRoles.removeAll();
                 session.isLoggedIn(false);
             }

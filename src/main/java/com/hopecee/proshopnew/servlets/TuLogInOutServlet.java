@@ -14,6 +14,7 @@ import com.hopecee.proshopnew.neo4j.jdo.services.ConfigurationNeo4jService;
 import com.hopecee.proshopnew.neo4j.jdo.services.CountryNeo4jService;
 import com.hopecee.proshopnew.neo4j.jdo.services.DAOException;
 import com.hopecee.proshopnew.neo4j.jdo.services.UserNeo4jService;
+import com.hopecee.proshopnew.util.javacryption.aes.AesCtr;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -110,6 +111,8 @@ public class TuLogInOutServlet extends HttpServlet {
     private Identity identity;
     @Inject
     private Credentials credentials;
+    @Inject
+    private AesCtr aesCtr;
     //
     /* =========================*/
     /* userStatus
@@ -161,20 +164,20 @@ public class TuLogInOutServlet extends HttpServlet {
                 if ("login".equals(method)) {
 
                     System.out.println("DDDDDDDDD = ================= : ");
-                    System.out.println("DDDDDDDDD =      ==============: "
-                            + req.getParameter("hope"));
 
                     login(req, resp);
                 }
 
             } catch (IllegalStateException | SystemException ex) {
                 Logger.getLogger(TuLogInOutServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(TuLogInOutServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
     }
 
-    public void login(HttpServletRequest req, HttpServletResponse resp) throws IllegalStateException, SystemException, IOException// throws IdentityException, UnsupportedCriterium, DAOException, NamingException, SystemException, NotSupportedException, RollbackException, HeuristicMixedException, HeuristicRollbackException 
+    public void login(HttpServletRequest req, HttpServletResponse resp) throws IllegalStateException, SystemException, IOException, Exception// throws IdentityException, UnsupportedCriterium, DAOException, NamingException, SystemException, NotSupportedException, RollbackException, HeuristicMixedException, HeuristicRollbackException 
     {
         String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
         String usersPassword = req.getParameter("usersPasswordMenu");
@@ -245,11 +248,94 @@ public class TuLogInOutServlet extends HttpServlet {
             map.put("rolesData", roleInfoMap);
         }
         map.put("isLoggedIn", identity.isLoggedIn());
+        String k = req.getSession().getServletContext().getAttribute("jCryptionKey").toString();
+        //Map<Object, Object> mapCopy = map;
+        Set<Map.Entry<Object, Object>> set = map.entrySet();
+        Map<Object, Object> holdMap = new LinkedHashMap<>();
+        Map<Object, Object> holdMap_2 = new LinkedHashMap<>();
+        Iterator<Map.Entry<Object, Object>> it = set.iterator();
+        while (it.hasNext()) {
+            Map.Entry<Object, Object> obj = it.next();
+            String o = obj.getKey().toString();
+            Object val = obj.getValue();
+            if (val instanceof Map) {
+                System.out.println(val.toString() + "nott String: ");
+                Map<Object, Object> v = (Map<Object, Object>) obj.getValue();
+                System.out.println(v.isEmpty() + " :lhk ");
+                Iterator<Map.Entry<Object, Object>> it_2 = v.entrySet().iterator();
+                while (it_2.hasNext()) {
+                    Map.Entry<Object, Object> obj_2 = it_2.next();
+                    String o_2 = obj_2.getKey().toString();
+                    if (v instanceof Map) {
+                        //TODO NOT USED YET.
+                    } else {
+                        String enc_2 = aesCtr.encrypt(v.toString(), k);
+                        holdMap_2.put(o_2, enc_2);
+                    }
+                }
+            } else {
+                String enc = aesCtr.encrypt(val.toString(), k);
+                holdMap.put(o, enc);
+            }
+        }
+//Em
+
+        map.clear();
+        map.putAll(holdMap);//add the map.
+        map.putAll(holdMap_2);//add the inner map if exist.
+        //Set<Map.Entry<Object, Object>> i = map.entrySet();
+        for (Map.Entry<Object, Object> j : map.entrySet()) {
+            System.out.println(j.getKey() + "  :-: " + j.getValue());
+        }
+
+        /*
+         Set<Map.Entry<Object, Object>> setH = map.entrySet();
+         Iterator<Map.Entry<Object, Object>> itH = setH.iterator();
+         while (itH.hasNext()) {
+         Map.Entry<Object, Object> objH = itH.next();
+         String oH = objH.getKey().toString();
+         Object valH = objH.getValue();
+         if (valH instanceof Map) {
+         System.out.println(valH.toString() + "not String: ");
+         } else {
+         System.out.println(valH.toString() + "  :- " );
+         String enc = aesCtr.decrypt(valH.toString(), k);
+         //holdMap.put(oH, valH.toString());
+         System.out.println(oH + "  :- " + valH.toString() + " :String/int---ui: " + enc);
+         }
+         }
+         */
+        /*
+         while (iter.hasNext () 
+         ) {
+         Map.Entry<Object, Object> dataMap = iter.next();
+         //int i = 0;
+         //list.add(i++,1);
+         System.out.println(dataMap + " ===d==h================= : ");
+         String key = dataMap.getKey().toString();
+         Object o = dataMap.getValue();
+         // map.remove(key);
+         if (o instanceof Map) {
+         System.out.println(o.toString() + "not String: ");
+         } else {
+         //Object objd = map.get(key); 
+         String enc = aesCtr.encrypt(o.toString(), k);
+         System.out.println(key + " :String/int---ui: " + enc);
+         iter.remove();
+         dataMap.setValue(enc);
+         System.out.println(map.get(key) + " :== ");
+         }
+
+
+         }
+         * */
+
         String json = new Gson().toJson(map);
         //System.out.println(identity.getUser() + "===d==h================= : ");
 
         // JsonArray jsonArray = gsonString.getAsJsonArray();
         resp.setContentType(JSON);
+
         resp.getWriter().print(json);
 
     }

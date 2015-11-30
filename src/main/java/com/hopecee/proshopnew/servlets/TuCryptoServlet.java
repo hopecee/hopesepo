@@ -9,7 +9,6 @@ package com.hopecee.proshopnew.servlets;
  * @author hope
  */
 import com.google.gson.Gson;
-import static com.hopecee.proshopnew.servlets.TuLogInOutServlet.JSON;
 import com.hopecee.proshopnew.util.javacryption.aes.AesCtr;
 import com.hopecee.proshopnew.util.javacryption.jcryption.JCryption;
 import java.io.FileNotFoundException;
@@ -17,18 +16,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.spec.SecretKeySpec;
 import javax.inject.Inject;
 
 import javax.servlet.ServletException;
@@ -37,7 +29,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.picketlink.idm.api.IdentitySession;
 
 /**
  * Servlet example for jCryption
@@ -83,36 +74,27 @@ public class TuCryptoServlet extends HttpServlet {
             res.getWriter().print(json);
 
         } else {
-            //String RequestVerificationToken = req.getParameter("RequestVerificationToken");
-            String method = req.getParameter("method");
+           // String method = req.getParameter("method");
 
-
-
-            //System.out.println("DDDDDDDDD = : ");
-
-
-
-
-            if (req.getParameter("hope1") != null) {
-                try {
-                    String text = req.getParameter("hope1");
-                    //System.out.println("hopewd: " + text);
-                    String key =  request.getSession().getServletContext().getAttribute("jCryptionKey").toString();
-                    String decrypted = aesCtr.decrypt(key, text);
-                    System.out.println("text : " + decrypted);
+            /*
+             if (req.getParameter("hope1") != null) {
+             try {
+             String text = req.getParameter("hope1");
+             //System.out.println("hopewd: " + text);
+             String key =  request.getSession().getServletContext().getAttribute("jCryptionKey").toString();
+             String decrypted = aesCtr.decrypt(key, text);
+             System.out.println("text : " + decrypted);
                    
                     
-                } catch (Exception ex) {
-                    Logger.getLogger(TuCryptoServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
+             } catch (Exception ex) {
+             Logger.getLogger(TuCryptoServlet.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             }
+             */
             /**
              * Generates a KeyPair for RSA *
              */
-            if (req.getParameter("generateKeyPair") != null
-                    && req.getParameter("generateKeyPair").equals("true")) {
-
+            if (req.getParameter("generateKeyPair") != null && req.getParameter("generateKeyPair").equals("true")) {
                 JCryption jc = new JCryption();
                 jc.generateKeyPair();
                 KeyPair keys = jc.getKeyPair();
@@ -134,8 +116,7 @@ public class TuCryptoServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.print(json);
 
-            } else if (req.getParameter("handshake") != null
-                    && req.getParameter("handshake").equals("true")) {
+            } else if (req.getParameter("handshake") != null && req.getParameter("handshake").equals("true")) {
 
                 /**
                  * Decrypts password using private key *
@@ -144,7 +125,7 @@ public class TuCryptoServlet extends HttpServlet {
                         .getServletContext().getAttribute("jCryptionKeys"));
                 String key = jc.decrypt(req.getParameter("key"));
 
-                System.out.println("DDDDDDDDDhmhj =jc.decrypt : " + key);
+                // System.out.println("DDDDDDDDDhmhj =jc.decrypt : " + key);
 
                 request.getSession().getServletContext()
                         .removeAttribute("jCryptionKeys");
@@ -172,10 +153,7 @@ public class TuCryptoServlet extends HttpServlet {
                 objMap.clear();//Clear First.
                 objMap.put("challenge", ct);
                 // map.put("maxdigits", md);
-                // System.out.println("DDDDDDDDDhmhj =keys e: " + map.get("e").toString());
-                // System.out.println("DDDDDDDDDhmhj =keys n: " + map.get("n1"));
-                System.out.println("DDDDDDDDDhmhj =challenge   :" + ct);
-
+                
                 String json = new Gson().toJson(objMap);
                 response.setContentType(JSON);
                 PrintWriter out = response.getWriter();
@@ -285,8 +263,7 @@ public class TuCryptoServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
-        System.out.println("DDDDDDDDD = : hjj=======get=================");
-
-        doPost(req, res);
+        
+       // doPost(req, res);
     }
 }

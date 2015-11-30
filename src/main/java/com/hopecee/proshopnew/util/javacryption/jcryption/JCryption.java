@@ -5,7 +5,7 @@
 package com.hopecee.proshopnew.util.javacryption.jcryption;
 
 import com.hopecee.proshopnew.servlets.TuCryptoServlet;
-import com.hopecee.proshopnew.util.javacryption.exception.CryptoException;
+import com.hopecee.proshopnew.util.javacryption.exception.CryptoException_NOOT;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,8 +34,8 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
-import org.bouncycastle.jce.provider.JDKKeyPairGenerator.RSA;
-import org.bouncycastle.openssl.PEMWriter;
+//import org.bouncycastle.jce.provider.JDKKeyPairGenerator.RSA;
+//import org.bouncycastle.openssl.PEMWriter;
 //import org.datanucleus.util.Base64;
 import org.apache.commons.codec.binary.Base64;
 
@@ -178,7 +178,7 @@ public class JCryption implements Serializable {
             this.keyPair = kpg.generateKeyPair();
             //this.keyLength = keyLength;
         } catch (NoSuchAlgorithmException e) {
-            throw new CryptoException("Error obtaining RSA algorithm", e);
+            throw new CryptoException_NOOT("Error obtaining RSA algorithm", e);
         }
     }
 
