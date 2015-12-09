@@ -142,7 +142,7 @@ define('knockout', [], function() {
 require(['durandal/system', 'durandal/app', 'durandal/viewLocator'
 ], function(system, app, viewLocator) {
 
- //adding function to ko.observableArray(),ko.observable().
+    //adding function to ko.observableArray(),ko.observable().
     ko.observableArray.fn.refresh = function() {
         // var data = this().slice(0);
         // this([]);
@@ -151,8 +151,8 @@ require(['durandal/system', 'durandal/app', 'durandal/viewLocator'
         this(null);
         this(data);
     };
-    
-    
+
+
 
 
     //>>excludeStart("build", true);
@@ -165,7 +165,7 @@ require(['durandal/system', 'durandal/app', 'durandal/viewLocator'
     app.configurePlugins({
         //router: true,//TODO Router From director.js is now used.
         dialog: true,
-      widget: true
+        widget: true
     });
 
     app.start().then(function() {

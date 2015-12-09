@@ -1,7 +1,8 @@
 define(['durandal/system'//, 'toastr'
-    ],
-        function(system//, toastr
-        ) {
+],
+        function(system//, toastr 
+                ) {
+            "use strict";
 // Internal properties and functions
             var defaults = {
                 source: "app",
@@ -12,6 +13,24 @@ define(['durandal/system'//, 'toastr'
                 type: "info"
             };
             function init() {
+
+                //In case you want to escape HTML charaters in title and message
+                toastr.options.escapeHtml = true;//new
+                //Optionally override the close button's HTML.
+                //toastr.options.closeHtml = '<button><i class="icon-off"></i></button>';//new
+                toastr.options.closeMethod = 'fadeOut';//new
+                toastr.options.closeDuration = 300;//new
+                toastr.options.closeEasing = 'swing';//new
+                toastr.options.newestOnTop = false;//new
+                // Define a callback for when the toast is shown/hidden
+                // toastr.options.onShown = function() {
+                //   console.log('hello');
+                // };//new
+                // toastr.options.onHidden = function() {
+                //    console.log('goodbye');
+                //};//new
+
+
                 toastr.options.closeButton = false;
                 toastr.options.positionClass = 'toast-top-left';
                 toastr.options.backgroundpositionClass = 'toast-top-left';
@@ -26,6 +45,10 @@ define(['durandal/system'//, 'toastr'
                 toastr.options.hideEasing = "linear";
                 toastr.options.showMethod = "fadeIn";
                 toastr.options.hideMethod = "fadeOut";
+
+                toastr.options.preventDuplicates = true;//new
+                toastr.options.progressBar = true;//new
+
             }
 
             init();

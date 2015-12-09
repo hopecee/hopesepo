@@ -1,35 +1,44 @@
 define(['dojo/topic', "dojo/request", 'durandal/app',
     //'plugins/router',
-    'global/services/pageRouter','global/services/session', 'global/services/logger'
-], function(topic, request, app, pageRouter, session,logger
+    'global/services/pageRouter', 'global/services/session', 'global/services/logger',
+    'global/services/idletimeout', 'global/services/security'
+
+], function(topic, request, app, pageRouter, session, logger, idletimeout, security
         ) {
-
-
+    "use strict";
 
 
     $(document).ready(function() {
 
     });
-    
-    
+
+
+
+
     var activate = function(view, parent) {
         //Initialization.
-       // Check veiwpiont through 'Animation' and set the session mediaViewType.
-        if($('body').width()< 500) {
-          session.mediaViewType(2);
-        }else{
+        // Check veiwpiont through 'Animation' and set the session mediaViewType.
+        if ($('body').width() < 500) {
+            session.mediaViewType(2);
+        } else {
             session.mediaViewType(1);
-            };
-        
+        }
         $('body').on('animationend webkitAnimationEnd ', function(event) {
             if (event.originalEvent.animationName === 'max-width-500px') {
                 session.mediaViewType(2);
-            }else{
+            } else {
                 session.mediaViewType(1);
             }
         });
 
 
+
+//Initialize User idle timeout syncronized with server. 
+        idletimeout.init();
+
+
+        //Initialize all needed functions. 
+        // allRunOnce();
 
 
 
@@ -154,6 +163,9 @@ define(['dojo/topic', "dojo/request", 'durandal/app',
             savePanelSpace: true
         };
         $("#headContainer").stickyPanel(stickyPanelOptions);
+
+
+
         /*
          var intro = {
          on: function() {
@@ -244,4 +256,15 @@ define(['dojo/topic', "dojo/request", 'durandal/app',
                 // },
 
     };
+
+
+    function allRunOnce() {
+        //Initialize User idle timeout syncronized with server. 
+        //idletimeout.init();
+
+        //Initialize all runOnce.
+        // security.runOnce();
+
+    }
+
 });

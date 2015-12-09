@@ -1,7 +1,12 @@
-define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/services/stickyheaderSetter', 'global/services/busy', 'global/services/crypto'],
-        function(on, session, logger, stickyheaderSetter, _busy, crypto) {
+define(["dojo/on", 'global/services/session', 'global/services/logger',
+    'global/services/stickyheaderSetter', 'global/services/busy',
+    'global/services/crypto', 'global/services/functionz'],
+        function(on, session, logger, stickyheaderSetter, _busy,
+                crypto, fxz) {
+            "use strict";
 
             var router = new Router().init();
+            var subscriptions = [];
             var intro = 'intro',
                     home = 'home',
                     join_Editor_2 = 'join_editor_2',
@@ -38,38 +43,23 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
             }
             function getUserSession(jData) {
                 var userSession = {};
-                userSession.uNIString = session.userNeo4jIdString;
-                var array = [];
-                array.push(userSession);
-                jData['userSession'] = array;
+                userSession.userNeo4jIdString = session.userNeo4jIdString();
+                jData['userSession'] = userSession;
             }
             function getAuthentication() {
                 var k = makeId();
                 var deferred = new $.Deferred();
-                $.jCryption.authenticate(k, "/tuCryptoServlet", //?generateKeyPair=true&RequestVerificationToken=ZmVBZ59oUad1Fr33BuPxANKY9q3Srr56fGBtLZZmVBZ59oUad1FrZZmVBZ59oUad",
-                        "/tuCryptoServlet", //?handshake=true&RequestVerificationToken=ZmVBZ59oUad1Fr33BuPxANKY9q3Srr56fGBtLZZmVBZ59oUad1FrZZmVBZ59oUad",
+                $.jCryption.authenticate(k, "/tuCryptoServlet", //?generateKeyPair=true&RequestVerificationToken=",
+                        "/tuCryptoServlet", //?handshake=true&RequestVerificationToken=",
                         function(AESKey) {
-
-                            // alert('serverChallenged');
-                            //$("#text,#encrypt,#decrypt,#serverChallenge").attr("disabled",false);
-                            //$("#status").html('<span style="font-size: 16px;">Let\'s Rock!</span>');
-                            //jData.hope1 = encryptedString;
-                            // addRequestVerificationToken(jData);
-                            // $.post("/tuCryptoServlet", jData, function(data) {
-                            //  alert('data');
-                            //});
                             deferred.resolve(true, k);
-                            // r = true;
                         },
                         function() {
-                            // Authentication failed
                             console.log("Authentication failed");
-                            //r = false;
                             deferred.resolve(false);
                         }
                 );
                 return deferred.promise();
-
             }
 
             function makeId() {    //randomKey
@@ -82,7 +72,13 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
             }
 
 
-
+            function keepSessionAlive() {
+                getAuthentication().then(function(promise, k) {
+                    if (promise) {
+                        session.makeId(k);
+                    }
+                });
+            }
 
 
 
@@ -97,7 +93,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
             }
 
 
-// Other private operations
+           // Other private operations
             function getSecurityHeaders() {
                 var accessToken = sessionStorage["accessToken"] || localStorage["accessToken"];
                 if (accessToken) {
@@ -131,12 +127,15 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 getExternalLogins: getExternalLogins,
                 getManageInfo: getManageInfo,
                 getUserInfo: getUserInfo,
+                addRequestVerificationToken: addRequestVerificationToken,
+                setMethod: setMethod,
+                getAuthentication: getAuthentication,
                 login: login,
+                logout: logout,
                 joinEditor: joinEditor,
                 joinEditor2: joinEditor2,
                 joinEditor3: joinEditor3,
                 localeManager: localeManager,
-                logout: logout,
                 searchUser: searchUser,
                 addFriend: addFriend,
                 register: register,
@@ -144,7 +143,8 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 removeLogin: removeLogin,
                 setPassword: setPassword,
                 //returnUrl: siteUrl,
-                toErrorString: toErrorString
+                toErrorString: toErrorString,
+                subscriptions: subscriptions
             };
             $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
                 jqXHR.failJSON = function(callback) {
@@ -161,7 +161,8 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 };
             });
             return securityService;
-// Data access operations
+
+            // Data access operations
             function addExternalLogin(data) {
                 return $.ajax(addExternalLoginUrl, {
                     type: "POST",
@@ -206,8 +207,21 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
 
 
 
-            //Hopecee
-            function login(url, jData, busy) {
+             function login(url, jData, busy) {
+
+                //unsubscribe them first if any, by disposing them.
+                fxz.clearSubscriptions(subscriptions);
+
+                //Triger to keep session Alive.
+                subscriptions.push(ko.postbox.subscribe('KEEP_SESSION_ALIVE', function(data) {
+                    keepSessionAlive();
+                }));
+                //Logout Triger.
+                subscriptions.push(ko.postbox.subscribe('USER_LOGOUT', function(data) {
+                    logout(data);
+                }));
+
+
 
                 /*
                  // Encrypt with the public key...
@@ -388,9 +402,15 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                                             user.makeId = k;
                                             if (user.isLoggedIn) {
                                                 session.setUser(user, false);
+                                                // alert( user.makeId +" : "+k);
+                                                // alert( session.makeId);
+                                                //alert( session.makeId());
                                                 busy.remove();
                                                 router.setRoute(home);
                                                 stickyheaderSetter.set();
+                                                //User idle timeout syncronized with server. 
+                                                ko.postbox.publish('START_IDLE_TIMEOUT', null);
+
                                             }
 
                                         } else {
@@ -414,12 +434,19 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                     }
                 });
 
-
-
-
-
             }
 
+
+            function logout(data) {
+                // Clear session first.
+                session.clearUser();
+                router.setRoute(intro);    //User idle timeout syncronized with server. 
+                //User idle timeout syncronized with server.
+                if (data === "idletimeout") {
+                    ko.postbox.publish('STOP_IDLE_TIMEOUT', null);
+                }
+
+            }
 
 
             function joinEditor(url, jData, busy) {
@@ -620,13 +647,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
             }
 
 
-            function logout() {
-                return $.ajax(logoutUrl, {
-                    type: "POST",
-                    headers: getSecurityHeaders()
-                });
-            }
-
 
             function searchUser(url, jData) {
                 ko.observable('viewmodels/task/busyWidget').publishOn('USER_SEARCH_PANEL');
@@ -642,10 +662,14 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                 //setUserNeo4jIdString(jData, session.userNeo4jIdString);//TODO use this.
                 //setUserNeo4jIdString(jData, "13421");
                 getUserSession(jData);
-                // alert(jData.userNeo4jIdString);
+                //  alert(session.makeId());
+                var k = session.makeId();
+                crypto.en(jData, k);
+                // crypto.en(jData, makeId());
                 //post data.
                 $.post(url, jData, function(data) {
 
+                    crypto.de(data, k);
                     //busy.remove();
                     // $("#userSearchBusy").addClass('ui-helper-hidden');
 
@@ -676,6 +700,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                             });
                         } else {
                             if (id === "findAllCustomers") {
+                                alert("findAllCustomers ===== " + value);
                                 var userArray = value;
                                 // alert( "arrayT ");
                                 /* 
@@ -743,8 +768,8 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                             }
 
                             if (id === "findUser") {
-
-                                var userArray = value;
+                                alert("findUser ==== " + value);
+                                var userObj = value;
                                 /*
                                  if (id === "userId") {
                                  userSearch.userId = value;
@@ -785,7 +810,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
 //alert("usersStatus1 : " + session.userSearch());
                                 session.userSearch([]); //Clear First.
                                 // alert("usersStatus2 : " + session.userSearch());
-                                session.userSearch(userArray);
+                                session.userSearch([userObj]);
                                 //alert("usersStatus3 : " + session.userSearch());
                                 //Remove Busy first.
                                 //  busy.remove();
@@ -861,6 +886,23 @@ define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/
                     headers: getSecurityHeaders()
                 });
             }
+
+
+
+
+
+
+
+
+
+
+            // var securitySubscriptionArr = [];
+
+            function runOnce() {
+
+            }
+
+
 
 
 

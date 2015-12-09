@@ -1,10 +1,10 @@
 
-define(['dojo/i18n!app/nls/labels',
+define(['durandal/app','dojo/i18n!app/nls/labels',
     'dojo/dom', 'dojo/dom-construct', 'dijit/layout/TabContainer', 'dijit/layout/ContentPane',
     'plugins/router', 'global/services/session',
     'global/services/security',
     'global/services/layout',
-    'global/services/logger'], function(labels,
+    'global/services/logger'], function(app,labels,
         dom, domConstruct, TabContainer, ContentPane,
         router, session, security,
         layout,
@@ -49,6 +49,11 @@ define(['dojo/i18n!app/nls/labels',
     //Inject toastrOptions.
 //var toastrService = new toastrOptions();
 //toastrService.getOptions();
+
+
+
+
+
 
     // validate joinEditorform form on keyup and submit
     var doValidation = function() {

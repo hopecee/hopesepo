@@ -12,6 +12,7 @@ import com.hopecee.proshopnew.neo4j.jdo.services.DAOException;
 import com.hopecee.proshopnew.neo4j.jdo.services.UserNeo4jService;
 import com.hopecee.proshopnew.neo4j.jdo.util.JDOUtil;
 import static com.hopecee.proshopnew.servlets.TuJoinEditorServlet.JSON;
+import com.hopecee.proshopnew.util.javacryption.aes.AesCtr;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.transaction.ExceptionEventRollback;
@@ -67,11 +69,16 @@ public class TuUsersSearchServlet extends HttpServlet {
     Map<Object, Object> userMap = new LinkedHashMap<>();
     @Inject
     private StoreCopyRevert storeCopyRevert;
+    @Inject
+    private AesCtr aesCtr;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        
+      
+                
         String token = "";
         try {
             token = req.getAttribute("CheckRequestVerificationToken").toString();
@@ -93,8 +100,11 @@ public class TuUsersSearchServlet extends HttpServlet {
             if ("searchUser".equals(method) && "@tushop.com".equals(searchType)) {
 
                 System.out.println("DDDDDDDDD = : ");
-
-                findUser(req, resp);
+                try {
+                    findUser(req, resp);
+                } catch (Exception ex) {
+                    Logger.getLogger(TuUsersSearchServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             if ("searchUser".equals(method) && "all friends".equals(searchType)) {
@@ -108,6 +118,9 @@ public class TuUsersSearchServlet extends HttpServlet {
         }
     }
 
+    
+    
+    //NOT part of it.
     protected void storeCopyRevert() {
         // Usage: StoryCopy source:version target:version [rel,types,to,ignore] [properties,to,ignore]
         // String path = getServletContext().getRealPath("/data/");
@@ -124,28 +137,29 @@ public class TuUsersSearchServlet extends HttpServlet {
 
     }
 
-    protected void findUser(HttpServletRequest req, HttpServletResponse resp) {
-        String userNeo4jIdString = req.getParameter("userSession[0][uNIString]");
+    protected void findUser(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String userNeo4jIdString = req.getParameter("userSession[userNeo4jIdString]");
         String searchValue = req.getParameter("searchValue");
         String searchType = req.getParameter("searchType");
 
         System.out.println("hdthh- : " + searchValue);
         System.out.println(searchType);
-        System.out.println(req.getParameter("userSession"));
+        //System.out.println(req.getParameter("userSession"));
         if (userNeo4jIdString != null) {
             // for (int i = 0; i < userSession; i++) {
-            System.out.print(" Action: " + userNeo4jIdString);
+            System.out.print(userNeo4jIdString);
             // }  
         } else {
             System.out.println("Action is null");
         }
-
-
+        long time = req.getSession().getLastAccessedTime();
+ System.out.println("time : "+time);
         try {
             //  Map<Object, Object> userMap = new LinkedHashMap<>();
             userMap.clear(); //Clear First.
+System.out.println("identity.isLoggedIn() : "+identity.getUser().getId());
 
-            userMap.put("isLoggedIn", true);//Check login.
+            userMap.put("isLoggedIn", identity.isLoggedIn());//Check login.
 
             List customersArr = new ArrayList();
             customersArr.clear();  //Clear First.
@@ -177,10 +191,12 @@ public class TuUsersSearchServlet extends HttpServlet {
                 System.out.println("userName : " + user.getName());
             }
 
-            customersArr.add(customersMap);
+            //customersArr.add(customersMap);
 
-            userMap.put("findUser", customersArr);
+            //userMap.put("findUser", customersArr);
+             userMap.put("findUser", customersMap);
             // ArrayList arr = (ArrayList) userMap.get("array");
+            aesCtr.encryptMap(req, userMap);//encrypt the Map data.
 
             String json = new Gson().toJson(userMap);
 

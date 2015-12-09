@@ -59,7 +59,11 @@ define(['plugins/router'//, //'services/security',
                 mediaViewType: ko.observable(1), //initial = menu with 1 layer.
                 //========userSearch======================
                 userSearch: ko.observableArray([]),
-                userAllSearch: ko.observableArray([])
+                userAllSearch: ko.observableArray([]),
+                //=============idleTimeout=====================
+                idleTimerLoggedOut: ko.observable(true),
+                idleTimerLastActivity: ko.observable(0)
+
 
             };
             return session;
@@ -107,13 +111,19 @@ define(['plugins/router'//, //'services/security',
                 }
             }
             function clearUser() {
-                clearAccessToken();
-                session.userEmailAddress('');
-                session.userNeo4jIdString('');
-                session.makeId('');
-                
+                // clearAccessToken();
+                session.userEmailAddress(undefined);
+                session.userNeo4jIdString(undefined);
+                session.makeId(undefined);
+                session.isUserImg(false);
+
                 session.userRoles.removeAll();
                 session.isLoggedIn(false);
+                session.showMenu(true);
+                session.showMenuNot(false);
+         
+                session.idleTimerLoggedOut(true);
+                session.idleTimerLastActivity(0);
             }
             function userIsInRole(requiredRole)
             {

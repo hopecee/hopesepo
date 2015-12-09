@@ -32,6 +32,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.codec.Decoder;
 import org.apache.commons.codec.binary.Base64;
 //import java.util.Base64;
@@ -83,8 +88,8 @@ public class AesCtr implements Serializable {
         //System.out.println("data ========  : " + text);
 
         byte[] data = Base64.decodeBase64(text);
-       // System.out.println(text + "  data ========  : " + data.toString());
-       // System.out.println("data ========h  : " + data.length);
+        // System.out.println(text + "  data ========  : " + data.toString());
+        // System.out.println("data ========h  : " + data.length);
 
         byte[] salt = Arrays.copyOfRange(data, 8, 16);
         byte[] ct = Arrays.copyOfRange(data, 16, data.length);
@@ -148,167 +153,211 @@ public class AesCtr implements Serializable {
 
     }
 
-    ;
-/*
- public static String encryptz(String plaintext, String password, int nBits) {
- Rijndael aes = new Rijndael();
+    public void encryptMap(HttpServletRequest req, Map<Object, Object> map) throws Exception {
+        String k = req.getSession().getServletContext().getAttribute("jCryptionKey").toString();
 
- if ((nBits != 128) && (nBits != 192) && (nBits != 256)) {
- throw new CryptoException_NOOT("Invalid key size (" + nBits + " bits)");
- }
+        Map<Object, Object> holdMap = new LinkedHashMap<>();
+        Map<Object, Object> holdMap_2 = new LinkedHashMap<>();
 
- int nBytes = nBits / 8;
- byte[] pwBytes = new byte[nBytes];
+        Iterator<Map.Entry<Object, Object>> it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Object, Object> obj = it.next();
+            String o = obj.getKey().toString();
+            Object val = obj.getValue();
+            if (val instanceof Map) {
+                //System.out.println(val.toString() + "nott String: ");
+                Map<Object, Object> v = (Map<Object, Object>) obj.getValue();
+                //System.out.println(v.isEmpty() + " :lhk ");
+                Iterator<Map.Entry<Object, Object>> it_2 = v.entrySet().iterator();
+                while (it_2.hasNext()) {
+                    //System.out.println(" :hasNext ");
+                    Map.Entry<Object, Object> obj_2 = it_2.next();
+                    String o_2 = obj_2.getKey().toString();
+                    Object val_2 = obj_2.getValue();
+                    if (val_2 instanceof Map) {
+                        //System.out.println("v :Map ");
+                        //TODO NOT USED YET.
+                    } else {
+                        String enc_2 = encrypt(val_2.toString(), k);
+                        holdMap_2.put(o_2, enc_2);
+                        holdMap.put(o, holdMap_2);
+                    }
+                }
+            } else {
+                String enc = encrypt(val.toString(), k);
+                holdMap.put(o, enc);
+            }
+        }
+        
+      //Clear and add the map from holdMap.
+        map.clear();
+        map.putAll(holdMap);
+        
+        // map.putAll(holdMap_2);//add the inner map if exist.
+        //Set<Map.Entry<Object, Object>> i = map.entrySet();
+        //for (Map.Entry<Object, Object> j : map.entrySet()) {
+         //   System.out.println(j.getKey() + "  :-: " + j.getValue());
+        //}
+    }
 
- for (int i = 0; i < nBytes; i++) {
- pwBytes[i] = (byte) password.charAt(i);
- }
+    /*
+     public static String encryptz(String plaintext, String password, int nBits) {
+     Rijndael aes = new Rijndael();
 
- aes.makeKey(pwBytes, 256, 1);
- byte[] key = aes.encryptBlock(pwBytes, new byte[16]);
- aes.finalize();
+     if ((nBits != 128) && (nBits != 192) && (nBits != 256)) {
+     throw new CryptoException_NOOT("Invalid key size (" + nBits + " bits)");
+     }
 
- if (nBytes > 16) {
- byte[] keySlice = new byte[nBytes - 16];
- for (int i = 0; i < nBytes - 16; i++) {
- keySlice[i] = key[i];
- }
- key = Util.addByteArrays(key, keySlice);
- }
+     int nBytes = nBits / 8;
+     byte[] pwBytes = new byte[nBytes];
 
- byte[] counterBlock = new byte[16];
+     for (int i = 0; i < nBytes; i++) {
+     pwBytes[i] = (byte) password.charAt(i);
+     }
 
- long nonce = new Date().getTime();
- int nonceMs = (int) nonce % 1000;
- int nonceSec = (int) Math.floor(nonce / 1000L);
- int nonceRnd = (int) Math.floor(Math.random() * 65535.0D);
+     aes.makeKey(pwBytes, 256, 1);
+     byte[] key = aes.encryptBlock(pwBytes, new byte[16]);
+     aes.finalize();
 
- for (int i = 0; i < 2; i++) {
- counterBlock[i] = (byte) (nonceMs >>> i * 8 & 0xFF);
- }
- for (int i = 0; i < 2; i++) {
- counterBlock[(i + 2)] = (byte) (nonceRnd >>> i * 8 & 0xFF);
- }
- for (int i = 0; i < 4; i++) {
- counterBlock[(i + 4)] = (byte) (nonceSec >>> i * 8 & 0xFF);
- }
+     if (nBytes > 16) {
+     byte[] keySlice = new byte[nBytes - 16];
+     for (int i = 0; i < nBytes - 16; i++) {
+     keySlice[i] = key[i];
+     }
+     key = Util.addByteArrays(key, keySlice);
+     }
 
- byte[] ctrTxt = new byte[8];
- for (int i = 0; i < 8; i++) {
- ctrTxt[i] = counterBlock[i];
- }
+     byte[] counterBlock = new byte[16];
 
- aes.makeKey(key, 256, 1);
+     long nonce = new Date().getTime();
+     int nonceMs = (int) nonce % 1000;
+     int nonceSec = (int) Math.floor(nonce / 1000L);
+     int nonceRnd = (int) Math.floor(Math.random() * 65535.0D);
 
- int blockCount = (int) Math.ceil(new Float(plaintext.length()).floatValue()
- / 16.0F);
+     for (int i = 0; i < 2; i++) {
+     counterBlock[i] = (byte) (nonceMs >>> i * 8 & 0xFF);
+     }
+     for (int i = 0; i < 2; i++) {
+     counterBlock[(i + 2)] = (byte) (nonceRnd >>> i * 8 & 0xFF);
+     }
+     for (int i = 0; i < 4; i++) {
+     counterBlock[(i + 4)] = (byte) (nonceSec >>> i * 8 & 0xFF);
+     }
 
- byte[] ciphertxt = new byte[plaintext.length()];
+     byte[] ctrTxt = new byte[8];
+     for (int i = 0; i < 8; i++) {
+     ctrTxt[i] = counterBlock[i];
+     }
 
- for (int b = 0; b < blockCount; b++) {
- for (int c = 0; c < 4; c++) {
- counterBlock[(15 - c)] = (byte) (b >>> c * 8 & 0xFF);
- }
- for (int c = 0; c < 4; c++) {
- counterBlock[(15 - c - 4)] = 0;
- }
+     aes.makeKey(key, 256, 1);
 
- byte[] cipherCntr = aes.encryptBlock(counterBlock,
- new byte[16]);
+     int blockCount = (int) Math.ceil(new Float(plaintext.length()).floatValue()
+     / 16.0F);
 
- int blockLength = b < blockCount - 1 ? 16
- : (plaintext.length() - 1) % 16 + 1;
+     byte[] ciphertxt = new byte[plaintext.length()];
 
- for (int i = 0; i < blockLength; i++) {
- ciphertxt[(b * 16 + i)] =
- (byte) (cipherCntr[i] ^ plaintext
- .charAt(b * 16 + i));
- }
+     for (int b = 0; b < blockCount; b++) {
+     for (int c = 0; c < 4; c++) {
+     counterBlock[(15 - c)] = (byte) (b >>> c * 8 & 0xFF);
+     }
+     for (int c = 0; c < 4; c++) {
+     counterBlock[(15 - c - 4)] = 0;
+     }
 
- }
+     byte[] cipherCntr = aes.encryptBlock(counterBlock,
+     new byte[16]);
 
- aes.finalize();
+     int blockLength = b < blockCount - 1 ? 16
+     : (plaintext.length() - 1) % 16 + 1;
 
- byte[] ciphertext = Util.addByteArrays(ctrTxt, ciphertxt);
+     for (int i = 0; i < blockLength; i++) {
+     ciphertxt[(b * 16 + i)] =
+     (byte) (cipherCntr[i] ^ plaintext
+     .charAt(b * 16 + i));
+     }
 
- String ciphertext64 = new String(Base64.encodeBase64(ciphertext));
+     }
 
- return ciphertext64;
- }
+     aes.finalize();
 
- public static String decryptz(String ciphertext, String password, int nBits) {
- Rijndael aes = new Rijndael();
+     byte[] ciphertext = Util.addByteArrays(ctrTxt, ciphertxt);
 
- if ((nBits != 128) && (nBits != 192) && (nBits != 256)) {
- return null;
- }
+     String ciphertext64 = new String(Base64.encodeBase64(ciphertext));
 
- byte[] cipherByte = Base64.decodeBase64(ciphertext.getBytes());
+     return ciphertext64;
+     }
 
- int nBytes = nBits / 8;
- byte[] pwBytes = new byte[nBytes];
+     public static String decryptz(String ciphertext, String password, int nBits) {
+     Rijndael aes = new Rijndael();
 
- for (int i = 0; i < nBytes; i++) {
- pwBytes[i] = (byte) password.charAt(i);
- }
+     if ((nBits != 128) && (nBits != 192) && (nBits != 256)) {
+     return null;
+     }
 
- aes.makeKey(pwBytes, 256, 1);
- byte[] key = aes.encryptBlock(pwBytes, new byte[16]);
- aes.finalize();
+     byte[] cipherByte = Base64.decodeBase64(ciphertext.getBytes());
 
- if (nBytes > 16) {
- byte[] keySlice = new byte[nBytes - 16];
- for (int i = 0; i < nBytes - 16; i++) {
- keySlice[i] = key[i];
- }
- key = Util.addByteArrays(key, keySlice);
- }
+     int nBytes = nBits / 8;
+     byte[] pwBytes = new byte[nBytes];
 
- byte[] counterBlock = new byte[16];
- for (int i = 0; i < 8; i++) {
- counterBlock[i] = cipherByte[i];
- }
+     for (int i = 0; i < nBytes; i++) {
+     pwBytes[i] = (byte) password.charAt(i);
+     }
 
- aes.makeKey(key, 256, 1);
+     aes.makeKey(pwBytes, 256, 1);
+     byte[] key = aes.encryptBlock(pwBytes, new byte[16]);
+     aes.finalize();
 
- int blockCount = (int) Math.ceil(new Float(cipherByte.length - 8).floatValue()
- / 16.0F);
+     if (nBytes > 16) {
+     byte[] keySlice = new byte[nBytes - 16];
+     for (int i = 0; i < nBytes - 16; i++) {
+     keySlice[i] = key[i];
+     }
+     key = Util.addByteArrays(key, keySlice);
+     }
 
- byte[] plaintxt = new byte[cipherByte.length - 8];
+     byte[] counterBlock = new byte[16];
+     for (int i = 0; i < 8; i++) {
+     counterBlock[i] = cipherByte[i];
+     }
 
- for (int b = 0; b < blockCount; b++) {
- for (int c = 0; c < 4; c++) {
- counterBlock[(15 - c)] = (byte) (b >>> c * 8 & 0xFF);
- }
- for (int c = 0; c < 4; c++) {
- counterBlock[(15 - c - 4)] = 0;
- }
+     aes.makeKey(key, 256, 1);
 
- byte[] cipherCntr = aes.encryptBlock(counterBlock,
- new byte[16]);
+     int blockCount = (int) Math.ceil(new Float(cipherByte.length - 8).floatValue()
+     / 16.0F);
 
- int blockLength = b < blockCount - 1 ? 16
- : (cipherByte.length - 9) % 16 + 1;
+     byte[] plaintxt = new byte[cipherByte.length - 8];
 
- for (int i = 0; i < blockLength; i++) {
- plaintxt[(b * 16 + i)] =
- (byte) (cipherCntr[i] ^ cipherByte[
- (8
- + b * 16 + i)]);
- }
+     for (int b = 0; b < blockCount; b++) {
+     for (int c = 0; c < 4; c++) {
+     counterBlock[(15 - c)] = (byte) (b >>> c * 8 & 0xFF);
+     }
+     for (int c = 0; c < 4; c++) {
+     counterBlock[(15 - c - 4)] = 0;
+     }
 
- }
+     byte[] cipherCntr = aes.encryptBlock(counterBlock,
+     new byte[16]);
 
- aes.finalize();
+     int blockLength = b < blockCount - 1 ? 16
+     : (cipherByte.length - 9) % 16 + 1;
 
- String plaintext = new String(plaintxt);
+     for (int i = 0; i < blockLength; i++) {
+     plaintxt[(b * 16 + i)] =
+     (byte) (cipherCntr[i] ^ cipherByte[
+     (8
+     + b * 16 + i)]);
+     }
 
- return plaintext;
- }
+     }
+
+     aes.finalize();
+
+     String plaintext = new String(plaintxt);
+
+     return plaintext;
+     }
     
- */
-    
-    
+     */
     private byte[] concat(byte[] a, byte[] b) {
         byte[] c = new byte[a.length + b.length];
         System.arraycopy(a, 0, c, 0, a.length);

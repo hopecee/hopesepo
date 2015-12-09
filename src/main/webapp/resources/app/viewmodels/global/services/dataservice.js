@@ -1,7 +1,7 @@
 define(['dojo/i18n!app/nls/countryIsoCodes',
     'dojo/dom', 'global/services/logger'],
         function(countryIsoCodes, dom, logger) {
-              "use strict";
+            "use strict";
 
             var jData = {};
 
@@ -88,12 +88,12 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
                 }
                 );
             };
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
             return dataservice;
         });

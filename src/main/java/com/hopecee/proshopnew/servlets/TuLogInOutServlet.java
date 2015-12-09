@@ -248,6 +248,9 @@ public class TuLogInOutServlet extends HttpServlet {
             map.put("rolesData", roleInfoMap);
         }
         map.put("isLoggedIn", identity.isLoggedIn());
+        aesCtr.encryptMap(req, map);//encrypt the Map data.
+        
+        /*
         String k = req.getSession().getServletContext().getAttribute("jCryptionKey").toString();
         //Map<Object, Object> mapCopy = map;
         Set<Map.Entry<Object, Object>> set = map.entrySet();
@@ -287,7 +290,9 @@ public class TuLogInOutServlet extends HttpServlet {
         for (Map.Entry<Object, Object> j : map.entrySet()) {
             System.out.println(j.getKey() + "  :-: " + j.getValue());
         }
-
+        
+        */
+//================
         /*
          Set<Map.Entry<Object, Object>> setH = map.entrySet();
          Iterator<Map.Entry<Object, Object>> itH = setH.iterator();

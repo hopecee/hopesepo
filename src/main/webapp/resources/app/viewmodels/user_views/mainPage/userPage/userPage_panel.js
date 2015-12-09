@@ -243,7 +243,7 @@ define(['dojo/i18n!app/nls/labels',
         attached: attached,
         searchValue: ko.observable(),
         searchType: ko.observable(),
-        userTabs: userTabsObjArr(),
+        userTabs: userTabsObj(),
         //  userProfilePanel: ko.observable().subscribeTo('LOAD_USER_PROFILE_PANEL'),
         userTabsTemplate: function(tab) {
             return tab.closable() ? "closable" : "unclosable";
@@ -291,13 +291,20 @@ define(['dojo/i18n!app/nls/labels',
         }
 
     };
-    function userTabsObjArr() {
-
+    function userTabsObj() {
+//alert("ho==== ");
+            
         var self = ko.observableArray([{id: 'uSearchOutput', userName: 'Persons', closable: ko.observable(false), userSearchPanel: ko.observable().subscribeTo("USER_SEARCH_PANEL")
             }]);
+        
         ko.postbox.subscribe('OPEN_USER_PROFILE_PANEL', function(userId) {
+          // alert("ho==== OPEN ");
             var userData = getUserFromAllSearch(userId);
+           // alert("ho==== OPEN 2");
             var array = self();
+            
+          // alert("ho==== "+checkUserExistInArr(array, userId));
+            
             if (!checkUserExistInArr(array, userId)) {
                 //  var userProfilePanel = 'userProfilePanel_'+userId;
                 // var obj = {};
@@ -364,8 +371,9 @@ define(['dojo/i18n!app/nls/labels',
     function getUserFromAllSearch(userId) {
         var userData = {},
                 control;
-        var userOneObjArr = session.userSearch(); //check on single user data store first.
-        $.each(userOneObjArr, function(id, value) {
+        var userOneObj = session.userSearch(); //check on single user data store first.
+        $.each(userOneObj, function(id, value) {
+             //alert(id + " : hhhhhhhhhhhhhhhhhh " + value);
             if (userId.toString() === value.userId.toString()) { //convert, so that === will work well.
                 userData.userId = value.userId;
                 userData.usersName = value.usersName;
@@ -373,8 +381,8 @@ define(['dojo/i18n!app/nls/labels',
             }
         });
         if (control === undefined) {//check on all user data store if not on all user store.
-            var userAllObjArr = session.userAllSearch();
-            $.each(userAllObjArr, function(id, value) {
+            var userAllObj = session.userAllSearch();
+            $.each(userAllObj, function(id, value) {
                if (userId.toString() === value.userId.toString()) { //convert, so that === will work well.
                 userData.userId = value.userId;
                 userData.usersName = value.usersName;

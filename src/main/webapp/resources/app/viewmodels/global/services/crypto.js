@@ -1,45 +1,40 @@
-define(["dojo/on", 'global/services/session', 'global/services/logger', 'global/services/stickyheaderSetter', 'global/services/busy'],
-        function(on, session, logger, stickyheaderSetter, _busy) {
+define([], function() {
+    "use strict";
+    
+    var crypto = {
+        en: en,
+        de: de
+    };
 
+    return crypto;
 
-
-            var crypto = {
-                en: en,
-                de: de
-            };
-
-            return crypto;
-
-            function en(jData, k) {
-               
-                $.each(jData, function(id, value) {
-                   // alert(id + " : " + value);
-                    var d = $.jCryption.encrypt(value, k);
-                    jData[id] = d;
+    function en(jData, k) {
+        $.each(jData, function(id, value) {
+            if (typeof value === "object" && !Array.isArray(value) && value !== null) {
+                $.each(value, function(id2, value2) {
+                    var e2 = $.jCryption.encrypt(value2, k);
+                    jData[id][id2] = e2;
                 });
-                 //Add control to show that the data is encrypted.
-                jData["en"] = true;
-               // $.each(jData, function(id, value) {
-                  //  alert(id + " : " + value);
-                    //var d = $.jCryption.encrypt(value, k);
-                    //jData.id = d;
-               // });
-               // de(jData, k);
+            } else {
+                var e = $.jCryption.encrypt(value, k);
+                jData[id] = e;
             }
-
-            function de(jData, k) {
-                $.each(jData, function(id, value) {
-                   // alert(id + " : " + value);
-                    var d = $.jCryption.decrypt(value, k);
-                    jData[id] = d;
-                });
-                //$.each(jData, function(id, value) {
-                  //  alert(id + " := " + value);
-                    //var d = $.jCryption.encrypt(value, k);
-                    //jData.id = d;
-                //});
-            }
-
-
-
         });
+        //Add control to show that the data is encrypted.
+        jData["en"] = true;
+    }
+
+    function de(jData, k) {
+        $.each(jData, function(id, value) {
+            if (typeof value === "object" && !Array.isArray(value) && value !== null) {
+                $.each(value, function(id2, value2) {
+                    var d2 = $.jCryption.decrypt(value2, k);
+                    jData[id][id2] = d2;
+                });
+            } else {
+                var d = $.jCryption.decrypt(value, k);
+                jData[id] = d;
+            }
+        });
+    }
+});
