@@ -6,9 +6,9 @@ define(['dojo/i18n!app/nls/labels',
     'global/services/security',
     'global/services/layout',
     'global/services/logger',
-    'global/services/dataservice'],
+    'global/services/dataservice', 'global/services/functionz'],
         function(labels, dom, domConstruct, router, session,
-                security, layout, logger, dataservice) {
+                security, layout, logger, dataservice, fxz) {
             "use strict";
 
 
@@ -55,7 +55,7 @@ define(['dojo/i18n!app/nls/labels',
                             required: true
                         },
                         'street2': {
-                            required: true
+                            required: false
                         },
                         'city': {
                             required: true
@@ -103,9 +103,10 @@ define(['dojo/i18n!app/nls/labels',
                 });
             };
 
-            var layoutV = new layout();
+
 
             var attached = function(view, paren) {
+                var layoutV = new layout();
                 layoutV.setInputStyle();//TODO should it be at the bottom element?
 
                 //var labelemailNode = dom.byId('labelemail');
@@ -169,8 +170,9 @@ define(['dojo/i18n!app/nls/labels',
             };
 
 
-            var service = new dataservice();
+
             var activate = function() {
+                var service = new dataservice();
                 service.getAllCountries(this);
                 /*
                  app.trigger('authentication.loggedIn', {
@@ -209,10 +211,36 @@ define(['dojo/i18n!app/nls/labels',
                 });
                 return obj[this.selectedCountry()];
             };
-            
-           
-            
-            var onSubmit = function() {
+
+
+
+            return {
+                /// displayName: 'What is your name?',
+                //firstTopPanel: ko.observable('Hello, world!'),
+                // firstTopPanel2: ko.observable(),
+                attached: attached,
+                activate: activate,
+                street: ko.observable(),
+                street2: ko.observable(),
+                city: ko.observable(),
+                state: ko.observable(),
+                zip: ko.observable(),
+                selectCountry: ko.observable(labels.userSelectCountry),
+                countries: ko.observableArray([]),
+                countriesObj: ko.observableArray([]),
+                selectedCountry: ko.observable(),
+                postedCountry: postedCountry,
+                fax: ko.observable(),
+                url: ko.observable(),
+                phoneDefault: ko.observable(),
+                phone2: ko.observable(), // initially false. 
+                occupation: ko.observable(),
+                onSubmit: onSubmit
+            };
+
+
+            function onSubmit() {
+                fxz.preventDbClick("onSubmit",10);
                 doValidation();
                 var jData = {
                     street: this.street(),
@@ -228,14 +256,14 @@ define(['dojo/i18n!app/nls/labels',
                     occupation: this.occupation()
                 }; // prepare request data
                 var url = '/tuJoinEditorServlet';
-                
-     //router.navigate('#/join_editor_3');
+
+                //router.navigate('#/join_editor_3');
                 //validate data first.
                 if ($("#joinEditorContactform").valid()) {
-                    var busy = getBusyOverlay(document.getElementById('joinEditor2Busy'), {color: 'white', opacity: 0.05, text: '', style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'}, {color: 'black', size: 50, type: 'o'});
-                   
-                   
-                    security.joinEditor2(url, jData, busy);
+                    //var busy = getBusyOverlay(document.getElementById('joinEditor2Busy'), {color: 'white', opacity: 0.05, text: '', style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'}, {color: 'black', size: 50, type: 'o'});
+                    ko.postbox.publish('JOINT_EDITOR_2_BUSY_START', null);
+
+                    security.joinEditor2(url, jData);
                     /*
                      //post data.
                      $.ajax({
@@ -265,34 +293,7 @@ define(['dojo/i18n!app/nls/labels',
                     });
                     // return false;
                 }
-            };
-
-
-            return { 
-                /// displayName: 'What is your name?',
-                //firstTopPanel: ko.observable('Hello, world!'),
-                // firstTopPanel2: ko.observable(),
-                attached: attached,
-                activate: activate,
-                street: ko.observable(),
-                street2: ko.observable(),
-                city: ko.observable(),
-                state: ko.observable(),
-                zip: ko.observable(),
-                selectCountry: ko.observable(labels.userSelectCountry),
-                countries: ko.observableArray([]),
-                countriesObj: ko.observableArray([]),
-                selectedCountry: ko.observable(),
-                postedCountry: postedCountry,
-                fax: ko.observable(),
-                url: ko.observable(),
-                phoneDefault: ko.observable(),
-                phone2: ko.observable(), // initially false. 
-                occupation: ko.observable(),
-                onSubmit: onSubmit
-                
-                
-            };
+            }
 
 
 

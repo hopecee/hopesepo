@@ -1,5 +1,5 @@
-define(['global/services/session', 'global/services/functionz'],
-        function(session, fxz) {
+define(['dojo/i18n!app/nls/labels', 'global/services/session', 'global/services/dialogView', 'global/services/functionz'],
+        function(labels, session, dialogView, fxz) {
             "use strict";
 
 
@@ -19,6 +19,7 @@ define(['global/services/session', 'global/services/functionz'],
 
             var init = function(userRuntimeConfig) {
                 var subscriptions = [];
+                var correction = 2;// zero correction.
                 //================================
                 // Public Configuration Variables
                 //=================================
@@ -26,7 +27,7 @@ define(['global/services/session', 'global/services/functionz'],
                     // redirectUrl: '/logout',//not needed now // redirect to this url on logout. Set to "redirectUrl: false" to disable redirect
 
                     // idle settings
-                    idleTimeLimit: 600, // 'No activity' time limit in seconds. 1200 = 20 Minutes
+                    idleTimeLimit: 1200, // 'No activity' time limit in seconds. 1200 = 20 Minutes
                     idleCheckHeartbeat: 2, // Frequency to check for idle timeouts in seconds
 
                     // optional custom callback to perform before logout
@@ -39,20 +40,19 @@ define(['global/services/session', 'global/services/functionz'],
                     // http://www.quirksmode.org/dom/events/
                     // https://developer.mozilla.org/en-US/docs/Web/Reference/Events
                     activityEvents: 'click.idletimeout keypress.idletimeout scroll.idletimeout wheel.idletimeout mousewheel.idletimeout mousemove.idletimeout', //qualified by event namespaces separate each event with a space
-
                     // warning dialog box configuration
                     enableDialog: true, // set to false for logout without warning dialog
-                    dialogDisplayLimit: 182, // Time to display the warning dialog before logout (and optional callback) in seconds. 180 = 3 Minutes
-                    dialogTitle: 'Session Expiration Warning', // also displays on browser title bar
-                    dialogText: 'Because you have been inactive, your session is about to expire.',
-                    dialogTimeRemaining: 'Time remaining',
-                    dialogStayLoggedInButton: 'Yes',
-                    dialogLogOutNowButton: 'No',
-                    dialogStayLoggedInText: 'Do you want to Stay Logged In',
+                    dialogDisplayLimit: 180 + correction, // Time to display the warning dialog before logout (and optional callback) in seconds. 180 = 3 Minutes
+                    dialogTitle: labels.sessionExpTitle, // also displays on browser title bar
+                    dialogText: labels.sessionExpText,
+                    dialogTimeRemaining: labels.sessionExpTimeRemaining,
+                    dialogStayLoggedInButton: labels.yes,
+                    dialogLogOutNowButton: labels.no,
+                    dialogStayLoggedInText: labels.sessionExpStayLoggedInText,
                     // error message if https://github.com/marcuswestin/store.js not enabled
-                    errorAlertMessage: 'Please disable "Private Mode", or upgrade to a modern browser. Or perhaps a dependent file missing. Please see: https://github.com/marcuswestin/store.js',
+                    // errorAlertMessage: 'Please disable "Private Mode", or upgrade to a modern browser. Or perhaps a dependent file missing. Please see: https://github.com/marcuswestin/store.js',
                     // server-side session keep-alive timer
-                    sessionKeepAliveTimer: 300 // ping the server at this interval in seconds. 600 = 10 Minutes. Set to false to disable pings
+                    sessionKeepAliveTimer: 600 // ping the server at this interval in seconds. 600 = 10 Minutes. Set to false to disable pings
                             //sessionKeepAliveUrl: window.location.href // no need for this now// set URL to ping - does not apply if sessionKeepAliveTimer: false
                 },
                 //===============================
@@ -145,38 +145,71 @@ define(['global/services/session', 'global/services/functionz'],
 
                 //----------- WARNING DIALOG FUNCTIONS --------------//
                 openWarningDialog = function() {
-                    var dialogContent = "<div id='idletimer_warning_dialog'><p>" + currentConfig.dialogText + "</p><p style='display:inline'>" + currentConfig.dialogTimeRemaining + ": <div style='display:inline;font-weight: bold;' id='countdownDisplay'></div></p><p>" + currentConfig.dialogStayLoggedInText + "</p></div>";
 
-                    $(dialogContent).dialog({
-                        buttons: [{
-                                text: currentConfig.dialogStayLoggedInButton,
-                                click: function() {
-                                    destroyWarningDialogAndOn();
-                                    stopDialogTimer();
-                                    startIdleTimer();
-                                }
-                            },
-                            {
-                                text: currentConfig.dialogLogOutNowButton,
-                                click: function() {
-                                    destroyWarningDialogAndOff();
-                                    stopDialogTimer();
-                                    logoutUser();
-                                }
-                            }
-                        ],
-                        closeOnEscape: false,
-                        modal: true,
-                        title: currentConfig.dialogTitle,
-                        position: {my: "center", at: "top ", of: "body"},
-                        open: function() {
-                            $(this).closest('.ui-dialog').find('.ui-dialog-titlebar-close').hide();
-                        }
-                    });
+                    var tt = currentConfig.dialogTitle,
+                            tx = currentConfig.dialogText,
+                            tr = currentConfig.dialogTimeRemaining,
+                            at = currentConfig.dialogStayLoggedInText;
+                    var data = {};
+                    var buttonsArr = [],
+                            buttons1 = {},
+                            buttons2 = {};
 
+                    buttons1.text = currentConfig.dialogStayLoggedInButton;
+                    buttons1.click = function() {
+                        destroyWarningDialogAndOn();
+                        stopDialogTimer();
+                        startIdleTimer();
+                    };
+
+                    buttons2.text = currentConfig.dialogLogOutNowButton;
+                    buttons2.click = function() {
+                        destroyWarningDialogAndOff();
+                        stopDialogTimer();
+                        logoutUser();
+                    };
+                    buttonsArr.push(buttons1);
+                    buttonsArr.push(buttons2);
+                    data.buttons = buttonsArr;
+
+                    dialogView.alert(tt, tx, tr, at, data);
+
+                    /*
+                     var dialogContent = "<div id='idletimer_warning_dialog'><p>" + currentConfig.dialogText + "</p><p style='display:inline'>" + currentConfig.dialogTimeRemaining + ": <div style='display:inline;font-weight: bold;' id='countdownDisplay'></div></p><p>" + currentConfig.dialogStayLoggedInText + "</p></div>";
+                     
+                     $(dialogContent).dialog({
+                     buttons: [{
+                     text: currentConfig.dialogStayLoggedInButton,
+                     click: function() {
+                     destroyWarningDialogAndOn();
+                     stopDialogTimer();
+                     startIdleTimer();
+                     }
+                     },
+                     {
+                     text: currentConfig.dialogLogOutNowButton,
+                     click: function() {
+                     destroyWarningDialogAndOff();
+                     stopDialogTimer();
+                     logoutUser();
+                     }
+                     }
+                     ],
+                     closeOnEscape: false,
+                     modal: true,
+                     title: currentConfig.dialogTitle,
+                     position: {my: "center", at: "top ", of: "body"},
+                     open: function() {
+                     $(this).closest('.ui-dialog').find('.ui-dialog-titlebar-close').hide();
+                     }
+                     });
+                     
+                     
+                     
+                     document.title = currentConfig.dialogTitle;
+                     
+                     */
                     countdownDisplay();
-
-                    document.title = currentConfig.dialogTitle;
 
                     if (currentConfig.sessionKeepAliveTimer) {
                         stopKeepSessionAlive();
@@ -220,15 +253,16 @@ define(['global/services/session', 'global/services/functionz'],
                     }
                 };
                 countdownDisplay = function() {
-                    var dialogDisplaySeconds = currentConfig.dialogDisplayLimit, mins, secs;
-                    var correction = 2;// zero correction.
+                    var dialogDisplaySeconds = currentConfig.dialogDisplayLimit - correction,
+                            mins, secs;
+                    // var correction = 2;// zero correction.
 
                     remainingTimer = setInterval(function() {
                         mins = Math.floor(dialogDisplaySeconds / 60); // minutes
                         if (mins < 10) {
                             mins = '0' + mins;
                         }
-                        secs = (dialogDisplaySeconds - (mins * 60)) - correction; // seconds
+                        secs = (dialogDisplaySeconds - (mins * 60));// - correction; // seconds
                         if (secs < 10) {
                             secs = '0' + secs;
                         }

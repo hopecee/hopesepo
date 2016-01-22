@@ -33,6 +33,11 @@ define({root:
                 hello_dojo: "${hello}, ${dojo}!",
                 file_not_found: "The file you requested, ${0}, is not found.",
                 //==========Labels======================================//
+                //-------general----------------------//
+                userSelectType: "Select Search Type...",
+                searchUser: "Search for User",
+                yes: "Yes",
+                no: "No",
                 //-------menu----------------------//
                 home: "Home",
                 joinTodayMenu: "Join Today",
@@ -81,46 +86,50 @@ define({root:
                 userEnterPin: "Enter a Four Digit PIN number that you can remember.",
                 userPin: "PIN",
                 btnContinue2: "Continue",
-                 //-------join_Editor_Complete----------------------//
+                //-------join_Editor_Complete----------------------//
                 thanksForRegComplete: "You have successfully completed your Registration. We have sent you email to your provided Email Address. Check your Email box and follow the link to confirm the Address.",
                 //-------countries----------------------//
                 NGA1: "Nigeria1",
                 NGA2: "Nigeria2",
                 NGA3: "Nigeria3",
-                NGA4: "Nigeria4"
-                        ///
+                NGA4: "Nigeria4",
+                //-------dialog----------------------//
+                sessionExpTitle: "Session Expiration Warning",
+                sessionExpText: "Because you have been inactive, your session is about to expire.",
+                sessionExpTimeRemaining: "Time remaining",
+                sessionExpStayLoggedInText:"Do you want to Stay Logged In"
             }
 
 
 
 //end v1.x content
     ,
-      "de": 1,
-      "fr": 1
-      
-  /*  "zh-tw": 1,
-    "zh-cn": 1,
-    "yi": 1,
-    "tr": 1,
-    "th": 1,
-    "sw": 1,
-    "ru": 1,
-    "pt": 1,
-    "pl": 1,
-    "ko": 1,
-    "ja": 1,
-    "it": 1,
-    "hi": 1,
-    "he": 1,
-    "fr": 1,
-     "fa": 1,
-    "es": 1,
-    "en-us-texas": 1,
-    "en-us-new_york-brooklyn": 1,
-    "en-us-hawaii": 1,
-    "en-au": 1,
-    "el": 1, 
     "de": 1,
-    "cs": 1,
-    "ar": 1 */
+    "fr": 1
+
+            /*  "zh-tw": 1,
+             "zh-cn": 1,
+             "yi": 1,
+             "tr": 1,
+             "th": 1,
+             "sw": 1,
+             "ru": 1,
+             "pt": 1,
+             "pl": 1,
+             "ko": 1,
+             "ja": 1,
+             "it": 1,
+             "hi": 1,
+             "he": 1,
+             "fr": 1,
+             "fa": 1,
+             "es": 1,
+             "en-us-texas": 1,
+             "en-us-new_york-brooklyn": 1,
+             "en-us-hawaii": 1,
+             "en-au": 1,
+             "el": 1, 
+             "de": 1,
+             "cs": 1,
+             "ar": 1 */
 });

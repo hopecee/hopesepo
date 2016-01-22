@@ -1,10 +1,9 @@
-define(["dojo/on", 'global/services/session', 'global/services/logger',
-    'global/services/stickyheaderSetter', 'global/services/busy',
-    'global/services/crypto', 'global/services/functionz'],
-        function(on, session, logger, stickyheaderSetter, _busy,
-                crypto, fxz) {
+define(['dojo/i18n!app/nls/countryIsoCodes', 'dojo/on', 'global/services/session', 'global/services/logger',
+    'global/services/stickyheaderSetter',
+    'global/services/crypto', 'global/services/dialogView', 'global/services/functionz'],
+        function(countryIsoCodes, on, session, logger, stickyheaderSetter,
+                crypto, dialogView, fxz) {
             "use strict";
-
             var router = new Router().init();
             var subscriptions = [];
             var intro = 'intro',
@@ -27,25 +26,28 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
              
              
              */
+            /*
+             function addRequestVerificationToken(jData) {
+             //Append RequestVerificationToken value to the jData before posting.
+             jData['RequestVerificationToken'] = $('input[name="__RequestVerificationToken"]').val();
+             }
+             function setMethod(jData, method) {
+             jData['method'] = method;
+             
+             
+             function setEmailAddress(jData, usersEmailAddress) {
+             jData['usersEmailAddress'] = usersEmailAddress;
+             }
+             function setUserNeo4jIdString(jData, id) {
+             jData['userNeo4jIdString'] = id;
+             }
+             function getUserSession(jData) {
+             var userSession = {};
+             userSession.userNeo4jIdString = session.userNeo4jIdString();
+             jData['userSession'] = userSession;
+             }
+             */
 
-            function addRequestVerificationToken(jData) {
-                //Append RequestVerificationToken value to the jData before posting.
-                jData['RequestVerificationToken'] = $('input[name="__RequestVerificationToken"]').val();
-            }
-            function setMethod(jData, method) {
-                jData['method'] = method;
-            }
-            function setEmailAddress(jData, usersEmailAddress) {
-                jData['usersEmailAddress'] = usersEmailAddress;
-            }
-            function setUserNeo4jIdString(jData, id) {
-                jData['userNeo4jIdString'] = id;
-            }
-            function getUserSession(jData) {
-                var userSession = {};
-                userSession.userNeo4jIdString = session.userNeo4jIdString();
-                jData['userSession'] = userSession;
-            }
             function getAuthentication() {
                 var k = makeId();
                 var deferred = new $.Deferred();
@@ -65,7 +67,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
             function makeId() {    //randomKey
                 var text = "";
                 var textLenght = 32;
-                var possible = "ACDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz2345679";//remove l,1,0,o,8,B.
+                var possible = "ACDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz2345679"; //remove l,1,0,o,8,B.
                 for (var i = 0; i < textLenght; i++)
                     text += possible.charAt(Math.floor(Math.random() * possible.length));
                 return text;
@@ -80,56 +82,72 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                 });
             }
 
-
-
-            // Route operations
-            function externalLoginsUrl(returnUrl, generateState) {
-                return baseUrl + "api/Account/ExternalLogins?returnUrl=" + (encodeURIComponent(returnUrl)) +
-                        "&generateState=" + (generateState ? "true" : "false");
-            }
-            function manageInfoUrl(returnUrl, generateState) {
-                return baseUrl + "api/Account/ManageInfo?returnUrl=" + (encodeURIComponent(returnUrl)) +
-                        "&generateState=" + (generateState ? "true" : "false");
-            }
-
-
-           // Other private operations
-            function getSecurityHeaders() {
-                var accessToken = sessionStorage["accessToken"] || localStorage["accessToken"];
-                if (accessToken) {
-                    return {"Authorization": "Bearer " + accessToken};
-                }
-                return {};
-            }
-            function toErrorString(data) {
-                var errors, items;
-                if (!data || !data.message) {
-                    return null;
-                }
-                if (data.modelState) {
-                    for (var key in data.modelState) {
-                        items = data.modelState[key];
-                        if (items.length) {
-                            errors = items.join(",");
-                        }
-                    }
-                }
-                if (errors === undefined) {
-                    errors = data.message;
-                }
-                return errors;
+            function idletimeoutSubscriptions() {
+                //unsubscribe them first if any, by disposing them.
+                fxz.clearSubscriptions(subscriptions);
+                //Triger to keep session Alive.
+                subscriptions.push(ko.postbox.subscribe('KEEP_SESSION_ALIVE', function(data) {
+                    // alert("alive");
+                    keepSessionAlive();
+                }));
+                //Logout Triger.
+                subscriptions.push(ko.postbox.subscribe('USER_LOGOUT', function(data) {
+                    logout(data);
+                }));
             }
 
+
+
+
+            /*
+             // Route operations
+             function externalLoginsUrl(returnUrl, generateState) {
+             return baseUrl + "api/Account/ExternalLogins?returnUrl=" + (encodeURIComponent(returnUrl)) +
+             "&generateState=" + (generateState ? "true" : "false");
+             }
+             function manageInfoUrl(returnUrl, generateState) {
+             return baseUrl + "api/Account/ManageInfo?returnUrl=" + (encodeURIComponent(returnUrl)) +
+             "&generateState=" + (generateState ? "true" : "false");
+             }
+             
+             
+             // Other private operations
+             function getSecurityHeaders() {
+             var accessToken = sessionStorage["accessToken"] || localStorage["accessToken"];
+             if (accessToken) {
+             return {"Authorization": "Bearer " + accessToken};
+             }
+             return {};
+             }
+             function toErrorString(data) {
+             var errors, items;
+             if (!data || !data.message) {
+             return null;
+             }
+             if (data.modelState) {
+             for (var key in data.modelState) {
+             items = data.modelState[key];
+             if (items.length) {
+             errors = items.join(",");
+             }
+             }
+             }
+             if (errors === undefined) {
+             errors = data.message;
+             }
+             return errors;
+             }
+             */
 
             var securityService = {
-                addExternalLogin: addExternalLogin,
-                changePassword: changePassword,
-                getExternalLogins: getExternalLogins,
-                getManageInfo: getManageInfo,
-                getUserInfo: getUserInfo,
-                addRequestVerificationToken: addRequestVerificationToken,
-                setMethod: setMethod,
-                getAuthentication: getAuthentication,
+                //addExternalLogin: addExternalLogin,
+                //changePassword: changePassword,
+                //getExternalLogins: getExternalLogins,
+                //getManageInfo: getManageInfo,
+                //getUserInfo: getUserInfo,
+                //addRequestVerificationToken: addRequestVerificationToken,
+                //setMethod: setMethod,
+                //getAuthentication: getAuthentication,
                 login: login,
                 logout: logout,
                 joinEditor: joinEditor,
@@ -138,91 +156,83 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                 localeManager: localeManager,
                 searchUser: searchUser,
                 addFriend: addFriend,
-                register: register,
-                registerExternal: registerExternal,
-                removeLogin: removeLogin,
-                setPassword: setPassword,
-                //returnUrl: siteUrl,
-                toErrorString: toErrorString,
-                subscriptions: subscriptions
+                getAllCountries: getAllCountries,
+                getAllQuestions: getAllQuestions
+                        // register: register,
+                        //registerExternal: registerExternal,
+                        //removeLogin: removeLogin,
+                        //setPassword: setPassword,
+                        //returnUrl: siteUrl,
+                        //toErrorString: toErrorString,
+                        //subscriptions: subscriptions
             };
-            $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-                jqXHR.failJSON = function(callback) {
-                    jqXHR.fail(function(jqXHR, textStatus, error) {
-                        var data;
-                        try {
-                            data = $.parseJSON(jqXHR.responseText);
-                        }
-                        catch (e) {
-                            data = null;
-                        }
-                        callback(data, textStatus, jqXHR);
-                    });
-                };
-            });
             return securityService;
+            /*
+             $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+             jqXHR.failJSON = function(callback) {
+             jqXHR.fail(function(jqXHR, textStatus, error) {
+             var data;
+             try {
+             data = $.parseJSON(jqXHR.responseText);
+             }
+             catch (e) {
+             data = null;
+             }
+             callback(data, textStatus, jqXHR);
+             });
+             };
+             });
+             
+             */
 
-            // Data access operations
-            function addExternalLogin(data) {
-                return $.ajax(addExternalLoginUrl, {
-                    type: "POST",
-                    data: data,
-                    headers: getSecurityHeaders()
-                });
-            }
-            function changePassword(data) {
-                return $.ajax(changePasswordUrl, {
-                    type: "POST",
-                    data: data,
-                    headers: getSecurityHeaders()
-                });
-            }
-            function getExternalLogins(returnUrl, generateState) {
-                return $.ajax(externalLoginsUrl(returnUrl, generateState), {
-                    cache: false,
-                    headers: getSecurityHeaders()
-                });
-            }
-            function getManageInfo(returnUrl, generateState) {
-                return $.ajax(manageInfoUrl(returnUrl, generateState), {
-                    cache: false,
-                    headers: getSecurityHeaders()
-                });
-            }
-            function getUserInfo(accessToken) {
-                var headers;
-                if (typeof (accessToken) !== "undefined") {
-                    headers = {
-                        "Authorization": "Bearer " + accessToken
-                    };
-                } else {
-                    headers = getSecurityHeaders();
-                }
-                return $.ajax(userInfoUrl, {
-                    cache: false,
-                    headers: headers
-                });
-            }
+            /*
+             // Data access operations
+             function addExternalLogin(data) {
+             return $.ajax(addExternalLoginUrl, {
+             type: "POST",
+             data: data,
+             headers: getSecurityHeaders()
+             });
+             }
+             function changePassword(data) {
+             return $.ajax(changePasswordUrl, {
+             type: "POST",
+             data: data,
+             headers: getSecurityHeaders()
+             });
+             }
+             function getExternalLogins(returnUrl, generateState) {
+             return $.ajax(externalLoginsUrl(returnUrl, generateState), {
+             cache: false,
+             headers: getSecurityHeaders()
+             });
+             }
+             function getManageInfo(returnUrl, generateState) {
+             return $.ajax(manageInfoUrl(returnUrl, generateState), {
+             cache: false,
+             headers: getSecurityHeaders()
+             });
+             }
+             function getUserInfo(accessToken) {
+             var headers;
+             if (typeof (accessToken) !== "undefined") {
+             headers = {
+             "Authorization": "Bearer " + accessToken
+             };
+             } else {
+             headers = getSecurityHeaders();
+             }
+             return $.ajax(userInfoUrl, {
+             cache: false,
+             headers: headers
+             });
+             }
+             
+             */
 
 
-
-
-             function login(url, jData, busy) {
-
-                //unsubscribe them first if any, by disposing them.
-                fxz.clearSubscriptions(subscriptions);
-
-                //Triger to keep session Alive.
-                subscriptions.push(ko.postbox.subscribe('KEEP_SESSION_ALIVE', function(data) {
-                    keepSessionAlive();
-                }));
-                //Logout Triger.
-                subscriptions.push(ko.postbox.subscribe('USER_LOGOUT', function(data) {
-                    logout(data);
-                }));
-
-
-
+            function login(url, jData) {
+                idletimeoutSubscriptions();
                 /*
                  // Encrypt with the public key...
                  var encrypt = new JSEncrypt();
@@ -335,16 +345,13 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                 // jData.hope = $.jCryption.encrypt("hope", password);
                 getAuthentication().then(function(promise, k) {
                     if (promise) {
-                        // Clear session first.
-                        session.clearUser();
-                        //Append RequestVerificationToken value to the jData before posting.
-                        addRequestVerificationToken(jData);
-                        setMethod(jData, "login");
+                        session.clearUser(); // Clear session first.
+                        fxz.addRequestVerificationToken(jData);
+                        fxz.setMethod(jData, "login");
                         crypto.en(jData, k);
-                        //post data.
                         $.post(url, jData, function(data) {    // var roles = [];
                             crypto.de(data, k);
-
+                            ko.postbox.publish('USER_LOGIN_MENU_BUSY_REMOVE', null);
                             var user = {
                                 emailAddress: ko.observable(undefined),
                                 userNeo4jIdString: ko.observable(undefined),
@@ -362,11 +369,19 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                                         // userRemembered: userRemembered,
                                         //rememberedToken: rememberedToken
                             };
+                            var logedIn = false;
                             $.each(data, function(id, value) {
-
+                                //alert(id + "  :  " + value);
                                 if (id === "BadToken") {
                                     logger.log({
                                         message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
+                                        showToast: true,
+                                        type: "error"
+                                    });
+                                    router.setRoute(intro);
+                                } else if (id === "isLoggedIn" && value === false) {//check if loggedIn.
+                                    logger.log({
+                                        message: "Please log in  and try again",
                                         showToast: true,
                                         type: "error"
                                     });
@@ -395,174 +410,196 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                                         //alert(user.userRoles()[2]);
                                     }
 
-                                    if (id === "isLoggedIn") {
+                                    if (id === "isLoggedIn" && value === "true") {
                                         var val = (value === "true");
-                                        if (val) {
-                                            user.isLoggedIn = val;
-                                            user.makeId = k;
-                                            if (user.isLoggedIn) {
-                                                session.setUser(user, false);
-                                                // alert( user.makeId +" : "+k);
-                                                // alert( session.makeId);
-                                                //alert( session.makeId());
-                                                busy.remove();
-                                                router.setRoute(home);
-                                                stickyheaderSetter.set();
-                                                //User idle timeout syncronized with server. 
-                                                ko.postbox.publish('START_IDLE_TIMEOUT', null);
-
-                                            }
-
-                                        } else {
-                                            busy.remove();
-                                            logger.log({
-                                                message: "Please check your E-mail Address and Password.",
-                                                showToast: true,
-                                                type: "error",
-                                                title: "Access Denied."
-                                            });
-                                            router.setRoute(intro);
-                                        }
+                                        user.isLoggedIn = val;
+                                        user.makeId = k;
+                                        logedIn = true;
                                     }
 
                                 }
-
                             });
+                            if (logedIn) {
+                                session.setUser(user, false); //set User session.
+                                router.setRoute(home);
+                                stickyheaderSetter.set();
+                                //User idle timeout syncronized with server. 
+                                ko.postbox.publish('START_IDLE_TIMEOUT', null);
+                            }
                         });
                     } else {
-                        alert(promise + " : false :" + k);
+                        alert(promise + " : login false :" + k);
                     }
                 });
-
             }
 
-
             function logout(data) {
-                // Clear session first.
-                session.clearUser();
-                router.setRoute(intro);    //User idle timeout syncronized with server. 
+                session.clearUser(); // Clear session first.
+                router.setRoute(intro);
                 //User idle timeout syncronized with server.
                 if (data === "idletimeout") {
                     ko.postbox.publish('STOP_IDLE_TIMEOUT', null);
                 }
-
             }
 
 
-            function joinEditor(url, jData, busy) {
-                //alert("surrrho");
-                // Clear session first.
-                session.clearUser();
-                //Append RequestVerificationToken value to the jData before posting.
-                addRequestVerificationToken(jData);
-                setMethod(jData, "joinEditor");
-                //post data.
-                $.post(url, jData, function(data) {
-                    /* $.ajax({
-                     type: 'POST',
-                     url: url,
-                     data: jData,
-                     // dataType: 'JSON',
-                     success: function(data) {
-                     */
-                    busy.remove();
-                    var user = {
-                        emailAddress: ko.observable(undefined),
-                        userNeo4jIdString: ko.observable(undefined),
-                        // isUserImg: ko.observable(false),
-                        isLoggedIn: ko.observable(false),
-                        //isBusy: ko.observable(false),
-                        // userGroups: ko.observableArray(),
-                        userRoles: ko.observableArray()//,
-                                // userIsInRole: ko.observable(false)
-                                //  setUser: setUser,
-                                // clearUser: clearUser,
-                                // archiveSessionStorageToLocalStorage: archiveSessionStorageToLocalStorage,
-                                // isAuthCallback: isAuthCallback,
-                                // userRemembered: userRemembered,
-                                //rememberedToken: rememberedToken
-                    };
-                    //var arrayName = [];
-                    $.each(data, function(id, value) {
+            function joinEditor(url, jData) {
+                getAuthentication().then(function(promise, k) {
+                    if (promise) {
+                        idletimeoutSubscriptions();
+                        session.clearUser(); // Clear session first.
+                        //Append RequestVerificationToken value to the jData before posting.
+                        fxz.addRequestVerificationToken(jData);
+                        fxz.setMethod(jData, "joinEditor");
+                        crypto.en(jData, k);
+                        //post data.
+                        $.post(url, jData, function(data) {
+                            crypto.de(data, k);
+                            ko.postbox.publish('JOINT_EDITOR_BUSY_REMOVE', null);
+                            var user = {
+                                emailAddress: ko.observable(undefined),
+                                userNeo4jIdString: ko.observable(undefined),
+                                // isUserImg: ko.observable(false),
+                                isLoggedIn: ko.observable(false),
+                                //isBusy: ko.observable(false),
+                                // userGroups: ko.observableArray(),
+                                userRoles: ko.observableArray()//,
+                                        // userIsInRole: ko.observable(false)
+                                        //  setUser: setUser,
+                                        // clearUser: clearUser,
+                                        // archiveSessionStorageToLocalStorage: archiveSessionStorageToLocalStorage,
+                                        // isAuthCallback: isAuthCallback,
+                                        // userRemembered: userRemembered,
+                                        //rememberedToken: rememberedToken
+                            };
+                            var logedIn = false;
+                            $.each(data, function(id, value) {
+                                if (id === "BadToken") {
+                                    logger.log({
+                                        message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
+                                        showToast: true,
+                                        type: "error"
+                                    });
+                                    router.setRoute(intro);
+                                } else if (id === "userStatus") {
 
-                        if (id === "BadToken") {
-                            //array.push(value);
-                            alert("BadToken1");
-                            logger.log({
-                                message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
-                                showToast: true,
-                                type: "error"
-                            });
-                        }
+                                    var name = crypto.deOne(jData.usersEmailAddress, k);
+                                    var tt = "User Registered",
+                                            tx = "This User, </br><span style='display:inline;font-weight: bold;'>" + name + "</span></br>is already a registered User.",
+                                            at = "Login to continue.";
 
-                        if (id === "userId") {
-                            user.emailAddress = value;
-                        }
+                                    var data = {};
+                                    var buttonsArr = [],
+                                            buttons1 = {};
 
-                        if (id === "userNeo4jIdString") {
-                            user.userNeo4jIdString = value;
-                        }
+                                    buttons1.text = "OK";
+                                    buttons1.click = function() {
+                                        $(this).dialog("close");
+                                    };
+                                    buttonsArr.push(buttons1);
+                                    data.buttons = buttonsArr;
 
-                        // if (id === "isUserImg") {
-                        //   user.isUserImg = value;
-                        //}
+                                    dialogView.alert(tt, tx, null, at, data);
 
-                        if (id === "rolesData") {
-                            $.each(value, function(id, v) {
-                                user.userRoles.push(v);
-                            });
-                            //alert(user.userRoles());
-                            //alert(user.userRoles()[0]);
-                            //alert(user.userRoles()[1]);
-                            //alert(user.userRoles()[2]);
-                        }
 
-                        if (id === "isLoggedIn") {
-                            if (value === true) {
-                                user.isLoggedIn = true;
-                                if (user.isLoggedIn) {
-                                    // alert("home");
-                                    session.setUser(user, false);
-                                    router.setRoute(join_Editor_2);
-                                    stickyheaderSetter.set();
+                                    /*
+                                     alert(value);
+                                     
+                                     var currentConfig = {};
+                                     alert(jData.usersEmailAddress);
+                                     currentConfig.dialogContinueText = "Login to continue.";
+                                     currentConfig.dialogOKButton = "OK";
+                                     // currentConfig.dialogLogOutNowButton=
+                                     
+                                     
+                                     var dialogContent = "<div id='idletimer_warning_dialog' ><p>" + currentConfig.dialogText + "</p><p>" + currentConfig.dialogContinueText + "</p></div>";
+                                     $(dialogContent).dialog({
+                                     buttons: [{
+                                     text: currentConfig.dialogOKButton,
+                                     click: function() {
+                                     $(this).dialog("close");
+                                     }
+                                     }
+                                     ],
+                                     closeOnEscape: false,
+                                     modal: true,
+                                     title: currentConfig.dialogTitle,
+                                     position: {my: "center", at: "top ", of: "body"},
+                                     open: function() {
+                                     $(this).closest('.ui-dialog').find('.ui-dialog-titlebar-close').hide();
+                                     }
+                                     });
+                                     document.title = currentConfig.dialogTitle;
+                                     */
+
+                                } else if (id === "isLoggedIn" && value === false) {//check if loggedIn.
+                                    logger.log({
+                                        message: "Please check your E-mail Address and Password.",
+                                        showToast: true,
+                                        type: "error",
+                                        title: "Access Denied."
+                                    });
+                                    router.setRoute(intro);
+                                } else {
+                                    if (id === "userId") {
+                                        user.emailAddress = value;
+                                    }
+
+                                    if (id === "userNeo4jIdString") {
+                                        user.userNeo4jIdString = value;
+                                    }
+
+                                    if (id === "rolesData") {
+                                        $.each(value, function(id, v) {
+                                            user.userRoles.push(v);
+                                        });
+                                        //alert(user.userRoles());
+                                        //alert(user.userRoles()[0]);
+                                        //alert(user.userRoles()[1]);
+                                        //alert(user.userRoles()[2]);
+                                    }
+
+                                    if (id === "isLoggedIn" && value === "true") {
+                                        var val = (value === "true");
+                                        user.isLoggedIn = val;
+                                        user.makeId = k;
+                                        logedIn = true;
+                                    }
                                 }
-                            } else {
-                                busy.remove();
-                                logger.log({
-                                    message: "Please check your E-mail Address and Password.",
-                                    showToast: true,
-                                    type: "error",
-                                    title: "Access Denied."
-                                });
-                                router.setRoute(intro);
+
+
+
+
+                            });
+                            if (logedIn) {
+                                // alert("logedIn");
+                                session.setUser(user, false); //set User session.
+                                router.setRoute(join_Editor_2);
+                                stickyheaderSetter.set();
+                                //User idle timeout syncronized with server. 
+                                ko.postbox.publish('START_IDLE_TIMEOUT', null);
                             }
-                        }
-                    });
-                    //alert("op " + arrayName);
+
+                        });
+                    } else {
+                        alert(promise + " : joinEditor falsed :" + k);
+                    }
                 });
             }
 
-            function joinEditor2(url, jData, busy) {
-                // Clear session first.
-                // session.clearUser();
-//router.navigate('#/join_editor_3');
-
+            function joinEditor2(url, jData) {
                 //Append RequestVerificationToken value to the jData before posting.
-                addRequestVerificationToken(jData);
-                setMethod(jData, "joinEditor2");
-                setEmailAddress(jData, session.userEmailAddress);
-                //alert(session.userEmailAddress());
-
-                //var arrayName2 = [];
+                fxz.addRequestVerificationToken(jData);
+                fxz.setMethod(jData, "joinEditor2");
+                fxz.setEmailAddress(jData, session.userEmailAddress());
+                var k = session.makeId();
+                crypto.en(jData, k);
                 //post data.
                 $.post(url, jData, function(data) {
-                    //alert("post!hhhhhhho");
-                    busy.remove();
+                    crypto.de(data, k);
+                    //Remove Busy first.
+                    ko.postbox.publish('JOINT_EDITOR_2_BUSY_REMOVE', null);
                     $.each(data, function(id, value) {
-                        //arrayName2.push(value);
-
-                        // alert("surrrho");
-                        //  router.navigate('#/join_editor_2');
 
                         if (id === "BadToken") {
                             alert("BadToken");
@@ -572,10 +609,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                                 type: "error"
                             });
                         } else {
-
                             router.setRoute(join_Editor_3);
-                            // alert("submitted!hhhhhhho");
-                            // $(".reload").click(); // what is this?
                         }
                     });
                 });
@@ -583,18 +617,18 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
             }
 
 
-            function joinEditor3(url, jData, busy) {
-                // Clear session first.
-                //session.clearUser();
-
+            function joinEditor3(url, jData) {
                 //Append RequestVerificationToken value to the jData before posting.
-                addRequestVerificationToken(jData);
-                setMethod(jData, "joinEditor3");
-                setEmailAddress(jData, session.userEmailAddress);
+                fxz.addRequestVerificationToken(jData);
+                fxz.setMethod(jData, "joinEditor3");
+                fxz.setEmailAddress(jData, session.userEmailAddress());
+                var k = session.makeId();
+                crypto.en(jData, k);
                 //post data.
                 $.post(url, jData, function(data) {
-
-                    busy.remove();
+                    crypto.de(data, k);
+                    ko.postbox.publish('JOINT_EDITOR_2_BUSY_REMOVE', null);
+                    // busy.remove();
                     var user = {
                         emailAddress: ko.observable(undefined),
                         userNeo4jIdString: ko.observable(undefined),
@@ -633,8 +667,8 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
             }
 
             function localeManager(url, jData, busy) {
-                addRequestVerificationToken(jData);
-                setMethod(jData, "localeManager");
+                fxz.addRequestVerificationToken(jData);
+                fxz.setMethod(jData, "localeManager");
                 var form = $('<form action="' + url + '" method="post">' +
                         '<input type="hidden"  name="RequestVerificationToken" value="' + jData['RequestVerificationToken'] + '" />' +
                         '<input type="hidden"  name="language" value="' + jData['language'] + '" />' +
@@ -656,23 +690,25 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                 //session.clearUser();
 
                 //Append RequestVerificationToken value to the jData before posting.
-                addRequestVerificationToken(jData);
-                setMethod(jData, "searchUser");
+                fxz.addRequestVerificationToken(jData);
+                fxz.setMethod(jData, "searchUser");
                 //setEmailAddress(jData, session.userEmailAddress);
                 //setUserNeo4jIdString(jData, session.userNeo4jIdString);//TODO use this.
                 //setUserNeo4jIdString(jData, "13421");
-                getUserSession(jData);
-                //  alert(session.makeId());
+                fxz.getUserSession(jData);
                 var k = session.makeId();
                 crypto.en(jData, k);
                 // crypto.en(jData, makeId());
+                //alert(jData.searchValue);
                 //post data.
                 $.post(url, jData, function(data) {
+                    // console.log(Object.prototype.toString.call(data).slice(8, -1));
 
+                    //var obj = $.parseJSON( data );
+//console.log(obj);
                     crypto.de(data, k);
-                    //busy.remove();
-                    // $("#userSearchBusy").addClass('ui-helper-hidden');
-
+                    //Remove Busy first.
+                    ko.postbox.publish('USER_SEARCH_BUSY_REMOVE', null);
                     /*
                      var userSearch = {
                      userId: ko.observable(undefined),
@@ -685,8 +721,6 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                      */
 
                     $.each(data, function(id, value) {
-                        //Remove Busy first.
-                        _busy.userSearchBusyRemove();
                         //   userSearch = {};
                         // alert("submitted!hhhhhhho");
                         //  router.navigate('#/join_editor_2');
@@ -698,10 +732,16 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                                 showToast: true,
                                 type: "error"
                             });
+                        } else if (id === "isLoggedIn" && value === false) {//check if loggedIn.
+                            logger.log({
+                                message: "Please log in  and try again",
+                                showToast: true,
+                                type: "error"
+                            });
                         } else {
                             if (id === "findAllCustomers") {
-                                alert("findAllCustomers ===== " + value);
-                                var userArray = value;
+                                //alert("findAllCustomers ===== " + value);
+                                var allUserArr = value;
                                 // alert( "arrayT ");
                                 /* 
                                  alert(userArray.length);
@@ -760,7 +800,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                                 // alert( "array1 " +session.userAllSearch());
                                 session.userAllSearch([]); //Clear First.
                                 // alert( "array " +session.userAllSearch());
-                                session.userAllSearch(userArray);
+                                session.userAllSearch(allUserArr);
                                 //alert( "arrayo " +session.userAllSearch());
 
 
@@ -768,7 +808,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                             }
 
                             if (id === "findUser") {
-                                alert("findUser ==== " + value);
+                                // alert("findUser ==== " + value);
                                 var userObj = value;
                                 /*
                                  if (id === "userId") {
@@ -798,15 +838,7 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                                  */
 
 
-                                //TODO what is this?
-                                if (id === "isLoggedIn" && value === false) {
-                                    //alert(value);
-                                    logger.log({
-                                        message: "Please log in  and try again",
-                                        showToast: true,
-                                        type: "error"
-                                    });
-                                }
+
 //alert("usersStatus1 : " + session.userSearch());
                                 session.userSearch([]); //Clear First.
                                 // alert("usersStatus2 : " + session.userSearch());
@@ -834,11 +866,11 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
                 //session.clearUser();
 
                 //Append RequestVerificationToken value to the jData before posting.
-                addRequestVerificationToken(jData);
-                setMethod(jData, "addFriend");
+                fxz.addRequestVerificationToken(jData);
+                fxz.setMethod(jData, "addFriend");
                 //setEmailAddress(jData, session.userEmailAddress);
                 //setUserNeo4jIdString(jData, session.userNeo4jIdString);//TODO use this.
-                setUserNeo4jIdString(jData, "13421");
+                fxz.setUserNeo4jIdString(jData, "13421");
                 // alert(jData.userNeo4jIdString);
                 //post data.
                 $.post(url, jData, function(data) {
@@ -847,46 +879,116 @@ define(["dojo/on", 'global/services/session', 'global/services/logger',
             }
 
 
-
-
-
-
-
-
-
-
-
-
-            function register(data) {
-                return $.ajax(registerUrl, {
-                    type: "POST",
-                    data: data
+            function getAllCountries(self) {
+                var jData = {};
+                //do some ajax and return a promise
+                var that = self;
+                var url = '/tuCountryListServlet';
+                //Append RequestVerificationToken value to the jData before posting.
+                fxz.addRequestVerificationToken(jData);
+                fxz.setMethod(jData, "countryList");
+                var k = session.makeId();
+                crypto.en(jData, k);
+                $.post(url, jData, function(data) {
+                    crypto.de(data, k);
+                    $.each(data, function(id, value) {
+                        if (id === "BadToken") {
+                            alert("BadToken");
+                            logger.log({
+                                message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
+                                showToast: true,
+                                type: "error"
+                            });
+                        } else {
+                            if (id === "countryData") {
+                                var array = [];
+                                var obj = {};
+                                $.each(value, function(key, value1) {
+                                    // push dataId which is the "Country_iso_code_3"
+                                    // rather value1 which is "Country_name".
+                                    array.push(countryIsoCodes[key]);
+                                    obj[countryIsoCodes[key]] = key;
+                                });
+                                that.countries(array);
+                                that.countriesObj(obj);
+                            }
+                        }
+                    });
                 });
             }
-            function registerExternal(accessToken, data) {
-                return $.ajax(registerExternalUrl, {
-                    type: "POST",
-                    data: data,
-                    headers: {
-                        "Authorization": "Bearer " + accessToken
-                    }
-                });
-            }
-            function removeLogin(data) {
-                return $.ajax(removeLoginUrl, {
-                    type: "POST",
-                    data: data,
-                    headers: getSecurityHeaders()
-                });
-            }
-            function setPassword(data) {
-                return $.ajax(setPasswordUrl, {
-                    type: "POST",
-                    data: data,
-                    headers: getSecurityHeaders()
+
+
+            function getAllQuestions(self) {
+                var jData = {};
+                var that = self;
+                var url = '/tuQuestionListServlet';
+                //Append RequestVerificationToken value to the jData before posting.
+                fxz.addRequestVerificationToken(jData);
+                fxz.setMethod(jData, "getAllQuestions");
+                var k = session.makeId();
+                crypto.en(jData, k);
+                $.post(url, jData, function(data) {
+                    crypto.de(data, k);
+                    $.each(data, function(id, value) {
+                        alert(id + " : " + value);
+                        if (id === "BadToken") {
+                            alert("BadToken");
+                            logger.log({
+                                message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
+                                showToast: true,
+                                type: "error"
+                            });
+                        } else {
+                            if (id === "questionData") {
+                                var array = [];
+                                $.each(value, function(dataId, dataValue) {
+                                    alert(dataId + " : " + dataValue);
+                                    array.push(dataValue);
+                                });
+                                that.questions1(array); //For that.questions1.
+                                that.questions2(array); //For that.questions2.
+                            }
+                        }
+                    });
                 });
             }
 
+
+
+
+
+
+            /*
+             function register(data) {
+             return $.ajax(registerUrl, {
+             type: "POST",
+             data: data
+             });
+             }
+             function registerExternal(accessToken, data) {
+             return $.ajax(registerExternalUrl, {
+             type: "POST",
+             data: data,
+             headers: {
+             "Authorization": "Bearer " + accessToken
+             }
+             });
+             }
+             function removeLogin(data) {
+             return $.ajax(removeLoginUrl, {
+             type: "POST",
+             data: data,
+             headers: getSecurityHeaders()
+             });
+             }
+             function setPassword(data) {
+             return $.ajax(setPasswordUrl, {
+             type: "POST",
+             data: data,
+             headers: getSecurityHeaders()
+             });
+             }
+             */
 
 
 

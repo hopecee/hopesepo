@@ -4,11 +4,11 @@ define(['dojo/i18n!app/nls/labels',
     'plugins/router', 'global/services/session',
     'global/services/security',
     'global/services/layout',
-    'global/services/logger'], function(labels,
+    'global/services/logger', 'global/services/functionz'], function(labels,
         dom, domConstruct,
         router, session, security,
         layout,
-        logger) {
+        logger, fxz) {
     "use strict";
     /* 
      $(document).ready(function() {
@@ -146,7 +146,7 @@ define(['dojo/i18n!app/nls/labels',
         dom.byId('confirm').placeholder = labels.confirm;
         dom.byId('labelTuShopTerms').innerHTML = labels.tuShopTerms;
         dom.byId('joinEditorButtonJoinNow').innerHTML = labels.joinNow;
-       // dom.byId('labelAlreadyJoined').innerHTML = labels.alreadyJoined;
+        // dom.byId('labelAlreadyJoined').innerHTML = labels.alreadyJoined;
         //dom.byId('labelSignIn').innerHTML = labels.signIn;
 
 
@@ -224,84 +224,40 @@ define(['dojo/i18n!app/nls/labels',
         usersPassword: ko.observable(),
         passwordConfirm: ko.observable(),
         agree: ko.observable(false), // initially false.  
+        onSubmit: onSubmit
+    };
 
 
-        onSubmit: function() {
+    function onSubmit() {
+        fxz.preventDbClick("onSubmit",10);
+        doValidation();
+        var jData = {
+            usersEmailAddress: this.usersEmailAddress(),
+            usersName: this.usersName(),
+            usersFirstname: this.usersFirstname(),
+            usersLastname: this.usersLastname(),
+            usersPassword: this.usersPassword(),
+            passwordConfirm: this.passwordConfirm(),
+            agree: this.agree()
+        };
+        var url = '/tuJoinEditorServlet';
+        //validate data first.
+        if ($("#joinEditorform").valid()) {
+            //var busy = getBusyOverlay(document.getElementById('joinEditorBusy'), {color: 'white', opacity: 0.05, text: '', style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'}, {color: 'black', size: 50, type: 'o'});
+            ko.postbox.publish('JOINT_EDITOR_BUSY_START', null);
 
-            doValidation();
-            var jData = {
-                usersEmailAddress: this.usersEmailAddress(),
-                usersName: this.usersName(),
-                usersFirstname: this.usersFirstname(),
-                usersLastname: this.usersLastname(),
-                usersPassword: this.usersPassword(),
-                passwordConfirm: this.passwordConfirm(),
-                agree: this.agree()
-            };
-            var url = '/tuJoinEditorServlet';
-
-            //validate data first.
-            if ($("#joinEditorform").valid()) {
-                var busy = getBusyOverlay(document.getElementById('joinEditorBusy'), {color: 'white', opacity: 0.05, text: '', style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'}, {color: 'black', size: 50, type: 'o'});
-
-                // router.navigate('#/join_editor_3');
-
-
-                // alert("surrrho====");
-                //post data.
-                security.joinEditor(url, jData, busy);
-
-
-                /*
-                 //post data.
-                 $.ajax({
-                 type: 'POST',
-                 url: '/tuJoinEditorServlet',
-                 data: jData,
-                 // dataType: 'JSON',
-                 success: function(data) {
-                 busy.remove();
-                 $.each(data, function(id, value) {
-                 if (id === "BadToken") {
-                 logger.log({
-                 message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
-                 showToast: true,
-                 type: "error"
-                 });
-                 } else {
-                 
-                 alert("submitted!==ooho");
-                 router.navigate('#/join_editor_2');
-                 // $(".reload").click(); // what is this?
-                 
-                 }
-                 });
-                 
-                 
-                 }
-                 
-                 });
-                 */
-                // return true;
-            } else {
-                // Display an error toast, without a title
-                logger.log({
-                    message: "Please fill the Form correctly and accept our Terms and Policy.",
-                    showToast: true,
-                    type: "error"
-                });
-                // return false;
-            }
-
-
+            //post data.
+            security.joinEditor(url, jData);
+        } else {
+            // Display an error toast, without a title
+            logger.log({
+                message: "Please fill the Form correctly and accept our Terms and Policy.",
+                showToast: true,
+                type: "error"
+            });
+            // return false;
         }
 
 
-
-
-
-
-
-
-    };
+    }
 });

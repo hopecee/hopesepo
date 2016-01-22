@@ -1,9 +1,9 @@
 define(['dojo/topic', "dojo/request", 'durandal/app',
     //'plugins/router',
     'global/services/pageRouter', 'global/services/session', 'global/services/logger',
-    'global/services/idletimeout', 'global/services/security'
+    'global/services/idletimeout', 'global/services/busy'
 
-], function(topic, request, app, pageRouter, session, logger, idletimeout, security
+], function(topic, request, app, pageRouter, session, logger, idletimeout, busy
         ) {
     "use strict";
 
@@ -35,7 +35,7 @@ define(['dojo/topic', "dojo/request", 'durandal/app',
 
 //Initialize User idle timeout syncronized with server. 
         idletimeout.init();
-
+        busy.init();
 
         //Initialize all needed functions. 
         // allRunOnce();

@@ -1,22 +1,14 @@
 
-
-
-
 define(['dojo/i18n!app/nls/labels',
-    'dojo/dom', 'dojo/dom-construct',
-    'durandal/app', 
+    'dojo/dom', 'dojo/dom-construct', 'durandal/app',
     //'plugins/router',
-    'global/services/security',
-    'global/services/dataservice',
-    'global/services/layout',
-    'global/services/logger'],
-        function(labels, dom, domConstruct,
-                app, 
+    'global/services/security', 'global/services/dataservice',
+    'global/services/layout', 'global/services/logger',
+    'global/services/functionz'],
+        function(labels, dom, domConstruct, app,
                 //router,
-                security,
-                dataservice,
-                layout,
-                logger) {
+                security, dataservice,
+                layout, logger, fxz) {
 
             "use strict";
             $(document).ready(function() {
@@ -111,9 +103,10 @@ define(['dojo/i18n!app/nls/labels',
 
 
 
-            var dataserviceV = new dataservice();
+
 
             var activate = function() {
+                var dataserviceV = new dataservice();
                 dataserviceV.getAllQuestions(this);
                 /*
                  app.trigger('authentication.loggedIn', {
@@ -129,9 +122,10 @@ define(['dojo/i18n!app/nls/labels',
 
 
 
-            var layoutV = new layout();
+
 
             var attached = function(view, paren) {
+
 //function compositionComplete(view, parent) {
                 //$(view).find('#calendar2').css("color", "red");
                 //$('#calendar2').css("color", "red");
@@ -166,7 +160,7 @@ define(['dojo/i18n!app/nls/labels',
                 dom.byId('btnContinue2').innerHTML = labels.btnContinue2;
 
 
-
+                var layoutV = new layout();
                 layoutV.setInputStyle();//TODO should it be at the bottom element?
 
                 /*
@@ -256,63 +250,45 @@ define(['dojo/i18n!app/nls/labels',
                 selectedQuestion2: ko.observable(),
                 answer2: ko.observable(),
                 pin: ko.observable(),
-                onSubmit: function() {
-                    // alert("submitted!" + $("#dob").val());
-                    doValidation();
-                    // alert($("#joinEditorform").valid());
-                    var jData = {
-                        // dob: this.dob(),
-                        dob: $("#dob").val(), //TODO is it not // dob: this.dob(),
-                        selectedQuestion1: this.selectedQuestion1(),
-                        answer1: this.answer1(),
-                        selectedQuestion2: this.selectedQuestion2(),
-                        answer2: this.answer2(),
-                        pin: this.pin()
-                    }; // prepare request data
+                onSubmit: onSubmit
+            };
 
-                    var url = '/tuJoinEditorServlet';
+            function onSubmit() {
+                fxz.preventDbClick("onSubmit", 10);
+                // alert("submitted!" + $("#dob").val());
+                doValidation();
+                // alert($("#joinEditorform").valid());
+                var jData = {
+                    // dob: this.dob(),
+                    dob: $("#dob").val(), //TODO is it not // dob: this.dob(),
+                    selectedQuestion1: this.selectedQuestion1(),
+                    answer1: this.answer1(),
+                    selectedQuestion2: this.selectedQuestion2(),
+                    answer2: this.answer2(),
+                    pin: this.pin()
+                }; // prepare request data
 
-                    //validate data first.
-                    if ($("#joinEditorSecurityform").valid()) {
-                        var busy = getBusyOverlay(document.getElementById('joinEditorSecurityBusy'), {color: 'white', opacity: 0.05, text: '', style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'}, {color: 'black', size: 50, type: 'o'});
+                var url = '/tuJoinEditorServlet';
 
-                        security.joinEditor3(url, jData, busy);
+                //validate data first.
+                if ($("#joinEditorSecurityform").valid()) {
+                    // var busy = getBusyOverlay(document.getElementById('joinEditorSecurityBusy'), {color: 'white', opacity: 0.05, text: '', style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'}, {color: 'black', size: 50, type: 'o'});
+                    ko.postbox.publish('JOINT_EDITOR_3_BUSY_START', null);
 
-                        /*
-                         //post data.
-                         $.ajax({
-                         type: 'POST',
-                         url: '/joinEditor3Servlet',
-                         data: jData,
-                         // dataType: 'JSON',
-                         success: function() {
-                         //alert("submitted!");
-                         busy.remove();
-                         // alert("submitted!");
-                         
-                         router.navigate('#/home');
-                         
-                         // $(".reload").click(); // what is this?
-                         }
-                         
-                         });
-                         */
-
-                        // return true;
-                    } else {
-                        // Display an error toast, with a title
-                        logger.log({
-                            message: "Please fill the Form correctly and continue.",
-                            showToast: true,
-                            type: "error"
-                        });
-                    }
-
-
+                    security.joinEditor3(url, jData);
+                } else {
+                    // Display an error toast, with a title
+                    logger.log({
+                        message: "Please fill the Form correctly and continue.",
+                        showToast: true,
+                        type: "error"
+                    });
                 }
 
 
-            };
+            }
+
+
         });
 
 

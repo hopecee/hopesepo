@@ -10,6 +10,11 @@ define(
             hello_dojo: "${hello}, ${dojo}!",
             file_not_found: "The file you requested, ${0}, is not found.",
             //==============Labels=================================
+            //-------general----------------------//
+            userSelectType: "Select Search Type... de",
+            searchUser: "Search for User de",
+            yes: "Yes de",
+            no: "No de",
             //-------menu----------------------//
             home: "Home de",
             joinTodayMenu: "Join Today de",
@@ -28,9 +33,8 @@ define(
             tuShopTerms: "I agree to the tuShop Terms and Privacy. de",
             joinNow: "Join Now de",
             alreadyJoined: "Already on tuShop? de",
-            signIn: "Sign In de",
-                    //-------join_Editor2----------------------//
-                    thanksForReg: "Thank you for signing with us. Please take your time to complete the following Steps. de",
+            //-------join_Editor2----------------------//
+            thanksForReg: "Thank you for signing with us. Please take your time to complete the following Steps. de",
             userContactHeader: "User Contact",
             userStreet: "Address de",
             userStreet2: "Address 2 de",
@@ -60,11 +64,18 @@ define(
             userPin: "PIN de",
             btnContinue2: "Continue de",
             //-------join_Editor_Complete----------------------//
-            thanksForRegComplete: "You have successfully completed your Registration. We have sent you email to your provided Email Address. Check your Email box and follow the link to confirm the Address. de"
-            ////,
-            //dojo: "Dojo",
-            //hello_dojo: "${hello}, ${dojo}!",
-            //file_not_found:"The file you requested, ${0}, is not found."
+            thanksForRegComplete: "You have successfully completed your Registration. We have sent you email to your provided Email Address. Check your Email box and follow the link to confirm the Address. de",
+            //-------countries----------------------//
+            NGA1: "Nigeria1 de",
+            NGA2: "Nigeria2 de",
+            NGA3: "Nigeria3 de",
+            NGA4: "Nigeria4 de",
+            //-------dialog----------------------//
+            sessionExpTitle: "Session Expiration Warning de",
+            sessionExpText: "Because you have been inactive, your session is about to expire. de",
+            sessionExpTimeRemaining: "Time remaining de",
+            sessionExpStayLoggedInText: "Do you want to Stay Logged In de"
+
         }
 //end v1.x content
 

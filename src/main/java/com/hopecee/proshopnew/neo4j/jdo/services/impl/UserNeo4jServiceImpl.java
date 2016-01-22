@@ -10,7 +10,6 @@ import com.hopecee.proshopnew.neo4j.jdo.services.DAOException;
 import com.hopecee.proshopnew.neo4j.jdo.services.UserNeo4jService;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 import javax.jdo.FetchGroup;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -121,9 +120,7 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
 
     @Override
     public User findByName(String name) {
-        PersistenceManager pm =
-                JDOUtil.persistenceManagerFactory.getPersistenceManager();
-        try {
+        try (PersistenceManager pm = JDOUtil.persistenceManagerFactory.getPersistenceManager()) {
             Query q = pm.newQuery(User.class);
             q.setFilter("name.equals(value)");
             q.declareParameters("String value");
@@ -132,17 +129,13 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
             if (users != null && !users.isEmpty()) {
                 return users.get(0);
             }
-        } finally {
-            pm.close();
         }
         return null;
     }
 
     @Override
     public User findByUsersName(String usersName) {
-        PersistenceManager pm =
-                JDOUtil.persistenceManagerFactory.getPersistenceManager();
-        try {
+        try (PersistenceManager pm = JDOUtil.persistenceManagerFactory.getPersistenceManager()) {
             Query q = pm.newQuery(User.class);
             q.setFilter("usersName.equals(value)");
             q.declareParameters("String value");
@@ -151,15 +144,13 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
             if (users != null && !users.isEmpty()) {
                 return users.get(0);
             }
-        } finally {
-            pm.close();
         }
         return null;
     }
 
     @Override
-    public User findById(Long id) {
-        if (id == null) {
+    public User findById(Long objectId) {
+        if (objectId == null) {
             return null;
         }
         PersistenceManager pm =
@@ -167,7 +158,7 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
         User user = null;
 
         try {
-            user = (User) pm.getObjectById(User.class, id);
+            user = (User) pm.getObjectById(User.class, objectId);
         } finally {
             pm.close();
         }
@@ -179,10 +170,6 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
         PersistenceManager pm =
                 JDOUtil.persistenceManagerFactory.getPersistenceManager();
         Transaction tx = pm.currentTransaction();
-
-
-        // UserTransaction tx =(UserTransaction) identitySession.getTransaction();
-        // System.out.println("tx 22: = " + tx.toString());
 
         try {
             if (findByName(user.getName()) == null) {
@@ -285,14 +272,14 @@ public class UserNeo4jServiceImpl implements UserNeo4jService, Serializable {
     }
 
     @Override
-    public void delete(Long id) throws DAOException {
+    public void delete(Long objectId) throws DAOException {
         PersistenceManager pm =
                 JDOUtil.persistenceManagerFactory.getPersistenceManager();
         Transaction tx = pm.currentTransaction();
 
         try {
             tx.begin();
-            User user = pm.getObjectById(User.class, id);
+            User user = pm.getObjectById(User.class, objectId);
             if (user == null) {
                 return;
             }

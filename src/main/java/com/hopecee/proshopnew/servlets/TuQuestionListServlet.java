@@ -5,11 +5,13 @@
 package com.hopecee.proshopnew.servlets;
 
 import com.google.gson.Gson;
+import com.hopecee.proshopnew.events.ExceptionEventBadToken;
 import com.hopecee.proshopnew.neo4j.jdo.model.Configuration;
 import com.hopecee.proshopnew.neo4j.jdo.model.ConfigurationGroup;
 import com.hopecee.proshopnew.neo4j.jdo.services.ConfigurationGroupNeo4jService;
 import com.hopecee.proshopnew.neo4j.jdo.services.DAOException;
 import static com.hopecee.proshopnew.servlets.TuJoinEditorServlet.JSON;
+import com.hopecee.proshopnew.util.javacryption.aes.AesCtr;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Iterator;
@@ -19,6 +21,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -40,7 +43,12 @@ public class TuQuestionListServlet extends HttpServlet {
     private final String BAD_TOKEN = "BadToken";
     @Inject
     private ConfigurationGroupNeo4jService configurationGroupNeo4jService;
-    Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+    @Inject
+    Event<ExceptionEventBadToken> exceptionEventBadToken;
+     @Inject
+    private AesCtr aesCtr;
+    
+    Map<Object, Object> map = new LinkedHashMap<>();
 
     @Override
     public void init() throws ServletException {
@@ -57,60 +65,36 @@ public class TuQuestionListServlet extends HttpServlet {
 
         String token = "";
         try {
-            token = ((ServletRequest) req).getAttribute("CheckRequestVerificationToken").toString();
-        } catch (Exception e) {
+            token = req.getAttribute("CheckRequestVerificationToken").toString();
+        } catch (NullPointerException e) {
+            Logger.getLogger(TuQuestionListServlet.class.getName()).log(Level.SEVERE, null, e);
         }
         if (token.equals(BAD_TOKEN)) {
-            map.put(BAD_TOKEN, BAD_TOKEN);
-            String json = new Gson().toJson(map);
-            resp.setContentType(JSON);
-            resp.getWriter().print(json);
+            exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
         } else {
             //  String RequestVerificationToken = req.getParameter("RequestVerificationToken");
             String method = req.getParameter("method");
 
-            try {
-                if ("getAllQuestions".equals(method)) {
+
+            if ("getAllQuestions".equals(method)) {
+                try {
                     System.out.println("====getAllQuestions==== : ");
                     getAllQuestions(req, resp);
-                } else {
-                    
+                } catch (Exception ex) {
+                    Logger.getLogger(TuQuestionListServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                //updateUserPassword(usersEmailAddress, usersPassword);
-                //  createGroup(groupName, groupType);
-                //  deleteGroup(groupName,  force);
-                // createRoleType( roleName);
-                // deleteRoleType(roleName);
-                // createRole(roleName, usersEmailAddress, groupName, groupType);
-                // deleteRole(  roleName,   usersEmailAddress,   groupName,  groupType);
-                // associateUser(   usersEmailAddress,   groupName,  groupType);
-                // createCountry(req, resp, usersEmailAddress, usersFirstname, usersLastname, usersPassword);
-                // deleteCountry( req,  resp,  usersEmailAddress,  usersFirstname,  usersLastname,  usersPassword);
-                // createConfigurationGroup(req, resp, usersEmailAddress, usersFirstname, usersLastname, usersPassword);
-                // createConf(req, resp, usersEmailAddress, usersFirstname, usersLastname, usersPassword);
-
-
-
-
-            } catch (Exception ex) {
-                System.out.println("====njmk=  map.put(BAD_TOKEN, BAD_TOKEN); ");
-
-                map.put(BAD_TOKEN, BAD_TOKEN);
-                String json = new Gson().toJson(map);
-                resp.setContentType(JSON);
-                resp.getWriter().print(json);
-
-                Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    public void getAllQuestions(HttpServletRequest req, HttpServletResponse resp) {
+    public void getAllQuestions(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         //System.out.println("hhhhhh = ,,,,,,,,,,f,,,,,,,,,,,,,,");
         try {
             List<Configuration> questions = getQuestionList();
 
-            Map<Object, Object> questionIdNameMap = new LinkedHashMap<Object, Object>();
+            Map<Object, Object> questionIdNameMap = new LinkedHashMap<>();
+            questionIdNameMap.clear(); //Clear First.
+
             Iterator<Configuration> iter = questions.iterator();
             while (iter.hasNext()) {
                 Configuration c = iter.next();
@@ -122,8 +106,11 @@ public class TuQuestionListServlet extends HttpServlet {
             // sessionData.put("name1", "Hope1");
             // sessionData.put("name2", "Hope2");
             //Map<Object, Object> map = new LinkedHashMap<Object, Object>();
-            map.put("data", questionIdNameMap);
+
             // map.put("sessionData", sessionData);
+            map.clear(); //Clear First.
+            map.put("questionData", questionIdNameMap);
+            aesCtr.encryptMap(req, map);//encrypt the Map data.
 
             String json = new Gson().toJson(map);
             resp.setContentType("application/json");

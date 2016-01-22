@@ -3,7 +3,15 @@
 
         <div class="ui-input-group ui-align-right">
             <input id="searchValue" class="ui-form-control po-1 inputWithPlaceholder bgColour noCache" name="searchValue" type="text" placeholder="Value_" onclick="hide();" data-bind="value: searchValue" />
+            <!--
             <input id="searchType" class="ui-form-control po-2 inputWithPlaceholder bgColour noCache" name="searchType" type="text" placeholder="Type_" onclick="hide();" data-bind="value: searchType" />
+            -->
+            <select id="searchType" class="ui-form-control po-2  inputWithPlaceholder bgColour noCache" name="searchType"  size="1" 	
+                    data-bind="options: types,
+                    optionsCaption: selectType,
+                    value: selectedType,
+                    valueAllowUnset: true">
+            </select> 
             <span id="userSearch" class="ui-input-group-addon search" data-bind="click: onSearch" onmouseover="$(this).addClass('ui-state-hover');" onmouseout="$(this).removeClass(' ui-state-hover');">
                 <i class="fa fa-search"></i>
             </span >

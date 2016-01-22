@@ -3,8 +3,8 @@ define(['dojo/i18n!app/nls/labels',
     'durandal/app', 'plugins/router',
     'global/services/layout',
     'global/services/session', 'global/services/security',
-    'global/services/logger'],
-        function(labels, dom, domConstruct, app, router, layout, session, security, logger
+    'global/services/logger', 'global/services/functionz'],
+        function(labels, dom, domConstruct, app, router, layout, session, security, logger, fxz
                 ) {
             "use strict";
 //'wijmo.wijmenu'
@@ -20,7 +20,7 @@ define(['dojo/i18n!app/nls/labels',
 
             });
 
-           
+
 
 
 
@@ -187,14 +187,9 @@ define(['dojo/i18n!app/nls/labels',
             var activate = function() {
 
                 //loggedInHandler(this);
-                var self = this;
+                //var self = this;
                 //  self.showMenuLogin(ko.observable(false).subscribeTo('IS_SHOWMENU'))  ;
             };
-
-
-            //Inject toastrOptions.
-            //var toastrService = new toastrOptions();
-            // toastrService.getOptions();
 
 
             var loggedInHandler = function(self) {
@@ -212,26 +207,31 @@ define(['dojo/i18n!app/nls/labels',
                 showMenuNot: ko.observable(false).subscribeTo('SHOWMENU_NOT'),
                 usersEmailAddressMenu: ko.observable(),
                 usersPasswordMenu: ko.observable(),
-                onSubmitMenu: function() {
-                    doValidation();
-                    var jData = {
-                        usersEmailAddressMenu: this.usersEmailAddressMenu(),
-                        usersPasswordMenu: this.usersPasswordMenu()
-                    };
-                    var loginUrl = '/tuLogInOutServlet';
-                    //validate data first.
-                    if ($("#loginForm").valid()) {
-                        var busy = getBusyOverlay(document.getElementById('menuBusy'), {color: '#000', opacity: 0.9, text: '', style: 'text-decoration:blink;font-weight:bold;font-size:12px;color:white'}, {color: '#fff', size: 25, type: 'o'});
-                        //post data.
-                        security.login(loginUrl, jData, busy);
-                    } else {
-                        // Display an error toast, with a title
-                        logger.log({
-                            message: "Please enter your E-mail Address and Password.",
-                            showToast: true,
-                            type: "error"
-                        });
-                    }
-                }
+                onSubmitMenu: onSubmitMenu
             };
+
+
+            function onSubmitMenu() {
+                fxz.preventDbClick("onSubmitMenu",5);
+                doValidation();
+                var jData = {
+                    usersEmailAddressMenu: this.usersEmailAddressMenu(),
+                    usersPasswordMenu: this.usersPasswordMenu()
+                };
+                var loginUrl = '/tuLogInOutServlet';
+                //validate data first.
+                if ($("#loginForm").valid()) {
+                    //var busy = getBusyOverlay(document.getElementById('menuBusy'), {color: '#000', opacity: 0.9, text: '', style: 'text-decoration:blink;font-weight:bold;font-size:12px;color:white'}, {color: '#fff', size: 25, type: 'o'});
+                    ko.postbox.publish('USER_LOGIN_MENU_BUSY_START', null);
+                    //post data.
+                    security.login(loginUrl, jData);
+                } else {
+                    // Display an error toast, with a title
+                    logger.log({
+                        message: "Please enter your E-mail Address and Password.",
+                        showToast: true,
+                        type: "error"
+                    });
+                }
+            }
         });

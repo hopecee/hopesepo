@@ -1,92 +1,47 @@
-define(['dojo/i18n!app/nls/countryIsoCodes',
-    'dojo/dom', 'global/services/logger'],
-        function(countryIsoCodes, dom, logger) {
+define(['dojo/i18n!app/nls/userSearchTypes',
+    'dojo/dom', 'global/services/logger', 'global/services/security', 'global/services/functionz'],
+        function( userSTypes, dom, logger, security, fxz) {
             "use strict";
 
             var jData = {};
-
-            function addRequestVerificationToken(jData) {
-                //Append RequestVerificationToken value to the jData before posting.
-                jData['RequestVerificationToken'] = $('input[name="__RequestVerificationToken"]').val();
-            }
-            function setMethod(jData, method) {
-                jData['method'] = method;
-            }
-
+            /*
+             function addRequestVerificationToken(jData) {
+             //Append RequestVerificationToken value to the jData before posting.
+             jData['RequestVerificationToken'] = $('input[name="__RequestVerificationToken"]').val();
+             }
+             function setMethod(jData, method) {
+             jData['method'] = method;
+             }
+             */
             var dataservice = function() {
             };
 
 
             dataservice.prototype.getAllCountries = function(self) {
-                //do some ajax and return a promise
-                var that = self;
-                var url = '/tuCountryListServlet';
-                //Append RequestVerificationToken value to the jData before posting.
-                addRequestVerificationToken(jData);
-                setMethod(jData, "countryList");
-
-                $.post(url, jData, function(data) {
-                    $.each(data, function(id, value) {
-                        if (id === "BadToken") {
-                            alert("BadToken");
-                            logger.log({
-                                message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
-                                showToast: true,
-                                type: "error"
-                            });
-                        } else {
-                            if (id === "countryData") {
-                                var array = [];
-                                var obj = {};
-                                $.each(value, function(dataId, value1) {
-                                    // push dataId which is the "Country_iso_code_3"
-                                    // rather value1 which is "Country_name".
-                                    array.push(countryIsoCodes[dataId]);
-                                    obj[countryIsoCodes[dataId]] = dataId;
-                                });
-                                that.countries(array);
-                                that.countriesObj(obj);
-                            }
-                        }
-                    });
-                }
-
-                );
-
-
+                security.getAllCountries(self);
             };
 
             dataservice.prototype.getAllQuestions = function(self) {
-                //do some ajax and return a promise
-                var that = self;
-                var url = '/tuQuestionListServlet';
-                //Append RequestVerificationToken value to the jData before posting.
-                addRequestVerificationToken(jData);
-                setMethod(jData, "getAllQuestions");
+               security.getAllQuestions(self); 
+            };
 
-                $.post(url, jData, function(data) {
-                    $.each(data, function(id, value) {
-                        if (id === "BadToken") {
-                            alert("BadToken");
-                            logger.log({
-                                message: "Please fill the Form correctly and accept our Terms and Policy. Request Verification",
-                                showToast: true,
-                                type: "error"
-                            });
-                        } else {
-                            if (id === "data") {
-                                var array = [];
-                                $.each(value, function(dataId, dataValue) {
-                                    array.push(dataValue);
-                                });
-                                //alert(array);
-                                that.questions1(array); //For that.questions1.
-                                that.questions2(array); //For that.questions2.
-                            }
-                        }
-                    });
-                }
-                );
+
+            dataservice.prototype.getAllSearchTypes = function(self) {
+                var that = self,
+                        array = [],
+                        userSTypeObj = {};
+                $.each(userSTypes, function(id, value) {
+                    // alert(key.indexOf("y") > -1);//to check whether strng contains chr.
+                    if ((id.indexOf("$") < 0) && (id.indexOf("__") < 0)) { //exclude strings that contains "$" and "__".
+                        userSTypeObj[value] = id;//reverse, the value becomes the id.
+                    }
+                });
+                $.each(userSTypeObj, function(id, value) {
+                    // push the string to display which is the id.
+                    array.push(id);
+                });
+                that.types(array);
+                that.typesObj(userSTypeObj);
             };
 
 

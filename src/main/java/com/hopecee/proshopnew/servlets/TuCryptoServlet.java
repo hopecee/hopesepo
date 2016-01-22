@@ -49,6 +49,8 @@ public class TuCryptoServlet extends HttpServlet {
     Map<Object, Object> objMap = new LinkedHashMap<>();
     @Inject
     private AesCtr aesCtr;
+    @Inject
+    private JCryption jc;
 
     /**
      * Handles a POST request
@@ -74,7 +76,7 @@ public class TuCryptoServlet extends HttpServlet {
             res.getWriter().print(json);
 
         } else {
-           // String method = req.getParameter("method");
+            // String method = req.getParameter("method");
 
             /*
              if (req.getParameter("hope1") != null) {
@@ -95,7 +97,7 @@ public class TuCryptoServlet extends HttpServlet {
              * Generates a KeyPair for RSA *
              */
             if (req.getParameter("generateKeyPair") != null && req.getParameter("generateKeyPair").equals("true")) {
-                JCryption jc = new JCryption();
+                // JCryption jc = new JCryption();
                 jc.generateKeyPair();
                 KeyPair keys = jc.getKeyPair();
                 request.getSession().getServletContext().setAttribute("jCryptionKeys", keys);
@@ -121,7 +123,7 @@ public class TuCryptoServlet extends HttpServlet {
                 /**
                  * Decrypts password using private key *
                  */
-                JCryption jc = new JCryption((KeyPair) request.getSession()
+                jc.setKeyPair((KeyPair) request.getSession()
                         .getServletContext().getAttribute("jCryptionKeys"));
                 String key = jc.decrypt(req.getParameter("key"));
 
@@ -142,25 +144,24 @@ public class TuCryptoServlet extends HttpServlet {
                     Logger.getLogger(TuCryptoServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+                //Use these to keep session alive.
+                // access the session without creating it - this maintains the session
+                request.getSession(false);
+                // send a 200
+                //response.setStatus(HttpServletResponse.SC_OK);
+
+                // System.out.println("SC_NO_CONTENT ========= : " );
+
                 /**
                  * Sends response *
                  */
-                // PrintWriter out = response.getWriter();
-                // out.print("{\"challenge\":\"" + ct + "\"}");
-                // return;
-                //bject obj = new Object();
-                //map.clear(); //Clear First.
                 objMap.clear();//Clear First.
                 objMap.put("challenge", ct);
-                // map.put("maxdigits", md);
-                
+
                 String json = new Gson().toJson(objMap);
                 response.setContentType(JSON);
                 PrintWriter out = response.getWriter();
                 out.print(json);
-                //  out.print("{\"e\":\"" + e + "\",\"n\":\"" + n
-                //        + "\",\"maxdigits\":\"" + md + "\"}");
-
             }
 
 
@@ -263,7 +264,6 @@ public class TuCryptoServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
-        
-       // doPost(req, res);
+        // doPost(req, res);
     }
 }

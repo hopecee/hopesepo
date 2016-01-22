@@ -61,20 +61,15 @@ public class UserJpaService implements Serializable {
             //CryptoService cryptoService = new CryptoService();
             String generatedSecuredPasswordHash = cryptoService.generateStorngPasswordHash(usersPassword);
             // System.out.println(generatedSecuredPasswordHash);
-             PasswordCredential credential = new PasswordCredential(usersPassword);
-           
-             System.out.println("credential.getEncodedValue() : "+credential.getEncodedValue());
-               
-            identitySession.getAttributesManager().updatePassword(user, generatedSecuredPasswordHash
-                  // credential.getEncodedValue().toString() );
-            // credential.getValue()
-                     );
- 
-        } catch (IdentityException ex) {
-            Logger.getLogger(UserJpaService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UserJpaService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidKeySpecException ex) {
+            PasswordCredential credential = new PasswordCredential(usersPassword);
+
+            System.out.println("credential.getEncodedValue() : " + credential.getEncodedValue());
+
+            identitySession.getAttributesManager().updatePassword(user, generatedSecuredPasswordHash // credential.getEncodedValue().toString() );
+                    // credential.getValue()
+                    );
+
+        } catch (IdentityException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
             Logger.getLogger(UserJpaService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -83,6 +78,10 @@ public class UserJpaService implements Serializable {
         IdentitySearchCriteria criteria = identitySession.getPersistenceManager().createIdentitySearchCriteria();
         List<User> results = (List<User>) identitySession.getPersistenceManager().findUser(criteria.page(0, 100));
         return results;
+    }
+
+    public User findUser(String usersEmailAddress) throws IdentityException {
+       return identitySession.getPersistenceManager().findUser(usersEmailAddress);
     }
 
     public void deleteUser(String usersEmailAddress) throws IdentityException {
@@ -111,13 +110,16 @@ public class UserJpaService implements Serializable {
         identitySession.getPersistenceManager().removeGroup(groupName, force);
 
     }
- public void createRoleType(String roleName) throws FeatureNotSupportedException, IdentityException {
+
+    public void createRoleType(String roleName) throws FeatureNotSupportedException, IdentityException {
         identitySession.getRoleManager().createRoleType(roleName);
-   }
-  public void deleteRoleType(String roleName) throws FeatureNotSupportedException, IdentityException {
+    }
+
+    public void deleteRoleType(String roleName) throws FeatureNotSupportedException, IdentityException {
         identitySession.getRoleManager().removeRoleType(roleName);
-   }
-    public void createRole(String roleName, String usersEmailAddress, String groupName,String groupType) throws FeatureNotSupportedException, IdentityException {
+    }
+
+    public void createRole(String roleName, String usersEmailAddress, String groupName, String groupType) throws FeatureNotSupportedException, IdentityException {
         // RoleManager roleManager = identitySession.getRoleManager();
         //RoleType adminRT = identitySession.getRoleManager().createRoleType("staff");
         identitySession.getRoleManager().createRole(
@@ -125,7 +127,8 @@ public class UserJpaService implements Serializable {
                 identitySession.getPersistenceManager().findUser(usersEmailAddress),
                 identitySession.getPersistenceManager().findGroup(groupName, groupType));
     }
-     public void deleteRole(String roleName, String usersEmailAddress, String groupName,String groupType) throws FeatureNotSupportedException, IdentityException {
+
+    public void deleteRole(String roleName, String usersEmailAddress, String groupName, String groupType) throws FeatureNotSupportedException, IdentityException {
         // RoleManager roleManager = identitySession.getRoleManager();
         // identitySession.getRelationshipManager().associateGroups(null, null);
         //RoleType adminRT = identitySession.getRoleManager().createRoleType("staff");
@@ -134,16 +137,17 @@ public class UserJpaService implements Serializable {
                 identitySession.getPersistenceManager().findUser(usersEmailAddress),
                 identitySession.getPersistenceManager().findGroup(groupName, groupType));
     }
-     public void associateUser( String usersEmailAddress, String groupName,String groupType) throws FeatureNotSupportedException, IdentityException {
+
+    public void associateUser(String usersEmailAddress, String groupName, String groupType) throws FeatureNotSupportedException, IdentityException {
         // RoleManager roleManager = identitySession.getRoleManager();
         // identitySession.getRelationshipManager().associateGroups(null, null);
         //RoleType adminRT = identitySession.getRoleManager().createRoleType("staff");
-       User user = identitySession.getPersistenceManager().findUser(usersEmailAddress);
-           
-      // System.out.println("identity.getUser() : "+identity.);
-       
-               identitySession.getRelationshipManager().associateUser(
-                identitySession.getPersistenceManager().findGroup(groupName, groupType), 
+        User user = identitySession.getPersistenceManager().findUser(usersEmailAddress);
+
+        // System.out.println("identity.getUser() : "+identity.);
+
+        identitySession.getRelationshipManager().associateUser(
+                identitySession.getPersistenceManager().findGroup(groupName, groupType),
                 identitySession.getPersistenceManager().findUser(usersEmailAddress));
-         }
+    }
 }

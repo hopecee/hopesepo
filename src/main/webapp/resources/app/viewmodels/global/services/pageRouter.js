@@ -2,6 +2,8 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
     'dojo/dom', 'global/services/session', 'global/services/logger'],
         function(countryIsoCodes, dom, session, logger) {
             "use strict";
+            var router = new Router().init();
+            var intro = 'intro';
 
 
             var pageRouter = function() {
@@ -23,11 +25,12 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
                     },
                     before: function(data) {
                         //if (typeof (session.userEmailAddress()) !== "undefined") {
-                        var res = true;//session.isLoggedIn();
+                        //var res = true;//session.isLoggedIn();
+                        var res = session.isLoggedIn();
                         if (!res)
                         {
-                            ko.observable('viewmodels/intro').publishOn('ROUTE');
-
+                            //ko.observable('viewmodels/intro').publishOn('ROUTE');
+                            router.setRoute(intro);
                             logger.log({
                                 message: "Access denied. Navigation cancelled. Please login",
                                 showToast: true,
@@ -55,7 +58,8 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
                         var res = session.isLoggedIn();
                         if (!res)
                         {
-                            ko.observable('viewmodels/intro').publishOn('ROUTE');
+                            // ko.observable('viewmodels/intro').publishOn('ROUTE');
+                            router.setRoute(intro);
 
                             logger.log({
                                 message: "Access denied. Navigation cancelled. Please login",
@@ -80,7 +84,8 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
                         var res = session.isLoggedIn();
                         if (!res)
                         {
-                            ko.observable('viewmodels/intro').publishOn('ROUTE');
+                            // ko.observable('viewmodels/intro').publishOn('ROUTE');
+                            router.setRoute(intro);
 
                             logger.log({
                                 message: "Access denied. Navigation cancelled. Please login",
@@ -102,10 +107,11 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
                     },
                     before: function(data) {
                         //if (typeof (session.userEmailAddress()) !== "undefined") {
-                        var res = true;//session.isLoggedIn();
+                        var res = session.isLoggedIn();
                         if (!res)
                         {
-                            ko.observable('viewmodels/intro').publishOn('ROUTE');
+                            // ko.observable('viewmodels/intro').publishOn('ROUTE');
+                            router.setRoute(intro);
 
                             logger.log({
                                 message: "Access denied. Navigation cancelled. Please login",
@@ -121,7 +127,8 @@ define(['dojo/i18n!app/nls/countryIsoCodes',
             };
 
             pageRouter.prototype.notfound = function() {
-                ko.observable('viewmodels/intro').publishOn('ROUTE');
+                // ko.observable('viewmodels/intro').publishOn('ROUTE');
+                router.setRoute(intro);
             };
 
 

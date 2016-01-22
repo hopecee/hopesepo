@@ -15,6 +15,7 @@ import com.hopecee.proshopnew.neo4j.jdo.model.User;
 import com.hopecee.proshopnew.neo4j.jdo.services.AddressBookNeo4jService;
 import com.hopecee.proshopnew.neo4j.jdo.services.CountryNeo4jService;
 import com.hopecee.proshopnew.neo4j.jdo.services.UserNeo4jService;
+import com.hopecee.proshopnew.util.javacryption.aes.AesCtr;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Enumeration;
@@ -50,7 +51,9 @@ public class TuCountryListServlet extends HttpServlet {
     Event<ExceptionEventBadToken> exceptionEventBadToken;
     @Inject
     private CountryNeo4jService countryNeo4jService;
-    Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+    @Inject
+    private AesCtr aesCtr;
+    Map<Object, Object> map = new LinkedHashMap<>();
 
     @Override
     public void init() throws ServletException {
@@ -80,23 +83,20 @@ public class TuCountryListServlet extends HttpServlet {
 
             /* try {*/
             if ("countryList".equals(method)) {
-                supplyCountryList(req, resp);
+                try {
+                    supplyCountryList(req, resp);
+                } catch (Exception ex) {
+                    Logger.getLogger(TuCountryListServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-
-
         }
-
     }
 
     // @Transactional
-    public void supplyCountryList(HttpServletRequest req, HttpServletResponse resp) {
-        //List<Country> countries = getCountryList();
-
+    public void supplyCountryList(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         try {
+            Map<Object, Object> countryIdNameMap = new LinkedHashMap<>();
 
-
-            Map<Object, Object> countryIdNameMap = new LinkedHashMap<Object, Object>();
-           
             countryIdNameMap.clear(); //Clear First.
             for (Iterator<Country> it = getCountryList().iterator(); it.hasNext();) {
                 Country c = it.next();
@@ -107,15 +107,13 @@ public class TuCountryListServlet extends HttpServlet {
             }
             map.clear(); //Clear First.
             map.put("countryData", countryIdNameMap);
+            aesCtr.encryptMap(req, map);//encrypt the Map data.
+
             String json = new Gson().toJson(map);
             resp.setContentType(JSON);
             resp.getWriter().print(json);
 
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(TuCountryListServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalStateException ex) {
-            Logger.getLogger(TuCountryListServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (IllegalArgumentException | IllegalStateException | IOException ex) {
             Logger.getLogger(TuCountryListServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

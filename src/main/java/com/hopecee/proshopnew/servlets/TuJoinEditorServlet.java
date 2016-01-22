@@ -56,6 +56,8 @@ import org.picketlink.idm.api.Role;
 import org.picketlink.idm.common.exception.FeatureNotSupportedException;
 import org.picketlink.idm.common.exception.IdentityException;
 import org.picketlink.idm.impl.api.PasswordCredential;
+import com.hopecee.proshopnew.util.javacryption.aes.AesCtr;
+import org.datanucleus.exceptions.NucleusUserException;
 
 /**
  *
@@ -110,6 +112,8 @@ public class TuJoinEditorServlet extends HttpServlet {
     private Identity identity;
     @Inject
     private Credentials credentials;
+    @Inject
+    private AesCtr aesCtr;
     // @Inject
     //private UserBean userBean;
     //
@@ -135,7 +139,7 @@ public class TuJoinEditorServlet extends HttpServlet {
     //@DefaultTransaction
     //@QualifierType(QualifierType.ServiceType.DefaultSeamTransaction)
     // private SeamTransaction tx;
-    Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+    Map<Object, Object> map = new LinkedHashMap<>();
 
     /**
      * Handles an HTTP POST request from TuJoinEditorServlet.
@@ -162,16 +166,28 @@ public class TuJoinEditorServlet extends HttpServlet {
 
             /* try {*/
             if ("joinEditor".equals(method)) {
-
                 System.out.println("DDDDDDDDD = : ");
+                try {
+                    createUser(req, resp);
+                } catch (Exception ex) {
+                    Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 
-                createUser(req, resp);
-            }
             if ("joinEditor2".equals(method)) {
-                createAddressBook(req, resp);
+                try {
+                    createAddressBook(req, resp);
+                } catch (Exception ex) {
+                    Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+
             if ("joinEditor3".equals(method)) {
-                createNewUserQuestion(req, resp);
+                try {
+                    createNewUserQuestion(req, resp);
+                } catch (Exception ex) {
+                    Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             //return badToken if Token is bad.
@@ -209,7 +225,7 @@ public class TuJoinEditorServlet extends HttpServlet {
     }
 //@Testype
 
-    protected void createUser(HttpServletRequest req, HttpServletResponse resp) {
+    protected void createUser(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String usersEmailAddress = req.getParameter("usersEmailAddress");
         String usersName = req.getParameter("usersName");
         String usersFirstname = req.getParameter("usersFirstname");
@@ -248,164 +264,148 @@ public class TuJoinEditorServlet extends HttpServlet {
         System.out.println(passwordConfirm);
         System.out.println(agree);
 
+        //Check if User Exist.
+        org.picketlink.idm.api.User userJpa = userJpaService.findUser(usersEmailAddress);
 
-        try {
+        if (userJpa != null) {
+            String name = userJpa.getId();
+            System.out.println("name q: " + name);
+            User user = userNeo4jService.findByName(name);
+            int status = user.getUsersStatus();
+            System.out.println("status 4: " + status);
+            map.clear(); //Clear First.
+            map.put("userStatus", status);
+            aesCtr.encryptMap(req, map);//encrypt the Map data.
 
-            //=======MYSQL==============================//
-            //create Userfriendship  for  Jpa MYSQL.
-            // System.out.println("usersEmailAddress 2: = " + usersEmailAddress);
-            userJpaService.createUser(usersEmailAddress);
-            //create userPassword for  Jpa MYSQL.
-            //System.out.println("usersPassword : = " + usersPassword);
-            // usersEmailAddress = "hgnj";
-            userJpaService.updateUserPassword(usersEmailAddress, usersPassword);
-            //  System.out.println(" >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            // userJpaService.findAll();
-            // System.out.println("IException >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
-            //=======neo4j==============================//
-            //create Userfriendship  for neo4j DB. 
-            User user = new User();
-            user.setName(usersEmailAddress);
-            user.setUsersName(usersName);
-            user.setUsersFirstname(usersFirstname);
-            user.setUsersLastname(usersLastname);
-            user.setUsersStatus(newUsersStatus);
-            //convert to appropriate SIMPLE_DATE_FORMAT.
-            String newDateString = new SimpleDateFormat(SIMPLE_DATE_FORMAT).format(new Date()); // 2001-07-04T12:08:56.235-0700
-            user.setUsersDor(newDateString);
-            user.setLast_modified(newDateString);
-
-            userNeo4jService.save(user);
-
-
-
-
-
-            //set session and userStatus for new user = 0.
-            //ExternalContext extCt = FacesContext.getCurrentInstance().getExternalContext();
-            //           HttpSession session = req.getSession();
-            //           session.setAttribute(USER_STATUS, getNewUsersStatus());
-            //          session.setAttribute(USERS_EMAILADDRESS, usersEmailAddress);
-
-            //String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
-            //String usersPassword = req.getParameter("usersPasswordMenu");
-
-            //Logout any Userfriendship that may be hanging arround.
-            identity.logout();
-
-            credentials.setUsername(usersEmailAddress);
-            credentials.setCredential(new PasswordCredential(usersPassword));
-
-            identity.login();
-            //Map<Object, Object> map = new LinkedHashMap<Object, Object>();
-            if (identity.isLoggedIn()) {
-
-                //get user id (Mysql). 
-                //System.out.println(identity.getUser() + "===d==h================= : " + identity.isLoggedIn());
-                String userId = identity.getUser().getId();
-                //System.out.println(identity.getUser() + "===d==h================= : " + userId);
-
-                //Get UserNeo4jId.
-                long userNeo4jId = userNeo4jService.findByName(userId).getId();
-                // convert long to String type
-                String userNeo4jIdString = Long.toString(userNeo4jId);
-                //System.out.println(userNeo4jIdString);
-
-                //System.out.println(userNeo4jId + " ==jj=====nn== : " + userId);
-
-
-
-                //Check user Image exist.
-                //String userPhotoFile = OUTPUT_USERS_IMAGE_DIR + userNeo4jId + File.separator + userNeo4jId + ".jpg";
-                // boolean isUserImg = touchFile(userPhotoFile);
-
-                /* //Not used now.
-                 Set<Group> groups = identity.getGroups();
-                 Map<Object, Object> groupNameMap = new LinkedHashMap<Object, Object>();
-                 Iterator<Group> iterG = groups.iterator();
-                 while (iterG.hasNext()) {
-                 Group grp = iterG.next();
-
-                 groupNameMap.put(grp.getGroupType(), grp.getName()); // TODO which one is needed here, ID or name?
-                 System.out.println("GroupType nn : " + grp.getGroupType() + " Name : " + grp.getName());
-                 }
-                 */
-
-
-                Set<Role> roles = identity.getRoles();
-                Map<Object, Object> roleInfoMap = new LinkedHashMap<Object, Object>();
-                Iterator<Role> iterR = roles.iterator();
-                // List list = new ArrayList();
-                int i = 0;
-                while (iterR.hasNext()) {
-                    Role role = iterR.next();
-                    //int i = 0;
-                    //list.add(i++,1);
-
-                    String roleInfo = role.getGroup().getGroupType() + "," + role.getGroup().getName() + "," + role.getRoleType().getName();
-                    //System.out.println(i++);
-                    int j = i++;
-                    roleInfoMap.clear();//clear first
-                    roleInfoMap.put(j, roleInfo); // TODO which one is needed here, ID or name?
-                    System.out.println(j + ": RoleName : " + role.getRoleType().getName() + " GroupType : " + role.getGroup().getGroupType() + " GroupName : " + role.getGroup().getName());
-                }
-                map.clear(); //Clear First.
-                map.put("userId", userId);
-                //map.put("isUserImg", isUserImg);
-                map.put("userNeo4jIdString", userNeo4jIdString);
-                // map.put("groupsData", groupNameMap);
-                map.put("rolesData", roleInfoMap);
-            }
-            map.put("isLoggedIn", identity.isLoggedIn());
             String json = new Gson().toJson(map);
-
-
-
-            //for (Map.Entry<Object, Object> entry : map.entrySet()) {
-            //   System.out.println(entry.getKey() + " / " + entry.getValue());
-            // }
-
-
-
-
             resp.setContentType(JSON);
             resp.getWriter().print(json);
 
+        } else {
+            try {
 
-            // throw new IllegalStateException();
 
 
-        } catch (IllegalArgumentException ex) {
-            exceptionEvent.fire(new ExceptionEventRollback());
-            exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IdentityException ex) {
-            exceptionEvent.fire(new ExceptionEventRollback());
-            exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DAOException ex) {
-            exceptionEvent.fire(new ExceptionEventRollback());
-            exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JDOFatalUserException ex) {
-            exceptionEvent.fire(new ExceptionEventRollback());
-            exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalStateException ex) {
-            exceptionEvent.fire(new ExceptionEventRollback());
-            exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            exceptionEvent.fire(new ExceptionEventRollback());
-            exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                //=======MYSQL==============================//
+                //create User  for  Jpa MYSQL.
+                userJpaService.createUser(usersEmailAddress);
+                //create userPassword for  Jpa MYSQL.
+                userJpaService.updateUserPassword(usersEmailAddress, usersPassword);
+
+                //=======neo4j==============================//
+                //create User  for neo4j DB. 
+                User user = new User();
+                user.setName(usersEmailAddress);
+                user.setUsersName(usersName);
+                user.setUsersFirstname(usersFirstname);
+                user.setUsersLastname(usersLastname);
+                user.setUsersStatus(newUsersStatus);
+                //convert to appropriate SIMPLE_DATE_FORMAT.
+                String newDateString = new SimpleDateFormat(SIMPLE_DATE_FORMAT).format(new Date()); // 2001-07-04T12:08:56.235-0700
+                user.setUsersDor(newDateString);
+                user.setLast_modified(newDateString);
+
+                userNeo4jService.save(user);
+
+
+
+
+
+                //set session and userStatus for new user = 0.
+                //ExternalContext extCt = FacesContext.getCurrentInstance().getExternalContext();
+                //           HttpSession session = req.getSession();
+                //           session.setAttribute(USER_STATUS, getNewUsersStatus());
+                //          session.setAttribute(USERS_EMAILADDRESS, usersEmailAddress);
+
+                //String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
+                //String usersPassword = req.getParameter("usersPasswordMenu");
+
+                //Logout any User that may be hanging arround.
+                identity.logout();
+
+                credentials.setUsername(usersEmailAddress);
+                credentials.setCredential(new PasswordCredential(usersPassword));
+
+                identity.login();
+
+                map.clear(); //Clear First.
+
+                if (identity.isLoggedIn()) {
+
+                    //get user id from (Mysql). 
+                    //System.out.println(identity.getUser() + "===d==h================= : " + identity.isLoggedIn());
+                    String userId = identity.getUser().getId();
+                    //System.out.println(identity.getUser() + "===d==h================= : " + userId);
+
+                    //Get UserNeo4jId from Neo4j.
+                    long userNeo4jId = userNeo4jService.findByName(userId).getId();
+                    // convert long to String type
+                    String userNeo4jIdString = Long.toString(userNeo4jId);
+
+
+
+                    //Check user Image exist.
+                    //String userPhotoFile = OUTPUT_USERS_IMAGE_DIR + userNeo4jId + File.separator + userNeo4jId + ".jpg";
+                    // boolean isUserImg = touchFile(userPhotoFile);
+
+                    /* //Not used now.
+                     Set<Group> groups = identity.getGroups();
+                     Map<Object, Object> groupNameMap = new LinkedHashMap<Object, Object>();
+                     Iterator<Group> iterG = groups.iterator();
+                     while (iterG.hasNext()) {
+                     Group grp = iterG.next();
+
+                     groupNameMap.put(grp.getGroupType(), grp.getName()); // TODO which one is needed here, ID or name?
+                     System.out.println("GroupType nn : " + grp.getGroupType() + " Name : " + grp.getName());
+                     }
+                     */
+
+
+                    Set<Role> roles = identity.getRoles();
+                    Map<Object, Object> roleInfoMap = new LinkedHashMap<>();
+                    Iterator<Role> iterR = roles.iterator();
+                    // List list = new ArrayList();
+                    int i = 0;
+                    while (iterR.hasNext()) {
+                        Role role = iterR.next();
+                        //int i = 0;
+                        //list.add(i++,1);
+
+                        String roleInfo = role.getGroup().getGroupType() + "," + role.getGroup().getName() + "," + role.getRoleType().getName();
+                        //System.out.println(i++);
+                        int j = i++;
+                        roleInfoMap.clear();//clear first
+                        roleInfoMap.put(j, roleInfo); // TODO which one is needed here, ID or name?
+                        System.out.println(j + ": RoleName : " + role.getRoleType().getName() + " GroupType : " + role.getGroup().getGroupType() + " GroupName : " + role.getGroup().getName());
+                    }
+
+                    map.put("userId", userId);
+                    //map.put("isUserImg", isUserImg);
+                    map.put("userNeo4jIdString", userNeo4jIdString);
+                    // map.put("groupsData", groupNameMap);
+                    map.put("rolesData", roleInfoMap);
+                }
+                map.put("isLoggedIn", identity.isLoggedIn());
+                aesCtr.encryptMap(req, map);//encrypt the Map data.
+
+                String json = new Gson().toJson(map);
+
+
+                resp.setContentType(JSON);
+                resp.getWriter().print(json);
+
+            } catch (Exception //IllegalArgumentException | IdentityException | DAOException | JDOFatalUserException | IllegalStateException | IOException 
+                    ex) {
+                System.out.println(" =76 /////////////////////////============/ ");
+                exceptionEvent.fire(new ExceptionEventRollback());
+                exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
+                Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-
 
     }
 
-    public void createAddressBook(HttpServletRequest req, HttpServletResponse resp) {
+    public void createAddressBook(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         System.out.println("createAddressBook = ,,,,,,,,,,f,,,,,,,,,,,,,,");
         String usersEmailAddress = req.getParameter("usersEmailAddress");
         String street = req.getParameter("street");
@@ -435,7 +435,6 @@ public class TuJoinEditorServlet extends HttpServlet {
 
 
         try {
-
             //create Userfriendship AddressBook for neo4j DB. 
             AddressBook addressBook = new AddressBook();
             addressBook.setEntry_street_address(street);
@@ -452,61 +451,70 @@ public class TuJoinEditorServlet extends HttpServlet {
 
 
             User user = userNeo4jService.findByName(usersEmailAddress);
-            //long userId = userNeo4jService.findByName(sessionUserEmailAdd).getId();
-            System.out.println("userId : " + user.getId());
-            addressBook.setUsers_id(user.getId());
-
-            addressBookNeo4jService.save(addressBook);
-
-            // update userStatus.
-            user.setUsersStatus(getNewUsersStatus2());
-            //convert to appropriate SIMPLE_DATE_FORMAT.
-            String newDateString = new SimpleDateFormat(SIMPLE_DATE_FORMAT).format(new Date()); // 2001-07-04T12:08:56.235-0700
-            user.setLast_modified(newDateString);
-
-            userNeo4jService.update(user);
-
-            //set session userStatus for new2 user = 2.
-            // session.setAttribute(USER_STATUS, getNewUsersStatus2());
-            // session.setAttribute(USERS_EMAILADDRESS, sessionUserEmailAdd);
-
-
-
-            ///=======test============////
-            Integer i = 2795;
-            Long l = new Long(i);
-            // addressBookNeo4jService.delete(l);
-
-            Iterator<AddressBook> iter = addressBookNeo4jService.findAll().iterator();
-            while (iter.hasNext()) {
-                AddressBook p = iter.next();
-                System.out.println(p);
-            }
-
-            Iterator<User> iterw = userNeo4jService.findAll().iterator();
-            while (iterw.hasNext()) {
-                User p = iterw.next();
-                System.out.println(p);
-            }
-
-            /*
-             * //get current user's EmailAddress from session.
-             // HttpSession session = req.getSession();
-             //String sessionUserEmailAdd = (String) session.getAttribute(USERS_EMAILADDRESS);
-             // System.out.println(USERS_EMAILADDRESS + " : " + session.getAttribute(USERS_EMAILADDRESS));
-             //System.out.println(USER_STATUS + " : " + session.getAttribute(USER_STATUS));
-             Enumeration e = session.getAttributeNames();
-             * while (e.hasMoreElements()) {
-             * String attr = (String) e.nextElement();
-             * System.err.println(" attr = " + attr);
-             * Object value = session.getAttribute(attr);
-             * System.err.println(" value = " + value);
-             * }*/
-
-            // return "index?faces-redirect=true";
 
             map.clear();//Clear First.
-            map.put("none", "none"); //TODO Is there anything to respond here?
+            if (identity.isLoggedIn()) {
+
+                //long userId = userNeo4jService.findByName(sessionUserEmailAdd).getId();
+                System.out.println("userId : " + user.getId());
+                addressBook.setUsers_id(user.getId());
+
+                addressBookNeo4jService.save(addressBook);
+
+                // update userStatus.
+                user.setUsersStatus(getNewUsersStatus2());
+                //convert to appropriate SIMPLE_DATE_FORMAT.
+                String newDateString = new SimpleDateFormat(SIMPLE_DATE_FORMAT).format(new Date()); // 2001-07-04T12:08:56.235-0700
+                user.setLast_modified(newDateString);
+
+                userNeo4jService.update(user);
+
+                //set session userStatus for new2 user = 2.
+                // session.setAttribute(USER_STATUS, getNewUsersStatus2());
+                // session.setAttribute(USERS_EMAILADDRESS, sessionUserEmailAdd);
+
+
+
+                ///=======test============////
+                Integer i = 2795;
+                Long l = new Long(i);
+                // addressBookNeo4jService.delete(l);
+
+                Iterator<AddressBook> iter = addressBookNeo4jService.findAll().iterator();
+                while (iter.hasNext()) {
+                    AddressBook p = iter.next();
+                    System.out.println(p);
+                }
+
+                Iterator<User> iterw = userNeo4jService.findAll().iterator();
+                while (iterw.hasNext()) {
+                    User p = iterw.next();
+                    System.out.println(p);
+                }
+///===test end ====//
+
+
+                /*
+                 * //get current user's EmailAddress from session.
+                 // HttpSession session = req.getSession();
+                 //String sessionUserEmailAdd = (String) session.getAttribute(USERS_EMAILADDRESS);
+                 // System.out.println(USERS_EMAILADDRESS + " : " + session.getAttribute(USERS_EMAILADDRESS));
+                 //System.out.println(USER_STATUS + " : " + session.getAttribute(USER_STATUS));
+                 Enumeration e = session.getAttributeNames();
+                 * while (e.hasMoreElements()) {
+                 * String attr = (String) e.nextElement();
+                 * System.err.println(" attr = " + attr);
+                 * Object value = session.getAttribute(attr);
+                 * System.err.println(" value = " + value);
+                 * }*/
+
+                // return "index?faces-redirect=true";
+            }
+
+            map.put("isLoggedIn", identity.isLoggedIn());
+            aesCtr.encryptMap(req, map);//encrypt the Map data.
+
+            //map.put("none", "none"); //TODO Is there anything to respond here?
             String json = new Gson().toJson(map);
 
             for (Map.Entry<Object, Object> entry : map.entrySet()) {
@@ -518,16 +526,13 @@ public class TuJoinEditorServlet extends HttpServlet {
             //throw new DAOException();
 
 
-        } catch (DAOException ex) {
-            exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
-            Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (DAOException | IOException ex) {
             exceptionEventBadToken.fire(new ExceptionEventBadToken(req, resp));
             Logger.getLogger(TuJoinEditorServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void createNewUserQuestion(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void createNewUserQuestion(HttpServletRequest req, HttpServletResponse resp) throws IOException, Exception, Exception {
         System.out.println("hhhhhh = ,,,,,,,,,,f,,,,,,,,,,,,,,");
         String usersEmailAddress = req.getParameter("usersEmailAddress");
         String dob = req.getParameter("dob");
@@ -580,65 +585,71 @@ public class TuJoinEditorServlet extends HttpServlet {
             //System.out.println("newDateString 2: " + newDateString);
 
             User user = userNeo4jService.findByName(usersEmailAddress);
-            userQuestion.setUsers_id(user.getId());
-
-            userQuestionNeo4jService.save(userQuestion);
-
-
-
-
-            //update Userfriendship for neo4j DB. 
-            //convert USER_DATE_FORMAT to Date.
-            SimpleDateFormat formatter = new SimpleDateFormat(USER_DATE_FORMAT); // 2001-07-04T12:08:56.235-0700
-            Date date = formatter.parse(dob);
-
-            //convert to appropriate SIMPLE_DATE_FORMAT.
-            String normalNewDateString = new SimpleDateFormat(SIMPLE_DATE_FORMAT).format(date); // 2001-07-04T12:08:56.235-0700
-            //System.out.println("mk : " + normalNewDateString);
-            user.setUsersDob(normalNewDateString);
-            user.setLast_modified(newDateString);
-
-            // System.out.println(USERS_EMAILADDRESS + " : " + session.getAttribute(USERS_EMAILADDRESS));
-            // System.out.println(USER_STATUS + " : " + session.getAttribute(USER_STATUS));
-
-            // update userStatus.
-            user.setUsersStatus(newUsersStatus3);
-
-            userNeo4jService.update(user);
-
-
-            ////////=======test=========///////////
-            Iterator<User> iterw = userNeo4jService.findAll().iterator();
-            while (iterw.hasNext()) {
-                User p = iterw.next();
-                System.out.println(p);
-            }
-
-            Iterator<UserQuestion> iter = userQuestionNeo4jService.findAll().iterator();
-            while (iter.hasNext()) {
-                UserQuestion p = iter.next();
-                System.out.println(p);
-            }
-
-
-            //set session for new2 user = 1.
-            //  session.setAttribute("userStatus", getNewUsersStatus());
-            // session.setAttribute("usersEmailAddress", usersEmailAddress);
-
-
-
-
-            /*
-             Enumeration e = session.getAttributeNames();
-             while (e.hasMoreElements()) {
-             String attr = (String) e.nextElement();
-             System.err.println(" attr = " + attr);
-             Object value = session.getAttribute(attr);
-             System.err.println(" value = " + value);
-             }
-             */
             map.clear();//Clear First.
-            map.put("none", "none"); //TODO Is there anything to respond here?
+            if (identity.isLoggedIn()) {
+
+                userQuestion.setUsers_id(user.getId());
+
+                userQuestionNeo4jService.save(userQuestion);
+
+
+
+
+                //update Userfriendship for neo4j DB. 
+                //convert USER_DATE_FORMAT to Date.
+                SimpleDateFormat formatter = new SimpleDateFormat(USER_DATE_FORMAT); // 2001-07-04T12:08:56.235-0700
+                Date date = formatter.parse(dob);
+
+                //convert to appropriate SIMPLE_DATE_FORMAT.
+                String normalNewDateString = new SimpleDateFormat(SIMPLE_DATE_FORMAT).format(date); // 2001-07-04T12:08:56.235-0700
+                //System.out.println("mk : " + normalNewDateString);
+                user.setUsersDob(normalNewDateString);
+                user.setLast_modified(newDateString);
+
+                // System.out.println(USERS_EMAILADDRESS + " : " + session.getAttribute(USERS_EMAILADDRESS));
+                // System.out.println(USER_STATUS + " : " + session.getAttribute(USER_STATUS));
+
+                // update userStatus.
+                user.setUsersStatus(newUsersStatus3);
+
+                userNeo4jService.update(user);
+
+
+                ////////=======test=========///////////
+                Iterator<User> iterw = userNeo4jService.findAll().iterator();
+                while (iterw.hasNext()) {
+                    User p = iterw.next();
+                    System.out.println(p);
+                }
+
+                Iterator<UserQuestion> iter = userQuestionNeo4jService.findAll().iterator();
+                while (iter.hasNext()) {
+                    UserQuestion p = iter.next();
+                    System.out.println(p);
+                }
+////////=======test end =========///////////
+
+                //set session for new2 user = 1.
+                //  session.setAttribute("userStatus", getNewUsersStatus());
+                // session.setAttribute("usersEmailAddress", usersEmailAddress);
+
+
+
+
+                /*
+                 Enumeration e = session.getAttributeNames();
+                 while (e.hasMoreElements()) {
+                 String attr = (String) e.nextElement();
+                 System.err.println(" attr = " + attr);
+                 Object value = session.getAttribute(attr);
+                 System.err.println(" value = " + value);
+                 }
+                 */
+            }
+            map.put("isLoggedIn", identity.isLoggedIn());
+            aesCtr.encryptMap(req, map);//encrypt the Map data.
+
+            //map.put("none", "none"); //TODO Is there anything to respond here?
             String json = new Gson().toJson(map);
             resp.setContentType(JSON);
             resp.getWriter().print(json);

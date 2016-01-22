@@ -128,7 +128,7 @@ public class TuLogInOutServlet extends HttpServlet {
     //@DefaultTransaction
     //@QualifierType(QualifierType.ServiceType.DefaultSeamTransaction)
     // private SeamTransaction tx;
-    Map<Object, Object> map = new LinkedHashMap<Object, Object>();
+    Map<Object, Object> map = new LinkedHashMap<>();
 
     @Override
     public void init() throws ServletException {
@@ -148,6 +148,8 @@ public class TuLogInOutServlet extends HttpServlet {
         } catch (Exception e) {
         }
         if (token.equals(BAD_TOKEN)) {
+             System.out.println("DDDDDDDDD = =================BAD_TOKEN : ");
+
             map.put("isLoggedIn", "false");//TO_DO is it necessry?
             map.put(BAD_TOKEN, BAD_TOKEN);
             String json = new Gson().toJson(map);
@@ -163,7 +165,7 @@ public class TuLogInOutServlet extends HttpServlet {
             try {
                 if ("login".equals(method)) {
 
-                    System.out.println("DDDDDDDDD = ================= : ");
+                    System.out.println("DDDDDDDDD = ================= : ol");
 
                     login(req, resp);
                 }
@@ -182,13 +184,15 @@ public class TuLogInOutServlet extends HttpServlet {
         String usersEmailAddress = req.getParameter("usersEmailAddressMenu");
         String usersPassword = req.getParameter("usersPasswordMenu");
 
-        //Logout any Userfriendship that may be hanging arround.
+        //Logout any User that may be hanging arround.
         identity.logout();
 
         credentials.setUsername(usersEmailAddress);
         credentials.setCredential(new PasswordCredential(usersPassword));
-
         identity.login();
+        
+        map.clear(); //Clear First.
+        map.put("isLoggedIn", identity.isLoggedIn());
         //Map<Object, Object> map = new LinkedHashMap<Object, Object>();
         if (identity.isLoggedIn()) {
 
@@ -223,7 +227,7 @@ public class TuLogInOutServlet extends HttpServlet {
              }
              */
             Set<Role> roles = identity.getRoles();
-            Map<Object, Object> roleInfoMap = new LinkedHashMap<Object, Object>();
+            Map<Object, Object> roleInfoMap = new LinkedHashMap<>();
             Iterator<Role> iterR = roles.iterator();
             // List list = new ArrayList();
             int i = 0;
@@ -238,7 +242,6 @@ public class TuLogInOutServlet extends HttpServlet {
                 roleInfoMap.put(j, roleInfo); // TODO which one is needed here, ID or name?
                 System.out.println(j + ": RoleName : " + role.getRoleType().getName() + " GroupType : " + role.getGroup().getGroupType() + " GroupName : " + role.getGroup().getName());
             }
-            //System.out.println(userNeo4jIdString + "nnnnnnnnn");
 
             map.put("userId", userId);
             map.put("isUserImg", isUserImg);
@@ -247,100 +250,11 @@ public class TuLogInOutServlet extends HttpServlet {
             // map.put("groupsData", groupNameMap);
             map.put("rolesData", roleInfoMap);
         }
-        map.put("isLoggedIn", identity.isLoggedIn());
+
         aesCtr.encryptMap(req, map);//encrypt the Map data.
-        
-        /*
-        String k = req.getSession().getServletContext().getAttribute("jCryptionKey").toString();
-        //Map<Object, Object> mapCopy = map;
-        Set<Map.Entry<Object, Object>> set = map.entrySet();
-        Map<Object, Object> holdMap = new LinkedHashMap<>();
-        Map<Object, Object> holdMap_2 = new LinkedHashMap<>();
-        Iterator<Map.Entry<Object, Object>> it = set.iterator();
-        while (it.hasNext()) {
-            Map.Entry<Object, Object> obj = it.next();
-            String o = obj.getKey().toString();
-            Object val = obj.getValue();
-            if (val instanceof Map) {
-                System.out.println(val.toString() + "nott String: ");
-                Map<Object, Object> v = (Map<Object, Object>) obj.getValue();
-                System.out.println(v.isEmpty() + " :lhk ");
-                Iterator<Map.Entry<Object, Object>> it_2 = v.entrySet().iterator();
-                while (it_2.hasNext()) {
-                    Map.Entry<Object, Object> obj_2 = it_2.next();
-                    String o_2 = obj_2.getKey().toString();
-                    if (v instanceof Map) {
-                        //TODO NOT USED YET.
-                    } else {
-                        String enc_2 = aesCtr.encrypt(v.toString(), k);
-                        holdMap_2.put(o_2, enc_2);
-                    }
-                }
-            } else {
-                String enc = aesCtr.encrypt(val.toString(), k);
-                holdMap.put(o, enc);
-            }
-        }
-//Em
-
-        map.clear();
-        map.putAll(holdMap);//add the map.
-        map.putAll(holdMap_2);//add the inner map if exist.
-        //Set<Map.Entry<Object, Object>> i = map.entrySet();
-        for (Map.Entry<Object, Object> j : map.entrySet()) {
-            System.out.println(j.getKey() + "  :-: " + j.getValue());
-        }
-        
-        */
-//================
-        /*
-         Set<Map.Entry<Object, Object>> setH = map.entrySet();
-         Iterator<Map.Entry<Object, Object>> itH = setH.iterator();
-         while (itH.hasNext()) {
-         Map.Entry<Object, Object> objH = itH.next();
-         String oH = objH.getKey().toString();
-         Object valH = objH.getValue();
-         if (valH instanceof Map) {
-         System.out.println(valH.toString() + "not String: ");
-         } else {
-         System.out.println(valH.toString() + "  :- " );
-         String enc = aesCtr.decrypt(valH.toString(), k);
-         //holdMap.put(oH, valH.toString());
-         System.out.println(oH + "  :- " + valH.toString() + " :String/int---ui: " + enc);
-         }
-         }
-         */
-        /*
-         while (iter.hasNext () 
-         ) {
-         Map.Entry<Object, Object> dataMap = iter.next();
-         //int i = 0;
-         //list.add(i++,1);
-         System.out.println(dataMap + " ===d==h================= : ");
-         String key = dataMap.getKey().toString();
-         Object o = dataMap.getValue();
-         // map.remove(key);
-         if (o instanceof Map) {
-         System.out.println(o.toString() + "not String: ");
-         } else {
-         //Object objd = map.get(key); 
-         String enc = aesCtr.encrypt(o.toString(), k);
-         System.out.println(key + " :String/int---ui: " + enc);
-         iter.remove();
-         dataMap.setValue(enc);
-         System.out.println(map.get(key) + " :== ");
-         }
-
-
-         }
-         * */
 
         String json = new Gson().toJson(map);
-        //System.out.println(identity.getUser() + "===d==h================= : ");
-
-        // JsonArray jsonArray = gsonString.getAsJsonArray();
         resp.setContentType(JSON);
-
         resp.getWriter().print(json);
 
     }
